@@ -11,7 +11,13 @@
   height: 50px;
   border-radius: 4px;
   border: none;
-  background: linear-gradient(-225deg, #ac32e4 0%, #7918f2 48%, #4801ff 100%);
+  font-size: 1rem;
+  background-image: linear-gradient(
+    75deg,
+    #000680 24%,
+    #3399ac 82%,
+    #638658 100%
+  );
   color: white;
   margin-bottom: 48px;
 }

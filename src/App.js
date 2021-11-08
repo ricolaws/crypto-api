@@ -1,13 +1,26 @@
-import React from "react";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { Route } from "react-router-dom";
 import BrowseCoins from "./pages/BrowseCoins";
 import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
+import Welcome from "./pages/Welcome";
+import MainHeader from "./components/MainHeader";
+import { ACCOUNT_1 } from "./components/UserData";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(true);
+
   return (
     <div className="app">
-      <BrowseCoins />
+      <MainHeader />
+      <Route path="/welcome">
+        <Welcome />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard account={ACCOUNT_1} />
+      </Route>
+      <Route path="/browse">
+        <BrowseCoins />
+      </Route>
     </div>
   );
 }

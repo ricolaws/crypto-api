@@ -1,7 +1,16 @@
 import React from "react";
 import classes from "./Coin.module.css";
 
-function Coin({ image, name, symbol, price, marketCap, priceChange, volume }) {
+function Coin({
+  image,
+  name,
+  symbol,
+  price,
+  marketCap,
+  priceChange,
+  volume,
+  roi,
+}) {
   return (
     <div className={classes.container}>
       <div className={classes.row}>
@@ -19,6 +28,11 @@ function Coin({ image, name, symbol, price, marketCap, priceChange, volume }) {
             <p className={classes.green}>{priceChange.toFixed(2)}%</p>
           )}
           <p className={classes.volume}>${volume.toLocaleString()}</p>
+          {roi < 0 ? (
+            <p className={classes.red}>{roi.toFixed(2)}%</p>
+          ) : (
+            <p className={classes.green}>{roi.toFixed(2)}%</p>
+          )}
         </div>
       </div>
     </div>

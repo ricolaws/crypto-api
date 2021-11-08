@@ -1,46 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Coin from "../components/Coin";
+import { ACCOUNT_1, buildUserData } from "../components/UserData";
 
-const ACCOUNT_1 = {
-  id: 1,
-  userName: "Elvad Mc",
-  assets: ["solana", "dogecoin", "matic-network"],
-  balances: [
-    {
-      asset: "solana",
-      total: 100,
-      movements: [{ date: "10/27/2020", amount: 100, price: 1.4901 }],
-    },
-    {
-      asset: "dogecoin",
-      total: 100,
-      movements: [{ date: "10/27/2020", amount: 100, price: 0.002595 }],
-    },
-    {
-      asset: "matic-network",
-      total: 100,
-      movements: [{ date: "10/27/2020", amount: 100, price: 0.01509 }],
-    },
-  ],
-  pin: 5555,
-};
-
-function Dashboard() {
+function Dashboard(props) {
   const [userAssets, setUserAssets] = useState([]);
 
   useEffect(() => {
+    let url =
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=";
+    for (const asset of ACCOUNT_1.assetData) {
+      url += asset.id + "%2C";
+    }
+    url +=
+      "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C7d";
+
     axios
-      .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=solana%2Cdogecoin%2Cmatic-network&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-      )
+      .get(url)
       .then((response) => {
-        setUserAssets(response.data);
+        console.log(response.data);
+        setUserAssets(buildUserData(response.data, ACCOUNT_1));
       })
       .catch((error) => console.log(error));
   }, []);
-
-  console.log(ACCOUNT_1);
 
   return (
     <div>
@@ -53,8 +35,9 @@ function Dashboard() {
             image={coin.image}
             symbol={coin.symbol}
             marketCap={coin.market_cap}
-            priceChange={coin.price_change_percentage_24h}
+            priceChange={coin.price_change_24h}
             volume={coin.total_volume}
+            roi={coin.roi}
           />
         );
       })}
