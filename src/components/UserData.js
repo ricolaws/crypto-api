@@ -1,63 +1,96 @@
-import axios from "axios";
+// import axios from "axios";
 
 export const ACCOUNT_1 = {
   id: 1,
   userName: "Elvad Mc",
   assets: ["solana", "dogecoin", "matic-network"],
+  portfolioValue: 0,
+  portfolioCost: 0,
   assetData: [
     {
       id: "solana",
       averageCost: 2,
       total: 200,
       movements: [
-        { date: "10/27/2020", amount: 100, price: 1.4901 },
-        { date: "11 Sept 2021", amount: 100, price: 180.88 },
+        { date: "10/27/2020", amount: 60, price: 1.4901 },
+        { date: "11 Sept 2021", amount: 60, price: 180.88 },
       ],
     },
     {
       id: "dogecoin",
       total: 100,
-      movements: [{ date: "10/27/2020", amount: 100, price: 0.2595 }],
+      movements: [{ date: "10/27/2020", amount: 10000, price: 0.2595 }],
     },
     {
       id: "matic-network",
       total: 100,
       movements: [
-        { date: "10/27/2020", amount: 100, price: 0.01509 },
-        { date: "10/27/2021", amount: 100, price: 1.9509 },
+        { date: "10/27/2020", amount: 500, price: 0.01509 },
+        { date: "10/27/2021", amount: 500, price: 1.9509 },
+      ],
+    },
+    {
+      id: "bitcoin",
+      averageCost: 2,
+      total: 4,
+      movements: [
+        { date: "10/27/2020", amount: 0.1, price: 33901.0 },
+        { date: "11 Sept 2021", amount: 0.1, price: 47500.88 },
       ],
     },
   ],
+
   pin: 5555,
+  // const calcAssetTotals2 = (arr) => {
+  //   return arr.map(
+  //     (coin) =>
+  //       (coin.totalCost = coin.movements
+  //         .map((mov) => mov.amount * mov.price)
+  //         .reduce((a, b) => a + b))
+  //   );
+  // };
+  calcTotalCost: function () {
+    return this.assetData
+      .map((coin) =>
+        coin.movements
+          .map((mov) => mov.amount * mov.price)
+          .reduce((a, b) => a + b)
+      )
+      .reduce((a, b) => a + b);
+  },
 };
 
-// export const getCurrentData = (account) => {
+ACCOUNT_1.portfolioCost = ACCOUNT_1.calcTotalCost();
 
-//   axios
-//     .get(
-//       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=solana%2Cdogecoin%2Cmatic-network&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-//     )
-//     .then((response) => {
-//       // console.log(response.data);
-//       setUserAssets(buildUserData(response.data, ACCOUNT_1));
-//     })
-//     .catch((error) => console.log(error));
+// const calcAssetCosts = (arr) => {
+//   return arr.map(
+//     (coin) =>
+//       coin.movements.map((mov) => mov.price).reduce((a, b) => a + b) /
+//       coin.movements.length
+//   );
 // };
 
-export const buildUserData = (apiData, userData) => {
+// const TEST = calcAssetCosts(ACCOUNT_1.assetData);
+
+// console.log("TEST:", TEST);
+// for (const [i, val] of TEST) {
+//   console.log(i, val);
+// }
+
+export const buildUserAssets = (apiData, userData) => {
   const coinDataArray = [];
-  const calcAssetTotals = (account) => {
-    account.assetData.map((obj) => {
-      const amountsArray = [];
-      obj.movements.map((mov) => {
-        amountsArray.push(mov.amount);
-      });
-      obj.total = amountsArray.reduce((a, mov) => a + mov, 0);
-    });
+
+  const calcAssetTotals = (arr) => {
+    arr.map(
+      (coin) =>
+        (coin.total = coin.movements
+          .map((mov) => mov.amount)
+          .reduce((a, b) => a + b))
+    );
   };
 
   const calcAverageCosts = (account) => {
-    account.assetData.map((obj) => {
+    account.map((obj) => {
       const priceArray = [];
       obj.movements.map((mov) => {
         priceArray.push(mov.price);
@@ -67,12 +100,12 @@ export const buildUserData = (apiData, userData) => {
     });
   };
 
+  // calcAssetTotals(userData);
   calcAssetTotals(userData);
   calcAverageCosts(userData);
+
   apiData.map((coin) => {
-    let [matchedData] = userData.assetData.filter(
-      (data) => data.id === coin.id
-    );
+    let [matchedData] = userData.filter((data) => data.id === coin.id);
     let coinDataObj = {
       id: coin.id,
       name: coin.name,
@@ -94,5 +127,8 @@ export const buildUserData = (apiData, userData) => {
     coinDataArray.push(coinDataObj);
   });
   console.log(coinDataArray);
+  // console.log("ACCOUNT_1", ACCOUNT_1);
   return coinDataArray;
 };
+
+export const buildUserData = (account) => {};

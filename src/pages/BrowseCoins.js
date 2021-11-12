@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Coin from "../components/Coin";
+import CoinInfoBrowse from "../components/CoinInfoBrowse";
 import Search from "../components/Search";
 
 function BrowseCoins() {
@@ -35,7 +35,7 @@ function BrowseCoins() {
       <Search onSearch={handleSearch} />
       {filteredCoins.map((coin) => {
         return (
-          <Coin
+          <CoinInfoBrowse
             key={coin.id}
             name={coin.name}
             price={coin.current_price}

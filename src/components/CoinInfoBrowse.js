@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./Coin.module.css";
+import classes from "./CoinInfoBrowse.module.css";
 
-function Coin({
+function CoinInfoBrowse({
   image,
   name,
   symbol,
@@ -28,15 +28,10 @@ function Coin({
             <p className={classes.green}>{priceChange.toFixed(2)}%</p>
           )}
           <p className={classes.volume}>${volume.toLocaleString()}</p>
-          {roi < 0 ? (
-            <p className={classes.red}>{roi.toFixed(2)}%</p>
-          ) : (
-            <p className={classes.green}>{roi.toFixed(2)}%</p>
-          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default Coin;
+export default CoinInfoBrowse;
