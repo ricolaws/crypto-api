@@ -3,7 +3,7 @@
 export const ACCOUNT_1 = {
   id: 1,
   userName: "Elvad Mc",
-  assets: ["solana", "dogecoin", "matic-network"],
+  // assets: ["solana", "dogecoin", "matic-network"],
   portfolioValue: 0,
   portfolioCost: 0,
   assetData: [
@@ -126,7 +126,7 @@ export const buildUserAssets = (apiData, userData) => {
       (coinDataObj.current_value / coinDataObj.total_cost) * 100;
     coinDataArray.push(coinDataObj);
   });
-  console.log(coinDataArray);
+  // console.log(coinDataArray);
   // console.log("ACCOUNT_1", ACCOUNT_1);
   return coinDataArray;
 };

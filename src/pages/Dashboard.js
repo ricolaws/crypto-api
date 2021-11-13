@@ -3,24 +3,33 @@ import axios from "axios";
 import CoinInfo from "../components/CoinInfo";
 import { buildUserAssets, buildUserData } from "../components/UserData";
 import PortfolioChart from "../components/PortfolioChart";
-import PValueChart from "../components/PValueChart";
+import PortfolioLineChart from "../components/PortfolioLineChart";
 import MiniChart from "../components/MiniChart";
 import ValueAndCost from "../components/ValueAndCost";
 import classes from "./Dashboard.module.css";
-import PortfolioValueChart from "../components/PValueChart";
+import PortfolioValueChart from "../components/PortfolioLineChart";
 
 function Dashboard(props) {
   const [userAssets, setUserAssets] = useState([]);
   const [portfolioData, setPortfolioData] = useState();
   const [featuredAsset, setFeaturedAsset] = useState("");
   const [userData, setUserData] = useState(props.account);
+  const [coinList, setCoinList] = useState();
 
   useEffect(() => {
     let url =
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=";
-    for (const asset of userData.assetData) {
-      url += asset.id + "%2C";
+
+    const coinListObj = {};
+    for (let i = 0; i < userData.assetData.length; i++) {
+      coinListObj[`${userData.assetData[i].id}`] = [];
+      url += userData.assetData[i].id + "%2C";
     }
+    setCoinList(coinListObj);
+
+    // for (const asset of userData.assetData) {
+    //   url += asset.id + "%2C";
+    // }
     url +=
       "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C7d";
 
@@ -71,6 +80,13 @@ function Dashboard(props) {
         }),
       });
     }
+
+    // const coinListObj = {};
+    // for (let i = 0; i < userAssets.length; i++) {
+    //   coinListObj[`${userAssets[i].id}`] = [];
+    //   // console.log(userAssets[i]);
+    // }
+    // console.log(coinList);
   }, [userAssets]);
 
   const clickAssetHandler = (asset) => {
@@ -102,7 +118,7 @@ function Dashboard(props) {
           )}
         </div>
         <div className={classes.item_c}>
-          <PValueChart assets={userAssets} />
+          <PortfolioLineChart assets={coinList} />
         </div>
         <div className={classes.item_d}>D</div>
         <div className={classes.item_e}>E</div>
