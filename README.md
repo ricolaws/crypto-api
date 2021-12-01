@@ -1,8 +1,7 @@
 <h1 align="center">Cryptocurrency Dashboard</h1>
 
 <div align="center">
-   Track the value of cryptocurrency portfolios
-</div>
+   Track and chart the value of a portfolio of crypocurrencies.
 
 <!-- TABLE OF CONTENTS -->
 
