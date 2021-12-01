@@ -2,6 +2,7 @@
 
 <div align="center">
    Track and chart the value of a portfolio of crypocurrencies.
+</div>
 
 <!-- TABLE OF CONTENTS -->
 
