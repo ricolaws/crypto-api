@@ -18,6 +18,7 @@ function MiniChart(props) {
 
   const miniOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     legend: {
       display: false,
     },
