@@ -6,6 +6,7 @@ import classes from "./PortfolioLineChart.module.css";
 function PortfolioLineChart(props) {
   const [priceData, setPriceData] = useState([]);
   const [chartData, setChartData] = useState();
+  const [key, setKey] = useState(0);
 
   const getDateFromStamp = (timeStamp) => {
     var d = new Date(timeStamp);
@@ -42,6 +43,11 @@ function PortfolioLineChart(props) {
   }, [props.data]);
 
   const chartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     responsive: true,
     maintainAspectRatio: false,
     layout: {
@@ -51,9 +57,6 @@ function PortfolioLineChart(props) {
         right: 5,
         bottom: 5,
       },
-    },
-    legend: {
-      display: false,
     },
     elements: {
       line: {
@@ -67,30 +70,10 @@ function PortfolioLineChart(props) {
     },
   };
 
-  // const chartOptions = {
-  //   responsive: true,
-  //   maintainAspectRatio: false,
-  //   scales: {
-  //     xAxes: [
-  //       {
-  //         ticks: { display: false },
-  //         gridLines: {
-  //           display: false,
-  //           drawBorder: false,
-  //         },
-  //       },
-  //     ],
-  //     yAxes: [
-  //       {
-  //         ticks: { display: false },
-  //         gridLines: {
-  //           display: false,
-  //           drawBorder: false,
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
+  function addAlpha(color, opacity) {
+    const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+    return color + _opacity.toString(16).toUpperCase();
+  }
 
   useEffect(() => {
     if (priceData.length && props.data) {
@@ -104,6 +87,10 @@ function PortfolioLineChart(props) {
       priceData.forEach((coinObj, i) => {
         const [id] = Object.keys(coinObj);
         const [prices] = Object.values(coinObj);
+        let c = i;
+        if (c > props.colors.length) {
+          c -= props.colors.length;
+        }
         const [filteredByCoin] = props.data.userAssets.filter(
           (coin) => coin.id === id
         );
@@ -119,15 +106,14 @@ function PortfolioLineChart(props) {
           data: summedValues[i],
           borderColor: "#98B9AB",
           fill: true,
-          borderColor: "#04724D",
-          backgroundColor: "rgba(4, 114, 77, .25)",
+          borderColor: props.colors[c],
+          backgroundColor: addAlpha(props.colors[c], 0.15),
           tension: 0.2,
           borderWidth: 2,
+          hidden: true,
         };
         chartDataObj.datasets.push(dataSet);
       });
-
-      const ids = priceData.map((obj) => Object.keys(obj)).flat();
 
       // corect dateLabels array to match summed values
       if (dateLabels.length > summedValues.length) {
@@ -148,9 +134,31 @@ function PortfolioLineChart(props) {
     }
   }, [priceData, props.data]);
 
+  useEffect(() => {
+    if (chartData) {
+      const chartDataCopy = chartData;
+      const newKey = key + 1;
+      const index = chartData.datasets.findIndex(
+        ({ label }) => label === props.featuredAsset.id
+      );
+      console.log(chartData.datasets);
+      chartDataCopy.datasets.forEach((dataset, i) => {
+        if (i < chartDataCopy.datasets.length - 1) {
+          dataset.hidden = true;
+        }
+      });
+      chartDataCopy.datasets[index].hidden = false;
+
+      setChartData(chartDataCopy);
+      setKey(newKey);
+    }
+  }, [props.featuredAsset]);
+
   return (
     <div className={classes.container}>
-      {chartData ? <Line data={chartData} options={chartOptions} /> : null}
+      {chartData ? (
+        <Line key={key} data={chartData} options={chartOptions} />
+      ) : null}
     </div>
   );
 }

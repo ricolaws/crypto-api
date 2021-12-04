@@ -49,9 +49,9 @@ function MiniChart(props) {
 
   return (
     <React.Fragment>
-      <h2>
-        {props.symbol.toUpperCase()} . . . . . ${props.price.toFixed(2)}
-      </h2>
+      <h4>
+        {props.symbol.toUpperCase()} . . . . . ${props.price.toFixed(4)}
+      </h4>
       <Line data={lineData} options={miniOptions} />
     </React.Fragment>
   );

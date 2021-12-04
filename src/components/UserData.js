@@ -1,3 +1,5 @@
+import * as colors from "../theme/colors.module.css";
+
 // DUMMY ACCOUNT DATA
 export const ACCOUNT_1 = {
   id: 1,
@@ -131,6 +133,7 @@ export const buildUserData = (apiData, accountData) => {
       ath: coin.ath,
       total_volume: coin.total_volume,
       movements: matchedData.movements,
+      displayColor: colors.color2,
     };
     coinDataObj.roi =
       (coinDataObj.current_value / coinDataObj.total_cost) * 100;

@@ -4,15 +4,27 @@ import CoinInfo from "../components/CoinInfo";
 import { buildUserData } from "../components/UserData";
 import PortfolioChart from "../components/PortfolioChart";
 import PortfolioLineChart from "../components/PortfolioLineChart";
-import MiniChart from "../components/MiniChart";
+import Featured from "../components/Featured";
 import ValueAndCost from "../components/ValueAndCost";
 import classes from "./Dashboard.module.css";
+import * as colors from "../theme/colors.module.css";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({ userAssets: [] });
   const [featuredAsset, setFeaturedAsset] = useState("");
   const [account, setAccount] = useState(props.account);
   const [coinList, setCoinList] = useState();
+  const [displayColors, setDisplayColors] = useState();
+
+  useEffect(() => {
+    const colorArray = [
+      colors.color1,
+      colors.color2,
+      colors.color3,
+      colors.color4,
+    ];
+    setDisplayColors(colorArray);
+  }, []);
 
   useEffect(() => {
     const coinListArr = account.assetData.map((coin) => coin.id);
@@ -36,14 +48,12 @@ function Dashboard(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log("USERDATA:", userData);
-
   const clickAssetHandler = (asset) => {
     setFeaturedAsset(userData.userAssets[asset]);
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className={classes.container}>
         <div className={classes.item_a}>
           {userData ? (
@@ -55,12 +65,13 @@ function Dashboard(props) {
         </div>
         <div className={classes.item_b}>
           {featuredAsset ? (
-            <MiniChart
+            <Featured
               id={featuredAsset.id}
               name={featuredAsset.name}
               symbol={featuredAsset.symbol}
               value={featuredAsset.current_value}
               price={featuredAsset.current_price}
+              priceChange={featuredAsset}
             />
           ) : (
             ""
@@ -68,18 +79,20 @@ function Dashboard(props) {
         </div>
         <div className={classes.item_c}>
           <PortfolioLineChart
+            featuredAsset={featuredAsset}
+            colors={displayColors}
             coins={coinList}
             amounts={userData.userAssets}
             data={userData}
           />
         </div>
-        <div className={classes.item_d}>D</div>
-        <div className={classes.item_e}>E</div>
+        <div className={classes.item_d}>Add Trade</div>
+        <div className={classes.item_e}>{colors.appColor3}</div>
         <div className={classes.portfolio_chart}>
-          <div className={classes["inner-circle"]}>
-            {featuredAsset ? <p>{featuredAsset.name}</p> : null}
-          </div>
-          <PortfolioChart onInspectAsset={clickAssetHandler} data={userData} />
+          <PortfolioChart
+            onSetFeaturedAsset={clickAssetHandler}
+            data={userData}
+          />
         </div>
       </div>
       {userData.userAssets.map((coin) => {
@@ -97,7 +110,7 @@ function Dashboard(props) {
           />
         );
       })}
-    </div>
+    </React.Fragment>
   );
 }
 

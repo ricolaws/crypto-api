@@ -1,26 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
+import * as colors from "../theme/colors.module.css";
 
 function PortfolioChart(props) {
   const [portfolioChartData, setPortfolioChartData] = useState();
 
   const clickHandler = (evt, item) => {
     if (item.length > 0) {
-      props.onInspectAsset(item[0].index);
+      props.onSetFeaturedAsset(item[0].index);
     }
   };
 
-  // console.log(props.data);
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "left",
+        align: "start",
+      },
+    },
+    onClick: clickHandler,
+  };
 
   useEffect(() => {
     const chartData = {
       datasets: [
         {
-          options: {
-            onClick: () => {},
-          },
           label: "Portfolio",
-          backgroundColor: ["green", "palegreen", "blue", "red"],
+          backgroundColor: [
+            colors.color1,
+            colors.color2,
+            colors.color3,
+            colors.color4,
+          ],
           hoverOffset: 6,
           hoverBorderWidth: 1,
           borderRadius: 0,
@@ -43,10 +56,7 @@ function PortfolioChart(props) {
   return (
     <React.Fragment>
       {portfolioChartData ? (
-        <Doughnut
-          data={portfolioChartData}
-          options={{ onClick: clickHandler }}
-        />
+        <Doughnut data={portfolioChartData} options={chartOptions} />
       ) : null}
     </React.Fragment>
   );
