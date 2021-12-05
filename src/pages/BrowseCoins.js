@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CoinInfoBrowse from "../components/CoinInfoBrowse";
 import Search from "../components/Search";
+import classes from "./BrowseCoins.module.css";
 
 function BrowseCoins() {
   const [coins, setCoins] = useState([]);
@@ -29,10 +30,21 @@ function BrowseCoins() {
 
   return (
     <React.Fragment>
-      <header className="App-header">
+      <div className={classes.heading}>
         <h1>Search a Coin 🕵️‍♀️💰</h1>
-      </header>
+      </div>
       <Search onSearch={handleSearch} />
+      <div className={classes.container}>
+        <div className={`${classes.rows} ${classes.labels}`}>
+          <div className={classes.nameHeading}>Name</div>
+          <div className={classes.symbol}>Symbol</div>
+          <div className={classes.price}>Price</div>
+          <div className={classes.marketCap}>Market Cap</div>
+          <div className={classes.hr24}>24hr.</div>
+          <div className={classes.d7}>7d.</div>
+          <div className={classes.volume}>Volume</div>
+        </div>
+      </div>
       {filteredCoins.map((coin) => {
         return (
           <CoinInfoBrowse

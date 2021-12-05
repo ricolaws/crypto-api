@@ -95,6 +95,17 @@ function Dashboard(props) {
           />
         </div>
       </div>
+      <div className={classes.labelsContainer}>
+        <div className={`${classes.rows} ${classes.labels}`}>
+          <div className={classes.nameHeading}>Name</div>
+          <div>Symbol</div>
+          <div>Price</div>
+          <div>Market Cap</div>
+          <div>24hr.</div>
+          <div>7d.</div>
+          <div>ROI</div>
+        </div>
+      </div>
       {userData.userAssets.map((coin) => {
         return (
           <CoinInfo

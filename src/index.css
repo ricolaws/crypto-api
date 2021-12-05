@@ -7,12 +7,19 @@
 :root {
   --main-bg-color: #fffbfc;
   --main-text-color: #221b21;
-  --app-color-1: #0e6277;
-  /* --app-color-2: #0d3b66; */
+  /* --app-color-1: #0e6277;
   --app-color-2: #6eb56c;
   --app-color-3: #0c345a;
   --app-color-4: #3f8efc;
+  --app-color-red: #db504a; */
+  /* new colors */
+  --app-color-1: #92cce6;
+  --app-color-2: #77c4a4;
+  --app-color-3: #ec97b1;
+  --app-color-4: #3f8efc;
+  --app-color-5: #1e8055;
   --app-color-red: #db504a;
+  --light-blue: #d6eaf8;
 }
 
 body {
@@ -25,20 +32,9 @@ body {
   background: var(--main-bg-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-header {
-  padding: 0.5rem;
-  text-align: center;
-}
-
 .app {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100vw;
   color: var(--main-text-color);
 }

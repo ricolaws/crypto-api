@@ -65,17 +65,28 @@
   /* margin: 0.8rem; */
 }
 
-/* .inner-circle {
-  background: rgba(255, 228, 105, 0.26);
-  pointer-events: none;
+.labelsContainer {
+  padding: 0.5rem;
   display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  color: black;
-  width: 45%;
-  height: 56%;
-  position: absolute;
-} */
+}
+
+.rows {
+  display: grid;
+  grid-template-columns:
+    minmax(4rem, 1fr) minmax(4rem, 1fr)
+    minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
+    minmax(4rem, 1fr) minmax(4rem, 1fr);
+  width: 82%;
+  gap: 3rem;
+  justify-content: space-between;
+  text-align: center;
+  height: 3.6rem;
+  border-bottom: 1px solid #d7d7d7;
+  padding: 0.5rem;
+}
+
+.labels {
+  font-weight: 700;
+  align-items: end;
+}
