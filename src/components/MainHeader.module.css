@@ -38,3 +38,17 @@
   padding-bottom: 0.25rem;
   border-bottom: 2px solid white;
 }
+
+/* media queries */
+@media only screen and (max-width: 600px) {
+  .header ul {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3rem;
+  }
+}

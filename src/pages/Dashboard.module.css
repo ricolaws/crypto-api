@@ -90,3 +90,133 @@
   font-weight: 700;
   align-items: end;
 }
+
+.name {
+  display: flex;
+}
+
+.nameHeading {
+  transform: translateX(0.5rem);
+}
+
+.name img {
+  width: 3rem;
+  margin-right: 12px;
+  transform: translateY(-0.5rem);
+}
+
+.name span {
+  width: 150px;
+  font-size: 1rem;
+}
+
+.red {
+  color: #ff2626;
+}
+
+.green {
+  color: #00d00b;
+}
+
+/* media queries */
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    align-self: center;
+    height: 82vh;
+    display: grid;
+    padding: 1rem;
+    margin: 0;
+    min-width: 300px;
+    grid-template-columns:
+      minmax(50px, 1fr) minmax(50px, 1fr)
+      minmax(50px, 1fr) minmax(50px, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+    gap: 0.5rem;
+    justify-items: stretch;
+  }
+  .item_a {
+    background: transparent;
+    border: 1px dotted chartreuse;
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+    height: 100%;
+  }
+
+  .item_b {
+    border: 1px dotted chartreuse;
+    grid-column: 3 / span 2;
+    grid-row: 1 / span 1;
+    height: 100%;
+    color: var(--main-text-color);
+  }
+
+  .item_c {
+    background: transparent;
+    grid-column: 1 / span 4;
+    grid-row: 5 / span 3;
+    height: 100%;
+  }
+
+  .item_d {
+    background: transparent;
+    border: 2px dashed var(--app-color-2);
+    grid-column: 1 / span 2;
+    grid-row: 8 / span 1;
+    height: 100%;
+    text-align: center;
+    /* margin: 0.5rem; */
+  }
+
+  .item_e {
+    background: transparent;
+    border: 2px dashed var(--app-color-2);
+    grid-column: 3 / span 2;
+    grid-row: 8 / span 1;
+    height: 100%;
+    text-align: center;
+    /* margin: 0.5rem; */
+  }
+
+  .portfolio_chart {
+    background: transparent;
+    overflow: hidden;
+    grid-column: 1 / span 4;
+    grid-row: 2 / span 3;
+    /* margin: 0.8rem; */
+  }
+  .rows {
+    display: grid;
+    grid-template-columns:
+      minmax(2rem, 1fr) minmax(2rem, 1fr)
+      minmax(2rem, 1fr) minmax(2rem, 1fr) minmax(2rem, 1fr)
+      minmax(2rem, 1fr) minmax(2rem, 1fr);
+    width: 100%;
+    gap: 1rem;
+    font-size: 0.7rem;
+    justify-content: space-between;
+    text-align: center;
+    height: 2.4rem;
+    border-bottom: 1px solid #d7d7d7;
+    padding: 0;
+  }
+  .name {
+    grid-column: 1 / span 2;
+  }
+  .nameHeading {
+    grid-column: 1 / span 2;
+    transform: translateX(0);
+  }
+  .name img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 6px;
+    transform: translateY(-0.5rem);
+  }
+  .name span {
+    font-size: 0.7rem;
+  }
+  .symbol {
+    display: none;
+  }
+}

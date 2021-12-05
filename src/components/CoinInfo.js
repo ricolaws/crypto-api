@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./CoinInfo.module.css";
+import classes from "../pages/Dashboard.module.css";
 
 function CoinInfo({
   image,
@@ -25,11 +25,11 @@ function CoinInfo({
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.labelsContainer}>
       <div className={classes.rows}>
         <div className={classes.name}>
           <img src={image} alt="crypto" />
-          <h4>{name}</h4>
+          <span>{name}</span>
         </div>
         <p className={classes.symbol}>{symbol.toUpperCase()}</p>
 
@@ -46,7 +46,11 @@ function CoinInfo({
         ) : (
           <p className={classes.green}>{priceChange.toFixed(2)}%</p>
         )}
-        <p className={classes.volume}>${volume.toLocaleString()}</p>
+        {priceChange < 0 ? (
+          <p className={classes.red}>{priceChange.toFixed(2)}%</p>
+        ) : (
+          <p className={classes.green}>{priceChange.toFixed(2)}%</p>
+        )}
         {roi < 0 ? (
           <p className={classes.red}>{roi.toFixed(2)}%</p>
         ) : (

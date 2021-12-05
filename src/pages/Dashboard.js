@@ -87,7 +87,7 @@ function Dashboard(props) {
           />
         </div>
         <div className={classes.item_d}>Add Trade</div>
-        <div className={classes.item_e}>{colors.appColor3}</div>
+        <div className={classes.item_e}>Trade History</div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart
             onSetFeaturedAsset={clickAssetHandler}
@@ -98,9 +98,9 @@ function Dashboard(props) {
       <div className={classes.labelsContainer}>
         <div className={`${classes.rows} ${classes.labels}`}>
           <div className={classes.nameHeading}>Name</div>
-          <div>Symbol</div>
+          <div className={classes.symbol}>Symbol</div>
           <div>Price</div>
-          <div>Market Cap</div>
+          <div>M.Cap</div>
           <div>24hr.</div>
           <div>7d.</div>
           <div>ROI</div>

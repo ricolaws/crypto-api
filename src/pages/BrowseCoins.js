@@ -39,7 +39,7 @@ function BrowseCoins() {
           <div className={classes.nameHeading}>Name</div>
           <div className={classes.symbol}>Symbol</div>
           <div className={classes.price}>Price</div>
-          <div className={classes.marketCap}>Market Cap</div>
+          <div className={classes.marketCap}>M.Cap</div>
           <div className={classes.hr24}>24hr.</div>
           <div className={classes.d7}>7d.</div>
           <div className={classes.volume}>Volume</div>
