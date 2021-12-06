@@ -7,8 +7,8 @@ function CoinInfo({
   symbol,
   price,
   marketCap,
-  priceChange,
-  volume,
+  priceChange24,
+  priceChange7d,
   roi,
 }) {
   function numFormat(num) {
@@ -40,17 +40,17 @@ function CoinInfo({
             maximumFractionDigits: 3,
           })}
         </p>
+        {priceChange24 < 0 ? (
+          <p className={classes.red}>{priceChange24.toFixed(2)}%</p>
+        ) : (
+          <p className={classes.green}>{priceChange24.toFixed(2)}%</p>
+        )}
+        {priceChange7d < 0 ? (
+          <p className={classes.red}>{priceChange7d.toFixed(2)}%</p>
+        ) : (
+          <p className={classes.green}>{priceChange7d.toFixed(2)}%</p>
+        )}
         <p className={classes.marketCap}>${numFormat(marketCap)}</p>
-        {priceChange < 0 ? (
-          <p className={classes.red}>{priceChange.toFixed(2)}%</p>
-        ) : (
-          <p className={classes.green}>{priceChange.toFixed(2)}%</p>
-        )}
-        {priceChange < 0 ? (
-          <p className={classes.red}>{priceChange.toFixed(2)}%</p>
-        ) : (
-          <p className={classes.green}>{priceChange.toFixed(2)}%</p>
-        )}
         {roi < 0 ? (
           <p className={classes.red}>{roi.toFixed(2)}%</p>
         ) : (

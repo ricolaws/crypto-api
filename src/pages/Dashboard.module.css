@@ -10,26 +10,73 @@
     minmax(100px, 1fr) minmax(100px, 1fr)
     minmax(100px, 1fr) minmax(100px, 1fr);
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-items: stretch;
 }
 
+/* ValueAndCost Component */
 .item_a {
   background: transparent;
-  border: 1px dotted chartreuse;
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
   height: 100%;
 }
 
-.item_b {
-  border: 1px dotted chartreuse;
+.valCostContainer {
+  display: grid;
+  grid-template-columns: minmax(30px, 1fr) minmax(30px, 1fr) minmax(30px, 1fr);
+  grid-template-rows: 1fr 2fr;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.valCostContainer h2 {
+  /* padding: 0.25rem; */
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.totalsWords {
+  padding-top: 0.25rem;
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 1;
+}
+
+.totalsNums {
+  padding-top: 0.25rem;
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.totalReturnPercentage {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  justify-content: center;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Featured Component */
+.featured {
   grid-column: 2 / span 1;
   grid-row: 1 / span 1;
   height: 100%;
   color: var(--main-text-color);
+  margin-left: 1rem;
 }
 
+.featured h3 {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* PortfolioLineChart Component */
 .item_c {
   background: transparent;
   grid-column: 1 / span 2;
@@ -39,24 +86,21 @@
 
 .item_d {
   background: transparent;
-  border: 2px dashed var(--app-color-2);
   grid-column: 3 / span 1;
   grid-row: 7 / span 1;
   height: 100%;
   text-align: center;
-  /* margin: 0.5rem; */
 }
 
 .item_e {
   background: transparent;
-  border: 2px dashed var(--app-color-2);
   grid-column: 4 / span 1;
   grid-row: 7 / span 1;
   height: 100%;
   text-align: center;
-  /* margin: 0.5rem; */
 }
 
+/* Portfolio Doughnut */
 .portfolio_chart {
   background: transparent;
   overflow: hidden;
@@ -81,7 +125,7 @@
   gap: 3rem;
   justify-content: space-between;
   text-align: center;
-  height: 3.6rem;
+  height: 3.4rem;
   border-bottom: 1px solid #d7d7d7;
   padding: 0.5rem;
 }
@@ -101,8 +145,8 @@
 
 .name img {
   width: 3rem;
-  margin-right: 12px;
-  transform: translateY(-0.5rem);
+  margin-right: 8px;
+  transform: translateY(-0.8rem);
 }
 
 .name span {
@@ -111,19 +155,19 @@
 }
 
 .red {
-  color: #ff2626;
+  color: var(--app-color-red);
 }
 
 .green {
-  color: #00d00b;
+  color: var(--app-color-4);
 }
 
-/* media queries */
-@media only screen and (max-width: 768px) {
+/*  - - - - - - - - - - media queries - - - - - - - - - -  */
+@media only screen and (max-width: 800px) {
   .container {
     width: 100%;
     align-self: center;
-    height: 82vh;
+    height: 100vh;
     display: grid;
     padding: 1rem;
     margin: 0;
@@ -137,14 +181,12 @@
   }
   .item_a {
     background: transparent;
-    border: 1px dotted chartreuse;
     grid-column: 1 / span 2;
     grid-row: 1 / span 1;
     height: 100%;
   }
 
-  .item_b {
-    border: 1px dotted chartreuse;
+  .featured {
     grid-column: 3 / span 2;
     grid-row: 1 / span 1;
     height: 100%;
@@ -160,7 +202,6 @@
 
   .item_d {
     background: transparent;
-    border: 2px dashed var(--app-color-2);
     grid-column: 1 / span 2;
     grid-row: 8 / span 1;
     height: 100%;
@@ -170,7 +211,6 @@
 
   .item_e {
     background: transparent;
-    border: 2px dashed var(--app-color-2);
     grid-column: 3 / span 2;
     grid-row: 8 / span 1;
     height: 100%;

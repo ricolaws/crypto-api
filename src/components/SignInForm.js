@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import classes from "../pages/Welcome.module.css";
 
-function SignInForm() {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-
-  const nameChangeHandler = (e) => {
-    setEnteredName(e.target.value);
-  };
-
-  const passwordChangeHandler = (e) => {
-    setEnteredPassword(e.target.value);
-  };
+function SignInForm(props) {
+  const nameInputRef = useRef();
+  const passwordInputRef = useRef();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const signInData = {
-      username: enteredName,
-      password: enteredPassword,
-    };
-    console.log(enteredName, enteredPassword);
-    setEnteredName("");
-    setEnteredPassword("");
+    const enteredName = nameInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
+    props.onSignIn(enteredName, enteredPassword);
   };
+
   return (
     <React.Fragment>
       <form className={classes.column} onSubmit={submitHandler}>
@@ -30,15 +20,15 @@ function SignInForm() {
           className={classes.input}
           type="text"
           placeholder="Username"
-          value={enteredName}
-          onChange={nameChangeHandler}
+          id="name"
+          ref={nameInputRef}
         ></input>
         <input
           className={classes.input}
           type="text"
           placeholder="Password"
-          value={enteredPassword}
-          onChange={passwordChangeHandler}
+          id="password"
+          ref={passwordInputRef}
         ></input>
         <div className={classes.row}>
           <button className={classes.button} type="submit">

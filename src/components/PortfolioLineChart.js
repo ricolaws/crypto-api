@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import classes from "./PortfolioLineChart.module.css";
+import Card from "./Card";
 
 function PortfolioLineChart(props) {
   const [priceData, setPriceData] = useState([]);
@@ -155,11 +156,13 @@ function PortfolioLineChart(props) {
   }, [props.featuredAsset]);
 
   return (
-    <div className={classes.container}>
-      {chartData ? (
-        <Line key={key} data={chartData} options={chartOptions} />
-      ) : null}
-    </div>
+    <Card>
+      <div className={classes.container}>
+        {chartData ? (
+          <Line key={key} data={chartData} options={chartOptions} />
+        ) : null}
+      </div>
+    </Card>
   );
 }
 

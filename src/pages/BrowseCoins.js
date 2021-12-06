@@ -30,18 +30,20 @@ function BrowseCoins() {
 
   return (
     <React.Fragment>
-      <div className={classes.heading}>
-        <h1>Search a Coin 🕵️‍♀️💰</h1>
+      <div className={classes.container}>
+        <div className={classes.window}>
+          <h1>Search for a Coin 🔍</h1>
+          <Search onSearch={handleSearch} />
+        </div>
       </div>
-      <Search onSearch={handleSearch} />
       <div className={classes.container}>
         <div className={`${classes.rows} ${classes.labels}`}>
           <div className={classes.nameHeading}>Name</div>
           <div className={classes.symbol}>Symbol</div>
           <div className={classes.price}>Price</div>
-          <div className={classes.marketCap}>M.Cap</div>
           <div className={classes.hr24}>24hr.</div>
-          <div className={classes.d7}>7d.</div>
+          <div className={classes.ath}>ATH</div>
+          <div className={classes.marketCap}>M.Cap</div>
           <div className={classes.volume}>Volume</div>
         </div>
       </div>
@@ -54,7 +56,8 @@ function BrowseCoins() {
             image={coin.image}
             symbol={coin.symbol}
             marketCap={coin.market_cap}
-            priceChange={coin.price_change_percentage_24h}
+            priceChange24={coin.price_change_percentage_24h}
+            ath={coin.ath}
             volume={coin.total_volume}
           />
         );

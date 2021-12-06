@@ -7,9 +7,9 @@ function CoinInfoBrowse({
   symbol,
   price,
   marketCap,
-  priceChange,
+  priceChange24,
+  ath,
   volume,
-  roi,
 }) {
   function numFormat(num) {
     if (num >= 1000000000) {
@@ -40,17 +40,19 @@ function CoinInfoBrowse({
             maximumFractionDigits: 3,
           })}
         </p>
+        {priceChange24 < 0 ? (
+          <p className={classes.red}>{priceChange24.toFixed(2)}%</p>
+        ) : (
+          <p className={classes.green}>{priceChange24.toFixed(2)}%</p>
+        )}
+        <p className={classes.ath}>
+          $
+          {ath.toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
+          })}
+        </p>
         <p className={classes.marketCap}>${numFormat(marketCap)}</p>
-        {priceChange < 0 ? (
-          <p className={classes.red}>{priceChange.toFixed(2)}%</p>
-        ) : (
-          <p className={classes.green}>{priceChange.toFixed(2)}%</p>
-        )}
-        {priceChange < 0 ? (
-          <p className={classes.red}>{priceChange.toFixed(2)}%</p>
-        ) : (
-          <p className={classes.green}>{priceChange.toFixed(2)}%</p>
-        )}
         <p className={classes.volume}>${numFormat(volume)}</p>
       </div>
     </div>

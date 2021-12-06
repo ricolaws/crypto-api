@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./MainHeader.module.css";
 
-function MainHeader() {
+function MainHeader(props) {
   return (
     <header className={classes.header}>
       <nav>
@@ -12,16 +12,20 @@ function MainHeader() {
               Welcome
             </NavLink>
           </li>
-          <li>
-            <NavLink activeClassName={classes.active} to="/dashboard">
-              Dashboard
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName={classes.active} to="/browse">
-              Browse
-            </NavLink>
-          </li>
+          {props.signedIn ? (
+            <li>
+              <NavLink activeClassName={classes.active} to="/dashboard">
+                Dashboard
+              </NavLink>
+            </li>
+          ) : null}
+          {props.signedIn ? (
+            <li>
+              <NavLink activeClassName={classes.active} to="/browse">
+                Browse
+              </NavLink>
+            </li>
+          ) : null}
         </ul>
       </nav>
     </header>

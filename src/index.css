@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,28 +8,20 @@
 }
 
 :root {
-  --main-bg-color: #fffbfc;
-  --main-text-color: #221b21;
-  /* --app-color-1: #0e6277;
-  --app-color-2: #6eb56c;
-  --app-color-3: #0c345a;
-  --app-color-4: #3f8efc;
-  --app-color-red: #db504a; */
-  /* new colors */
-  --app-color-1: #92cce6;
-  --app-color-2: #77c4a4;
-  --app-color-3: #ec97b1;
-  --app-color-4: #3f8efc;
-  --app-color-5: #1e8055;
-  --app-color-red: #db504a;
+  /* --main-bg-color: #fffbfc; */
+  --main-bg-color: #f7f7f2;
+  --main-text-color: #051e24;
+  --app-color-1: #0e6277;
+  --app-color-2: #0d265e;
+  --app-color-3: #3f8efc;
+  --app-color-4: #0ca45a;
+  --app-color-red: #d14a2f;
   --light-blue: #d6eaf8;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--main-bg-color);
@@ -40,18 +34,28 @@ body {
   color: var(--main-text-color);
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Lato", sans-serif;
+}
+
+h2 h3 h4 {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+}
 button {
   display: inline-block;
   border: none;
   padding: 0.5rem 2rem;
   margin: 0;
   width: 50%;
-  height: 2rem;
+  height: 2.2rem;
   border-radius: 1.3rem;
   text-decoration: none;
-  background: #0069ed;
+  background: var(--app-color-3);
   color: #ffffff;
-  font-family: sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
@@ -62,16 +66,24 @@ button {
 
 button:hover,
 button:focus {
-  background: #0053ba;
+  background: var(--app-color-3);
 }
 
 button:focus {
   outline: 1px solid #fff;
-  outline-offset: -4px;
+  outline-offset: -1px;
 }
 
 button:active {
-  transform: scale(0.99);
+  transform: scale(0.98);
+}
+
+.red {
+  color: var(--app-color-red);
+}
+
+.green {
+  color: var(--app-color-4);
 }
 
 /* smallest phones */
@@ -88,7 +100,6 @@ button:active {
     height: 2rem;
     background: #0069ed;
     color: #ffffff;
-    font-family: sans-serif;
     font-size: 1rem;
   }
 }

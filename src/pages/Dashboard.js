@@ -52,29 +52,28 @@ function Dashboard(props) {
     setFeaturedAsset(userData.userAssets[asset]);
   };
 
+  console.log(featuredAsset);
   return (
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.item_a}>
           {userData ? (
             <ValueAndCost
+              title={"Portfolio"}
               value={userData.portfolioValue}
               cost={props.account.portfolioCost}
             />
           ) : null}
         </div>
-        <div className={classes.item_b}>
+        <div className={classes.featured}>
           {featuredAsset ? (
-            <Featured
-              id={featuredAsset.id}
-              name={featuredAsset.name}
-              symbol={featuredAsset.symbol}
+            <ValueAndCost
+              title={featuredAsset.symbol.toUpperCase()}
               value={featuredAsset.current_value}
-              price={featuredAsset.current_price}
-              priceChange={featuredAsset}
+              cost={featuredAsset.total_cost}
             />
           ) : (
-            ""
+            "Select a Coin  →"
           )}
         </div>
         <div className={classes.item_c}>
@@ -100,9 +99,9 @@ function Dashboard(props) {
           <div className={classes.nameHeading}>Name</div>
           <div className={classes.symbol}>Symbol</div>
           <div>Price</div>
-          <div>M.Cap</div>
           <div>24hr.</div>
           <div>7d.</div>
+          <div>M.Cap</div>
           <div>ROI</div>
         </div>
       </div>
@@ -115,8 +114,8 @@ function Dashboard(props) {
             image={coin.image}
             symbol={coin.symbol}
             marketCap={coin.market_cap}
-            priceChange={coin.price_change_24h}
-            volume={coin.total_volume}
+            priceChange24={coin.price_change_24h}
+            priceChange7d={coin.price_change_7d}
             roi={coin.roi}
           />
         );
