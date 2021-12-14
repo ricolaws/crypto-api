@@ -24,7 +24,8 @@ body {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--main-bg-color);
+  /* background: var(--main-bg-color); */
+  background: #e5e5e5;
 }
 
 .app {

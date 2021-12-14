@@ -4,7 +4,6 @@ import CoinInfo from "../components/CoinInfo";
 import { buildUserData } from "../components/UserData";
 import PortfolioChart from "../components/PortfolioChart";
 import PortfolioLineChart from "../components/PortfolioLineChart";
-import Featured from "../components/Featured";
 import ValueAndCost from "../components/ValueAndCost";
 import classes from "./Dashboard.module.css";
 import * as colors from "../theme/colors.module.css";
@@ -85,8 +84,8 @@ function Dashboard(props) {
             data={userData}
           />
         </div>
-        <div className={classes.item_d}>Add Trade</div>
-        <div className={classes.item_e}>Trade History</div>
+        <div className={classes.item_d}></div>
+        <div className={classes.item_e}></div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart
             onSetFeaturedAsset={clickAssetHandler}

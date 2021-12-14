@@ -24,6 +24,10 @@ function CoinInfoBrowse({
     return num;
   }
 
+  if (!priceChange24) {
+    return null;
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.rows}>

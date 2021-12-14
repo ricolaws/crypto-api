@@ -3,6 +3,7 @@ import axios from "axios";
 import { Line } from "react-chartjs-2";
 import classes from "./PortfolioLineChart.module.css";
 import Card from "./Card";
+import pattern from "patternomaly";
 
 function PortfolioLineChart(props) {
   const [priceData, setPriceData] = useState([]);
@@ -92,6 +93,7 @@ function PortfolioLineChart(props) {
         if (c > props.colors.length) {
           c -= props.colors.length;
         }
+        const pats = ["diagonal-right-left", "cross-dash", "zigzag", "weave"];
         const [filteredByCoin] = props.data.userAssets.filter(
           (coin) => coin.id === id
         );
@@ -105,10 +107,17 @@ function PortfolioLineChart(props) {
         const dataSet = {
           label: id,
           data: summedValues[i],
-          borderColor: "#98B9AB",
           fill: true,
-          borderColor: props.colors[c],
-          backgroundColor: addAlpha(props.colors[c], 0.15),
+          borderColor: pattern.draw(
+            pats[c],
+            props.colors[c],
+            "hsl(0, 0, 0, 0)"
+          ),
+          backgroundColor: pattern.draw(
+            pats[c],
+            props.colors[c],
+            "hsl(0 0 0 0)"
+          ),
           tension: 0.2,
           borderWidth: 2,
           hidden: true,

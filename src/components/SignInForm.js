@@ -26,7 +26,7 @@ function SignInForm(props) {
         <input
           className={classes.input}
           type="text"
-          placeholder="Password"
+          placeholder="You can skip it for now :)"
           id="password"
           ref={passwordInputRef}
         ></input>

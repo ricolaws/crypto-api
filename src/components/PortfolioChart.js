@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import * as colors from "../theme/colors.module.css";
+import pattern from "patternomaly";
 
 function PortfolioChart(props) {
   const [portfolioChartData, setPortfolioChartData] = useState();
@@ -14,6 +15,7 @@ function PortfolioChart(props) {
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    cutout: 80,
     plugins: {
       legend: {
         position: "left",
@@ -29,10 +31,14 @@ function PortfolioChart(props) {
         {
           label: "Portfolio",
           backgroundColor: [
-            colors.color1,
-            colors.color2,
-            colors.color3,
-            colors.color4,
+            pattern.draw("diagonal-right-left", colors.color1, "#000"),
+            pattern.draw(
+              "cross-dash",
+              "hsla(164, 90%, 85%, 1)",
+              "hsla(164, 40%, 25%, 1)"
+            ),
+            pattern.draw("zigzag", colors.color3, "#000"),
+            pattern.draw("weave", colors.color4, "hsla(184, 70%, 15%, 1)"),
           ],
           hoverOffset: 6,
           hoverBorderWidth: 1,
