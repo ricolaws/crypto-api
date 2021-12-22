@@ -1,6 +1,5 @@
 {
   "name": "react-crypto-api",
-  "homepage": "https://eloquent-crypto-dashboard.netlify.app/welcome",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
