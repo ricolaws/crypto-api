@@ -94,14 +94,9 @@ button:active {
     font-size: 82%;
   }
   button {
-    display: inline-block;
-    border: none;
-    padding: 0.5rem 2rem;
     margin: 0;
     width: 75%;
     height: 2rem;
-    background: #0069ed;
-    color: #ffffff;
     font-size: 1rem;
   }
 }
