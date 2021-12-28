@@ -13,6 +13,8 @@ const initialFormData = Object.freeze({
 
 function AddTradeWindow(props) {
   const [formData, setFormData] = useState(initialFormData);
+  const [total, setTotal] = useState();
+  const [price, setPrice] = useState();
 
   const closeWindowHandler = (e) => {
     e.preventDefault();
@@ -20,24 +22,30 @@ function AddTradeWindow(props) {
   };
 
   const changeHandler = (e) => {
-    setFormData({
+    let newFormData = {
       ...formData,
       [e.target.name]: e.target.value.trim(),
-    });
+    };
+    let calcTotal = newFormData.total;
+    let calcPrice = newFormData.price;
+    if (e.target.name === "amount") {
+      newFormData.total = e.target.value * newFormData.price;
+    }
+    if (e.target.name === "price") {
+      newFormData.total = e.target.value * newFormData.amount;
+    }
+    if (e.target.name === "total") {
+      newFormData.price = Number(e.target.value / newFormData.amount);
+    }
+    setTotal(newFormData.total);
+    setPrice(newFormData.price);
+    setFormData(newFormData);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     props.onAddTrade(formData);
   };
-
-  const coinMenu = (
-    <select required>
-      {props.coinList.forEach((coin, i) => {
-        <option value={i}>{coin}</option>;
-      })}
-    </select>
-  );
 
   return (
     <Card>
@@ -109,9 +117,6 @@ function AddTradeWindow(props) {
               <input
                 onChange={changeHandler}
                 type="number"
-                min="0.01"
-                step="0.01"
-                max="99999"
                 name="amount"
                 required
               />
@@ -120,10 +125,8 @@ function AddTradeWindow(props) {
               <p>Price</p>
               <input
                 onChange={changeHandler}
+                value={price}
                 type="number"
-                min="0.01"
-                step="0.01"
-                max="99999"
                 name="price"
                 required
               />
@@ -132,10 +135,8 @@ function AddTradeWindow(props) {
               <p>Total</p>
               <input
                 onChange={changeHandler}
+                value={total}
                 type="number"
-                min="0.01"
-                step="0.01"
-                max="99999"
                 name="total"
                 required
               />
