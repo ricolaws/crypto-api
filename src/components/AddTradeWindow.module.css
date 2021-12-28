@@ -1,0 +1,166 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+form div {
+  width: 100%;
+}
+
+form h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+form h3 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-end;
+}
+
+.actions button {
+  width: 40%;
+}
+
+.item {
+  height: auto;
+  width: 100%;
+  margin: 1rem;
+}
+
+.item p {
+  margin-bottom: 0.25rem;
+}
+
+.item input,
+.item select,
+.item textarea {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 80%;
+  padding: 0.25rem;
+  font-size: 1rem;
+  font-family: "Lato", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+input:hover::placeholder {
+  color: #1c87c9;
+}
+.item input:hover,
+.item input:focus,
+.item select:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 6px 0 #1c87c9;
+  color: #1c87c9;
+}
+
+.item i,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* radio buttons */
+input[type="radio"] {
+  display: none;
+}
+
+label.radio {
+  position: relative;
+  display: inline-block;
+  margin: 5px 20px 10px 0;
+  cursor: pointer;
+}
+
+label.radio:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+input[type="radio"]:checked + label:before,
+label.radio:hover:before {
+  border: 2px solid #1c87c9;
+}
+label.radio:after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  width: 8px;
+  height: 4px;
+  border: 3px solid #1c87c9;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+input[type="radio"]:checked + label:after {
+  opacity: 1;
+}
+
+label.radio span {
+  margin-left: 30px;
+}
+
+/* .amount {
+  background: chartreuse;
+} */
+
+/* .amount span {
+  position: relative;
+  margin-right: -20px;
+  z-index: 1;
+} */
+
+input[type="number"] {
+  /* position: relative; */
+  /* padding-left: 20px; */
+  /* text-align: left; */
+  /* left: 10px; */
+}
+
+/* @media (min-width: 568px) {
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+} */

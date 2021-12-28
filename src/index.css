@@ -8,9 +8,9 @@
 }
 
 :root {
-  /* --main-bg-color: #fffbfc; */
   --main-bg-color: #f7f7f2;
   --main-text-color: #051e24;
+  --main-text-color: #161515;
   --app-color-1: #0e6277;
   --app-color-2: #0d265e;
   --app-color-3: #3f8efc;
@@ -25,7 +25,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: var(--main-bg-color); */
-  background: #e5e5e5;
+  background: var(--main-bg-color);
 }
 
 .app {

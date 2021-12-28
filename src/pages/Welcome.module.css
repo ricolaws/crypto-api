@@ -48,9 +48,12 @@ h1 {
   box-shadow: 0.4rem 0.4rem 1rem #a8cef2a1;
 }
 
-form {
-  margin: 3rem 2rem 2rem 2rem;
-  gap: 1rem;
+.form {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* gap: 1rem; */
 }
 
 .input {

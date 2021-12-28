@@ -6,7 +6,8 @@ import PortfolioChart from "../components/PortfolioChart";
 import PortfolioLineChart from "../components/PortfolioLineChart";
 import ValueAndCost from "../components/ValueAndCost";
 import classes from "./Dashboard.module.css";
-import * as colors from "../theme/colors.module.css";
+import AddTradeButton from "../components/AddTradeButton";
+import AddTradeWindow from "../components/AddTradeWindow";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({ userAssets: [] });
@@ -14,16 +15,11 @@ function Dashboard(props) {
   const [account, setAccount] = useState(props.account);
   const [coinList, setCoinList] = useState();
   const [displayColors, setDisplayColors] = useState();
+  const [addTradeWindow, setAddTradeWindow] = useState(false);
 
   useEffect(() => {
-    const colorArray = [
-      colors.color1,
-      colors.color2,
-      colors.color3,
-      colors.color4,
-    ];
-    setDisplayColors(colorArray);
-  }, []);
+    setDisplayColors(props.colors);
+  }, [props.colors]);
 
   useEffect(() => {
     const coinListArr = account.assetData.map((coin) => coin.id);
@@ -51,7 +47,10 @@ function Dashboard(props) {
     setFeaturedAsset(userData.userAssets[asset]);
   };
 
-  console.log(featuredAsset);
+  const clickAddTradeHandler = () => {
+    setAddTradeWindow(!addTradeWindow);
+  };
+
   return (
     <React.Fragment>
       <div className={classes.container}>
@@ -76,15 +75,21 @@ function Dashboard(props) {
           )}
         </div>
         <div className={classes.item_c}>
-          <PortfolioLineChart
-            featuredAsset={featuredAsset}
-            colors={displayColors}
-            coins={coinList}
-            amounts={userData.userAssets}
-            data={userData}
-          />
+          {!addTradeWindow ? (
+            <PortfolioLineChart
+              featuredAsset={featuredAsset}
+              colors={displayColors}
+              coins={coinList}
+              amounts={userData.userAssets}
+              data={userData}
+            />
+          ) : (
+            <AddTradeWindow />
+          )}
         </div>
-        <div className={classes.item_d}></div>
+        <div className={classes.item_d}>
+          <AddTradeButton onShowWindow={clickAddTradeHandler} />
+        </div>
         <div className={classes.item_e}></div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart

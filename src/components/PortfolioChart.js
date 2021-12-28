@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
-import * as colors from "../theme/colors.module.css";
 import pattern from "patternomaly";
+import colorList from "../theme/colorPatterns";
 
 function PortfolioChart(props) {
   const [portfolioChartData, setPortfolioChartData] = useState();
@@ -25,20 +25,17 @@ function PortfolioChart(props) {
     onClick: clickHandler,
   };
 
+  const contrast2 = "#000";
   useEffect(() => {
     const chartData = {
       datasets: [
         {
           label: "Portfolio",
           backgroundColor: [
-            pattern.draw("diagonal-right-left", colors.color1, "#000"),
-            pattern.draw(
-              "cross-dash",
-              "hsla(164, 90%, 85%, 1)",
-              "hsla(164, 40%, 25%, 1)"
-            ),
-            pattern.draw("zigzag", colors.color3, "#000"),
-            pattern.draw("weave", colors.color4, "hsla(184, 70%, 15%, 1)"),
+            pattern.draw("diagonal-right-left", colorList[0], contrast2),
+            pattern.draw("cross-dash", colorList[1], contrast2),
+            pattern.draw("zigzag", colorList[2], contrast2),
+            pattern.draw("weave", colorList[3], contrast2),
           ],
           hoverOffset: 6,
           hoverBorderWidth: 1,
@@ -55,7 +52,7 @@ function PortfolioChart(props) {
     chartData.datasets[0].data = props.data.userAssets.map((asset) => {
       return asset.current_value;
     });
-    // console.log(chartData);
+
     setPortfolioChartData(chartData);
   }, [props.data]);
 

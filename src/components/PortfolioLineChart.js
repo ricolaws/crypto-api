@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import classes from "./PortfolioLineChart.module.css";
 import Card from "./Card";
 import pattern from "patternomaly";
+// import { colorList, colorPatterns } from "./theme/colorPatterns";
 
 function PortfolioLineChart(props) {
   const [priceData, setPriceData] = useState([]);
@@ -71,11 +72,6 @@ function PortfolioLineChart(props) {
       },
     },
   };
-
-  function addAlpha(color, opacity) {
-    const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
-    return color + _opacity.toString(16).toUpperCase();
-  }
 
   useEffect(() => {
     if (priceData.length && props.data) {
@@ -151,7 +147,7 @@ function PortfolioLineChart(props) {
       const index = chartData.datasets.findIndex(
         ({ label }) => label === props.featuredAsset.id
       );
-      console.log(chartData.datasets);
+
       chartDataCopy.datasets.forEach((dataset, i) => {
         if (i < chartDataCopy.datasets.length - 1) {
           dataset.hidden = true;

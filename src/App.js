@@ -6,6 +6,7 @@ import Welcome from "./pages/Welcome";
 import MainHeader from "./components/MainHeader";
 import { ACCOUNT_1 } from "./components/UserData";
 import { useHistory } from "react-router-dom";
+import { colorList, colorPatterns } from "./theme/colorPatterns";
 
 function App() {
   const history = useHistory();
@@ -14,6 +15,8 @@ function App() {
   const routeChange = (path) => {
     history.push(path);
   };
+
+  // console.log(colorList, colorPatterns);
 
   const signInHandler = (username, password) => {
     console.log(username, password);
@@ -28,7 +31,7 @@ function App() {
         <Welcome onSignIn={signInHandler} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard account={ACCOUNT_1} />
+        <Dashboard account={ACCOUNT_1} colors={colorList} />
       </Route>
       <Route path="/browse">
         <BrowseCoins />

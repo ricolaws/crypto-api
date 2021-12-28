@@ -90,6 +90,8 @@
   grid-row: 7 / span 1;
   height: 100%;
   text-align: center;
+  justify-items: center;
+  align-items: center;
 }
 
 .item_e {

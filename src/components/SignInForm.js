@@ -15,7 +15,7 @@ function SignInForm(props) {
 
   return (
     <React.Fragment>
-      <form className={classes.column} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={submitHandler}>
         <input
           className={classes.input}
           type="text"
