@@ -11,6 +11,7 @@ import { colorList, colorPatterns } from "./theme/colorPatterns";
 function App() {
   const history = useHistory();
   const [signedIn, setSignedIn] = useState(false);
+  const [account, setAccount] = useState(ACCOUNT_1);
 
   const routeChange = (path) => {
     history.push(path);
@@ -24,6 +25,10 @@ function App() {
     routeChange("/dashboard");
   };
 
+  const addTradeHandler = (obj) => {
+    console.log(obj);
+  };
+
   return (
     <div className="app">
       <MainHeader signedIn={signedIn} />
@@ -31,7 +36,11 @@ function App() {
         <Welcome onSignIn={signInHandler} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard account={ACCOUNT_1} colors={colorList} />
+        <Dashboard
+          account={account}
+          colors={colorList}
+          onAddTrade={addTradeHandler}
+        />
       </Route>
       <Route path="/browse">
         <BrowseCoins />

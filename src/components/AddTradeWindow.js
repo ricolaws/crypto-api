@@ -1,19 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 import classes from "./AddTradeWindow.module.css";
 
+const initialFormData = Object.freeze({
+  type: "",
+  coin: "",
+  date: "",
+  amount: "",
+  price: "",
+  total: "",
+});
+
 function AddTradeWindow(props) {
+  const [formData, setFormData] = useState(initialFormData);
+
   const closeWindowHandler = (e) => {
     e.preventDefault();
-    console.log("close");
+    props.onCloseWindow();
+  };
+
+  const changeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("submit");
+    props.onAddTrade(formData);
   };
 
-  const coinMenu = [];
+  const coinMenu = (
+    <select required>
+      {props.coinList.forEach((coin, i) => {
+        <option value={i}>{coin}</option>;
+      })}
+    </select>
+  );
 
   return (
     <Card>
@@ -30,8 +54,9 @@ function AddTradeWindow(props) {
             <div className={classes.item}>
               <div>
                 <input
+                  onChange={changeHandler}
                   type="radio"
-                  value="none"
+                  value="buy"
                   id="radio_1"
                   name="type"
                   required
@@ -42,8 +67,9 @@ function AddTradeWindow(props) {
               </div>
               <div>
                 <input
+                  onChange={changeHandler}
                   type="radio"
-                  value="none"
+                  value="sell"
                   id="radio_2"
                   name="type"
                   required
@@ -55,47 +81,62 @@ function AddTradeWindow(props) {
             </div>
             <div className={classes.item}>
               <p>Which Coin?</p>
-              <select required>
-                <option value="1">Coin 1</option>
-                <option value="2">Coin 2</option>
-                <option value="3">Coin 3</option>
-                <option value="4">Coin 4</option>
-                <option value="5">Coin 5</option>
+              <select name="coin" onChange={changeHandler} required>
+                <option value="" disabled selected>
+                  please choose...
+                </option>
+                {props.coinList.map((coin, i) => {
+                  return (
+                    <option key={i} value={coin}>
+                      {coin}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className={classes.item}>
               <p>Date of trade</p>
-              <input type="date" name="date" required />
+              <input
+                type="date"
+                name="date"
+                onChange={changeHandler}
+                required
+              />
               <i className={classes.calendar}></i>
             </div>
             <div className={classes.item}>
               <p>Amount</p>
-
               <input
+                onChange={changeHandler}
                 type="number"
                 min="0.01"
                 step="0.01"
                 max="99999"
+                name="amount"
                 required
               />
             </div>
             <div className={classes.item}>
               <p>Price</p>
               <input
+                onChange={changeHandler}
                 type="number"
                 min="0.01"
                 step="0.01"
                 max="99999"
+                name="price"
                 required
               />
             </div>
             <div className={classes.item}>
               <p>Total</p>
               <input
+                onChange={changeHandler}
                 type="number"
                 min="0.01"
                 step="0.01"
                 max="99999"
+                name="total"
                 required
               />
             </div>

@@ -7,6 +7,7 @@ import PortfolioLineChart from "../components/PortfolioLineChart";
 import ValueAndCost from "../components/ValueAndCost";
 import classes from "./Dashboard.module.css";
 import AddTradeButton from "../components/AddTradeButton";
+import ViewTradesButton from "../components/ViewTradesButton";
 import AddTradeWindow from "../components/AddTradeWindow";
 
 function Dashboard(props) {
@@ -16,6 +17,7 @@ function Dashboard(props) {
   const [coinList, setCoinList] = useState();
   const [displayColors, setDisplayColors] = useState();
   const [addTradeWindow, setAddTradeWindow] = useState(false);
+  const [viewTradesWindow, setViewTradesWindow] = useState(false);
 
   useEffect(() => {
     setDisplayColors(props.colors);
@@ -47,8 +49,17 @@ function Dashboard(props) {
     setFeaturedAsset(userData.userAssets[asset]);
   };
 
-  const clickAddTradeHandler = () => {
+  const toggleAddTradeWindow = () => {
     setAddTradeWindow(!addTradeWindow);
+  };
+
+  const clickViewTradesHandler = () => {
+    setViewTradesWindow(!viewTradesWindow);
+    console.log(account.assetData);
+  };
+
+  const addTradeHandler = (obj) => {
+    props.onAddTrade(obj);
   };
 
   return (
@@ -84,13 +95,19 @@ function Dashboard(props) {
               data={userData}
             />
           ) : (
-            <AddTradeWindow />
+            <AddTradeWindow
+              onAddTrade={addTradeHandler}
+              coinList={coinList}
+              onCloseWindow={toggleAddTradeWindow}
+            />
           )}
         </div>
         <div className={classes.item_d}>
-          <AddTradeButton onShowWindow={clickAddTradeHandler} />
+          <AddTradeButton onAddTrade={toggleAddTradeWindow} />
         </div>
-        <div className={classes.item_e}></div>
+        <div className={classes.item_e}>
+          <ViewTradesButton onViewTrades={clickViewTradesHandler} />
+        </div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart
             onSetFeaturedAsset={clickAssetHandler}

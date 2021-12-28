@@ -1,19 +1,18 @@
 import React from "react";
 import classes from "./AddTradeButton.module.css";
-import btn from "../image/add-trade-button-1.svg";
 
-function AddTrade(props) {
+function ViewTradesButton(props) {
   const clickHandler = () => {
-    props.onAddTrade();
+    props.onViewTrades();
   };
 
   return (
     <div className={classes.container}>
       <button className={classes.addButton} onClick={clickHandler}>
-        Add Trade
+        View Trades
       </button>
     </div>
   );
 }
 
-export default AddTrade;
+export default ViewTradesButton;
