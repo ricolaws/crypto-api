@@ -6,10 +6,17 @@ function ViewTradesButton(props) {
     props.onViewTrades();
   };
 
+  let label = null;
+  if (props.display === "view") {
+    label = "View Chart";
+  } else {
+    label = "View Trades";
+  }
+
   return (
     <div className={classes.container}>
       <button className={classes.addButton} onClick={clickHandler}>
-        View Trades
+        {label}
       </button>
     </div>
   );

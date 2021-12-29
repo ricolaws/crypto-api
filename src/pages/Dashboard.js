@@ -9,6 +9,7 @@ import classes from "./Dashboard.module.css";
 import AddTradeButton from "../components/AddTradeButton";
 import ViewTradesButton from "../components/ViewTradesButton";
 import AddTradeWindow from "../components/AddTradeWindow";
+import ConditionalDisplay from "../components/ConditionalDisplay";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({ userAssets: [] });
@@ -16,8 +17,8 @@ function Dashboard(props) {
   const [account, setAccount] = useState(props.account);
   const [coinList, setCoinList] = useState();
   const [displayColors, setDisplayColors] = useState();
-  const [addTradeWindow, setAddTradeWindow] = useState(false);
-  const [viewTradesWindow, setViewTradesWindow] = useState(false);
+  const [conditionalDisplayContent, setConditionalDisplayContent] =
+    useState("chart");
 
   useEffect(() => {
     setDisplayColors(props.colors);
@@ -49,13 +50,22 @@ function Dashboard(props) {
     setFeaturedAsset(userData.userAssets[asset]);
   };
 
-  const toggleAddTradeWindow = () => {
-    setAddTradeWindow(!addTradeWindow);
+  const toggleAddTradeHandler = () => {
+    if (
+      conditionalDisplayContent === "chart" ||
+      conditionalDisplayContent === "view"
+    ) {
+      setConditionalDisplayContent("add");
+    } else setConditionalDisplayContent("chart");
   };
 
-  const clickViewTradesHandler = () => {
-    setViewTradesWindow(!viewTradesWindow);
-    console.log(account.assetData);
+  const toggleViewTradesHandler = () => {
+    if (
+      conditionalDisplayContent === "chart" ||
+      conditionalDisplayContent === "add"
+    ) {
+      setConditionalDisplayContent("view");
+    } else setConditionalDisplayContent("chart");
   };
 
   const addTradeHandler = (obj) => {
@@ -86,27 +96,27 @@ function Dashboard(props) {
           )}
         </div>
         <div className={classes.item_c}>
-          {!addTradeWindow ? (
-            <PortfolioLineChart
-              featuredAsset={featuredAsset}
-              colors={displayColors}
-              coins={coinList}
-              amounts={userData.userAssets}
-              data={userData}
-            />
-          ) : (
-            <AddTradeWindow
-              onAddTrade={addTradeHandler}
-              coinList={coinList}
-              onCloseWindow={toggleAddTradeWindow}
-            />
-          )}
+          <ConditionalDisplay
+            display={conditionalDisplayContent}
+            featuredAsset={featuredAsset}
+            colors={displayColors}
+            data={userData}
+            onAddTrade={addTradeHandler}
+            coinList={coinList}
+            onCloseWindow={toggleAddTradeHandler}
+          />
         </div>
         <div className={classes.item_d}>
-          <AddTradeButton onAddTrade={toggleAddTradeWindow} />
+          <AddTradeButton
+            onAddTrade={toggleAddTradeHandler}
+            display={conditionalDisplayContent}
+          />
         </div>
         <div className={classes.item_e}>
-          <ViewTradesButton onViewTrades={clickViewTradesHandler} />
+          <ViewTradesButton
+            onViewTrades={toggleViewTradesHandler}
+            display={conditionalDisplayContent}
+          />
         </div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart

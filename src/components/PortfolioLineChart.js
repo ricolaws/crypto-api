@@ -161,13 +161,11 @@ function PortfolioLineChart(props) {
   }, [props.featuredAsset]);
 
   return (
-    <Card>
-      <div className={classes.container}>
-        {chartData ? (
-          <Line key={key} data={chartData} options={chartOptions} />
-        ) : null}
-      </div>
-    </Card>
+    <div className={classes.container}>
+      {chartData ? (
+        <Line key={key} data={chartData} options={chartOptions} />
+      ) : null}
+    </div>
   );
 }
 
