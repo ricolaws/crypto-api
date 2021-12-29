@@ -1,17 +1,22 @@
 import React from "react";
+import Trade from "./Trade";
 
 function TradeHistoryWindow(props) {
   const content = props.data.userAssets.map((coin) => {
-    return (
-      <div>{`${coin.name}: ${coin.movements.map(
-        (mov) => mov.date + "" + mov.amount
-      )}`}</div>
-    );
+    return {
+      asset: coin.name,
+      trades: coin.movements.map(
+        (mov) => `${mov.date.toDateString()}:  ${mov.amount}`
+      ),
+    };
   });
+
   return (
     <div>
       <h2>Trade History</h2>
-      <p>{content}</p>
+      {content.map((mov) => {
+        return <Trade data={mov} />;
+      })}
     </div>
   );
 }
