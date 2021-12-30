@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   align-self: center;
-  height: 82vh;
+  /* height: 82vh; */
   display: grid;
   padding: 1rem;
   margin: 1rem;
@@ -191,7 +191,7 @@
     grid-template-columns:
       minmax(50px, 1fr) minmax(50px, 1fr)
       minmax(50px, 1fr) minmax(50px, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0.5rem;
     justify-items: stretch;
   }
@@ -212,7 +212,7 @@
   .conditional {
     background: transparent;
     grid-column: 1 / span 4;
-    grid-row: 5 / span 3;
+    grid-row: 5 / span 4;
     height: 100%;
   }
 

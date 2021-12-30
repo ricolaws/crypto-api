@@ -14,14 +14,13 @@ function PortfolioChart(props) {
     }
   };
 
-  console.log();
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: width / 11,
+    cutout: Math.min(width / 11, 120),
     plugins: {
       legend: {
-        position: "left",
+        position: "top",
         align: "start",
       },
     },
