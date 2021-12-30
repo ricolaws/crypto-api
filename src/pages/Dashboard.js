@@ -14,7 +14,6 @@ import ConditionalDisplay from "../components/ConditionalDisplay";
 function Dashboard(props) {
   const [userData, setUserData] = useState({ userAssets: [] });
   const [featuredAsset, setFeaturedAsset] = useState("");
-  const [account, setAccount] = useState(props.account);
   const [coinList, setCoinList] = useState();
   const [displayColors, setDisplayColors] = useState();
   const [conditionalDisplayContent, setConditionalDisplayContent] =
@@ -25,14 +24,17 @@ function Dashboard(props) {
   }, [props.colors]);
 
   useEffect(() => {
-    const coinListArr = account.assetData.map((coin) => coin.id);
+    const coinListArr = props.account.assetData.map((coin) => coin.id);
     setCoinList(coinListArr);
+    if (featuredAsset) {
+      setFeaturedAsset(featuredAsset);
+    }
 
     let url =
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=";
 
-    for (let i = 0; i < account.assetData.length; i++) {
-      url += account.assetData[i].id + "%2C";
+    for (let i = 0; i < props.account.assetData.length; i++) {
+      url += props.account.assetData[i].id + "%2C";
     }
     url +=
       "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C7d";
@@ -40,14 +42,15 @@ function Dashboard(props) {
     axios
       .get(url)
       .then((response) => {
-        setUserData(buildUserData(response.data, account.assetData));
+        setUserData(buildUserData(response.data, props.account.assetData));
       })
       .catch((error) => console.log(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.account]);
 
   const clickAssetHandler = (asset) => {
     setFeaturedAsset(userData.userAssets[asset]);
+    console.log(userData.userAssets[asset]);
   };
 
   const toggleAddTradeHandler = () => {
@@ -68,8 +71,8 @@ function Dashboard(props) {
     } else setConditionalDisplayContent("chart");
   };
 
-  const addTradeHandler = (obj) => {
-    props.onAddTrade(obj);
+  const addTradeHandler = (trade) => {
+    props.onAddTrade(trade);
   };
 
   return (

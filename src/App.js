@@ -25,8 +25,28 @@ function App() {
     routeChange("/dashboard");
   };
 
-  const addTradeHandler = (obj) => {
-    console.log(obj);
+  const addTradeHandler = (trade) => {
+    let newAssetData = account.assetData;
+
+    const parts = trade.date.split("-");
+    const d = new Date(+parts[0], parts[1] - 1, +parts[2], 12);
+
+    const newMovement = {
+      date: d,
+      amount: Number(trade.amount),
+      price: Number(trade.price),
+    };
+
+    const matchedIndex = account.assetData.findIndex(
+      (asset) => asset.id === trade.id
+    );
+
+    newAssetData[matchedIndex].movements.push(newMovement);
+
+    setAccount({
+      ...account,
+      assetData: newAssetData,
+    });
   };
 
   return (

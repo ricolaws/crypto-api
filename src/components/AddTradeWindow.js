@@ -3,17 +3,15 @@ import classes from "./AddTradeWindow.module.css";
 
 const initialFormData = Object.freeze({
   type: "",
-  coin: "",
+  id: "please choose...",
   date: "",
-  amount: "",
-  price: "",
-  total: "",
+  amount: 0,
+  price: 0,
+  total: 0,
 });
 
 function AddTradeWindow(props) {
   const [formData, setFormData] = useState(initialFormData);
-  const [total, setTotal] = useState();
-  const [price, setPrice] = useState();
 
   const closeWindowHandler = (e) => {
     e.preventDefault();
@@ -25,25 +23,42 @@ function AddTradeWindow(props) {
       ...formData,
       [e.target.name]: e.target.value.trim(),
     };
-    let calcTotal = newFormData.total;
-    let calcPrice = newFormData.price;
-    if (e.target.name === "amount") {
-      newFormData.total = e.target.value * newFormData.price;
+
+    if (e.target.name === "amount" && newFormData.price == 0) {
+      newFormData.total = e.target.value;
+    } else if (e.target.name === "amount") {
+      newFormData.total =
+        Math.round(Number(e.target.value * newFormData.price) * 100) / 100;
     }
     if (e.target.name === "price") {
-      newFormData.total = e.target.value * newFormData.amount;
+      newFormData.total =
+        Math.round(Number(e.target.value * newFormData.amount) * 100) / 100;
     }
     if (e.target.name === "total") {
-      newFormData.price = Number(e.target.value / newFormData.amount);
+      newFormData.price =
+        Math.round(Number(e.target.value / newFormData.amount) * 100) / 100;
     }
-    setTotal(newFormData.total);
-    setPrice(newFormData.price);
+
+    newFormData.amount = Number(newFormData.amount);
     setFormData(newFormData);
+  };
+
+  const selectHandler = (e) => {
+    setFormData({
+      ...formData,
+      type: e.target.value,
+    });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (formData.type === "sell") {
+      formData.amount = formData.amount * -1;
+      console.log(formData);
+    }
     props.onAddTrade(formData);
+    setFormData(initialFormData);
   };
 
   return (
@@ -60,10 +75,11 @@ function AddTradeWindow(props) {
           <div className={classes.item}>
             <div>
               <input
-                onChange={changeHandler}
+                onChange={selectHandler}
                 type="radio"
                 value="buy"
                 id="radio_1"
+                checked={formData.type === "buy"}
                 name="type"
                 required
               />
@@ -73,10 +89,11 @@ function AddTradeWindow(props) {
             </div>
             <div>
               <input
-                onChange={changeHandler}
+                onChange={selectHandler}
                 type="radio"
                 value="sell"
                 id="radio_2"
+                checked={formData.type === "sell"}
                 name="type"
                 required
               />
@@ -87,8 +104,13 @@ function AddTradeWindow(props) {
           </div>
           <div className={classes.item}>
             <p>Which Coin?</p>
-            <select name="coin" onChange={changeHandler} required>
-              <option value="" disabled>
+            <select
+              value={formData.id || "please choose..."}
+              name="id"
+              onChange={changeHandler}
+              required
+            >
+              <option value="please choose..." disabled>
                 please choose...
               </option>
               {props.coinList.map((coin, i) => {
@@ -102,15 +124,24 @@ function AddTradeWindow(props) {
           </div>
           <div className={classes.item}>
             <p>Date of trade</p>
-            <input type="date" name="date" onChange={changeHandler} required />
+            <input
+              type="date"
+              name="date"
+              onChange={changeHandler}
+              value={formData.date}
+              required
+            />
             <i className={classes.calendar}></i>
           </div>
           <div className={classes.item}>
             <p>Amount</p>
             <input
               onChange={changeHandler}
+              value={formData.amount}
               type="number"
               name="amount"
+              min="0"
+              step="0.001"
               required
             />
           </div>
@@ -118,8 +149,10 @@ function AddTradeWindow(props) {
             <p>Price</p>
             <input
               onChange={changeHandler}
-              value={price}
+              value={formData.price}
               type="number"
+              min="0"
+              step="0.01"
               name="price"
               required
             />
@@ -128,9 +161,11 @@ function AddTradeWindow(props) {
             <p>Total</p>
             <input
               onChange={changeHandler}
-              value={total}
+              value={formData.total}
               type="number"
               name="total"
+              min="0"
+              step="0.01"
               required
             />
           </div>

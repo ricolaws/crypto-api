@@ -68,11 +68,11 @@ button {
 
 button:hover,
 button:focus {
-  background: #ffffff;
+  background: #f3f3f1;
 }
 
 button:focus {
-  outline: 2px solid var(--app-color-4);
+  outline: 1px solid var(--app-color-4);
   outline-offset: 2px;
 }
 
