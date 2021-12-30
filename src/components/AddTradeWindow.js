@@ -63,7 +63,7 @@ function AddTradeWindow(props) {
 
   return (
     <div className={classes.container}>
-      <form onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.banner}>
           <h2>Buying or selling crypto?</h2>
           <h3>
@@ -172,9 +172,6 @@ function AddTradeWindow(props) {
         </div>
         <div className={classes.actions}>
           <button type="submit">Submit</button>
-          <button type="button" onClick={closeWindowHandler}>
-            Cancel
-          </button>
         </div>
       </form>
     </div>
@@ -182,3 +179,9 @@ function AddTradeWindow(props) {
 }
 
 export default AddTradeWindow;
+
+{
+  /* <button type="button" onClick={closeWindowHandler}>
+            Cancel
+          </button> */
+}

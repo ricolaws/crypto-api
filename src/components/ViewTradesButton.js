@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./AddTradeButton.module.css";
 
 function ViewTradesButton(props) {
   const clickHandler = () => {
@@ -14,10 +13,8 @@ function ViewTradesButton(props) {
   }
 
   return (
-    <div className={classes.container}>
-      <button className={classes.addButton} onClick={clickHandler}>
-        {label}
-      </button>
+    <div>
+      <button onClick={clickHandler}>{label}</button>
     </div>
   );
 }

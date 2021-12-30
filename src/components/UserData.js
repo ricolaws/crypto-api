@@ -40,6 +40,14 @@ export const ACCOUNT_1 = {
         { date: new Date("2020-10-27"), amount: 0.1, price: 47500.88 },
       ],
     },
+    {
+      id: "etherium",
+      total: 0.9,
+      movements: [
+        { date: new Date("2021-05-27"), amount: 0.4, price: 3201.0 },
+        { date: new Date("2020-11-27"), amount: 0.5, price: 2900.98 },
+      ],
+    },
   ],
   pin: 5555,
   calcTotalCost: function () {

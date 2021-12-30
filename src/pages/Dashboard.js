@@ -10,12 +10,14 @@ import AddTradeButton from "../components/AddTradeButton";
 import ViewTradesButton from "../components/ViewTradesButton";
 import AddTradeWindow from "../components/AddTradeWindow";
 import ConditionalDisplay from "../components/ConditionalDisplay";
+import useWindowDimensions from "../hooks/getWindowDimensions";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({ userAssets: [] });
   const [featuredAsset, setFeaturedAsset] = useState("");
   const [coinList, setCoinList] = useState();
   const [displayColors, setDisplayColors] = useState();
+  const { height, width } = useWindowDimensions();
   const [conditionalDisplayContent, setConditionalDisplayContent] =
     useState("chart");
 
@@ -75,10 +77,15 @@ function Dashboard(props) {
     props.onAddTrade(trade);
   };
 
+  let arrow = "→";
+  if (width < 920) {
+    arrow = "↓";
+  } else arrow = "→";
+
   return (
     <React.Fragment>
       <div className={classes.container}>
-        <div className={classes.item_a}>
+        <div className={classes.overview}>
           {userData ? (
             <ValueAndCost
               title={"Portfolio"}
@@ -95,10 +102,10 @@ function Dashboard(props) {
               cost={featuredAsset.total_cost}
             />
           ) : (
-            "Select a Coin  →"
+            `Select a Coin  ${arrow}`
           )}
         </div>
-        <div className={classes.item_c}>
+        <div className={classes.conditional}>
           <ConditionalDisplay
             display={conditionalDisplayContent}
             featuredAsset={featuredAsset}
@@ -109,13 +116,13 @@ function Dashboard(props) {
             onCloseWindow={toggleAddTradeHandler}
           />
         </div>
-        <div className={classes.item_d}>
+        <div className={classes.button1}>
           <AddTradeButton
             onAddTrade={toggleAddTradeHandler}
             display={conditionalDisplayContent}
           />
         </div>
-        <div className={classes.item_e}>
+        <div className={classes.button2}>
           <ViewTradesButton
             onViewTrades={toggleViewTradesHandler}
             display={conditionalDisplayContent}

@@ -24,6 +24,7 @@ body {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 0.9rem;
   /* background: var(--main-bg-color); */
   background: var(--main-bg-color);
 }
@@ -48,36 +49,59 @@ h2 h3 h4 {
 button {
   display: inline-block;
   border: none;
-  padding: 0.25rem 1.5rem;
+  padding: 0.25rem 0.25rem;
   margin: 0;
-  width: 40%;
-  height: 2.5rem;
+  width: 9rem;
+  /* max-width: 9rem; */
+  height: 2.2rem;
   border-radius: 1.5rem;
   text-decoration: none;
   background: #ffffff;
   color: rgb(36, 36, 36);
   border: 1px solid rgb(36, 36, 36);
   font-family: "Lato", sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
+  transition: all 180ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
 
-button:hover,
-button:focus {
-  background: #f3f3f1;
+button:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 4px 0 #1c96cd;
+  /* background: #ffff00; */
 }
 
 button:focus {
   outline: 1px solid var(--app-color-4);
   outline-offset: 2px;
+  border: 1px solid transparent;
+  box-shadow: 0 0 4px 0 #1c96cd;
 }
 
 button:active {
   transform: scale(0.99);
+}
+input,
+select {
+  font-size: 0.9rem;
+  transition: all 80ms ease;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input:hover::placeholder {
+  color: #1c96cd;
+}
+input:hover,
+input:focus,
+select:hover {
+  border: 1px solid transparent;
+  /* box-shadow: 0 0 6px 0 #1c87c9; */
+  box-shadow: 0 0 4px 0 #1c96cd;
+  color: #1c96cd;
 }
 
 .red {
@@ -88,15 +112,26 @@ button:active {
   color: var(--app-color-4);
 }
 
-/* smallest phones */
-@media only screen and (max-width: 340px) {
+/* smaller screen */
+@media only screen and (max-width: 566px) {
   :root {
-    font-size: 82%;
+    font-size: 92%;
   }
   button {
     margin: 0;
-    width: 75%;
     height: 2rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* small phones */
+@media only screen and (max-width: 376px) {
+  :root {
+    font-size: 78%;
+  }
+  button {
+    margin: 0;
+    height: 2rem;
+    font-size: 0.9rem;
   }
 }

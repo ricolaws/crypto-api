@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import pattern from "patternomaly";
 import colorList from "../theme/colorPatterns";
+import useWindowDimensions from "../hooks/getWindowDimensions";
 
 function PortfolioChart(props) {
   const [portfolioChartData, setPortfolioChartData] = useState();
+  const { height, width } = useWindowDimensions();
 
   const clickHandler = (evt, item) => {
     if (item.length > 0) {
@@ -12,10 +14,11 @@ function PortfolioChart(props) {
     }
   };
 
+  console.log();
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: 80,
+    cutout: width / 11,
     plugins: {
       legend: {
         position: "left",
