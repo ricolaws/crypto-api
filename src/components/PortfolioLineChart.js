@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import classes from "./PortfolioLineChart.module.css";
-import Card from "./Card";
 import pattern from "patternomaly";
-// import { colorList, colorPatterns } from "./theme/colorPatterns";
 
 function PortfolioLineChart(props) {
   const [priceData, setPriceData] = useState([]);
@@ -85,11 +83,7 @@ function PortfolioLineChart(props) {
       priceData.forEach((coinObj, i) => {
         const [id] = Object.keys(coinObj);
         const [prices] = Object.values(coinObj);
-        let c = i;
-        if (c > props.colors.length) {
-          c -= props.colors.length;
-        }
-        const pats = ["diagonal-right-left", "cross-dash", "zigzag", "weave"];
+
         const [filteredByCoin] = props.data.userAssets.filter(
           (coin) => coin.id === id
         );
@@ -104,20 +98,19 @@ function PortfolioLineChart(props) {
           label: id,
           data: summedValues[i],
           fill: true,
-          borderColor: pattern.draw(
-            pats[c],
-            props.colors[c],
-            "hsl(0, 0, 0, 0)"
-          ),
-          backgroundColor: pattern.draw(
-            pats[c],
-            props.colors[c],
-            "hsl(0 0 0 0)"
-          ),
+          borderColor: props.colors[i],
+          backgroundColor: props.colors[i],
           tension: 0.2,
           borderWidth: 2,
           hidden: true,
         };
+        // add patterns to chart
+        dataSet.backgroundColor = pattern.draw(
+          props.colorPatterns[i][1],
+          props.colorPatterns[i][0],
+          "#000"
+        );
+
         chartDataObj.datasets.push(dataSet);
       });
 
@@ -138,7 +131,7 @@ function PortfolioLineChart(props) {
 
       setChartData(chartDataObj);
     }
-  }, [priceData, props.data]);
+  }, [priceData, props.data, props.colors]);
 
   useEffect(() => {
     if (chartData) {

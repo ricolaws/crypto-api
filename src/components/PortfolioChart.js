@@ -33,12 +33,7 @@ function PortfolioChart(props) {
       datasets: [
         {
           label: "Portfolio",
-          backgroundColor: [
-            pattern.draw("diagonal-right-left", colorList[0], contrast2),
-            pattern.draw("cross-dash", colorList[1], contrast2),
-            pattern.draw("zigzag", colorList[2], contrast2),
-            pattern.draw("weave", colorList[3], contrast2),
-          ],
+          backgroundColor: "#005",
           hoverOffset: 6,
           hoverBorderWidth: 1,
           borderRadius: 0,
@@ -47,6 +42,15 @@ function PortfolioChart(props) {
       ],
     };
 
+    chartData.datasets[0].backgroundColor = props.data.userAssets.map(
+      (asset, i) => {
+        return pattern.draw(
+          props.colorPatterns[i][1],
+          props.colorPatterns[i][0],
+          contrast2
+        );
+      }
+    );
     chartData.labels = props.data.userAssets.map((asset) => {
       return asset.name;
     });
@@ -56,7 +60,7 @@ function PortfolioChart(props) {
     });
 
     setPortfolioChartData(chartData);
-  }, [props.data]);
+  }, [props.data, props.colorPatterns]);
 
   return (
     <React.Fragment>

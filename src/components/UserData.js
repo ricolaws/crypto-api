@@ -28,7 +28,7 @@ export const ACCOUNT_1 = {
       id: "matic-network",
       total: 1000,
       movements: [
-        { date: new Date("2021-10-27"), amount: 500, price: 0.01509 },
+        { date: new Date("2021-10-27"), amount: 2500, price: 0.01509 },
         { date: new Date("2020-10-27"), amount: 500, price: 1.9509 },
       ],
     },
@@ -41,11 +41,11 @@ export const ACCOUNT_1 = {
       ],
     },
     {
-      id: "etherium",
+      id: "ethereum",
       total: 0.9,
       movements: [
         { date: new Date("2021-05-27"), amount: 0.4, price: 3201.0 },
-        { date: new Date("2020-11-27"), amount: 0.5, price: 2900.98 },
+        { date: new Date("2020-11-27"), amount: 1.5, price: 2900.98 },
       ],
     },
   ],

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PortfolioLineChart from "./PortfolioLineChart";
 import AddTradeWindow from "./AddTradeWindow";
 import TradeHistoryWindow from "./TradeHistoryWindow";
@@ -9,6 +9,7 @@ function ConditionalDisplay(props) {
   if (props.display === "chart") {
     content = (
       <PortfolioLineChart
+        colorPatterns={props.colorPatterns}
         featuredAsset={props.featuredAsset}
         colors={props.colors}
         coins={props.coinList}

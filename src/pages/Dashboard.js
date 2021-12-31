@@ -23,6 +23,7 @@ function Dashboard(props) {
 
   useEffect(() => {
     setDisplayColors(props.colors);
+    console.log(props.colors);
   }, [props.colors]);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function Dashboard(props) {
     url +=
       "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C7d";
 
+    console.log(url);
     axios
       .get(url)
       .then((response) => {
@@ -52,7 +54,6 @@ function Dashboard(props) {
 
   const clickAssetHandler = (asset) => {
     setFeaturedAsset(userData.userAssets[asset]);
-    console.log(userData.userAssets[asset]);
   };
 
   const toggleAddTradeHandler = () => {
@@ -110,6 +111,7 @@ function Dashboard(props) {
             display={conditionalDisplayContent}
             featuredAsset={featuredAsset}
             colors={displayColors}
+            colorPatterns={props.colorPatterns}
             data={userData}
             onAddTrade={addTradeHandler}
             coinList={coinList}
@@ -130,6 +132,7 @@ function Dashboard(props) {
         </div>
         <div className={classes.portfolio_chart}>
           <PortfolioChart
+            colorPatterns={props.colorPatterns}
             onSetFeaturedAsset={clickAssetHandler}
             data={userData}
           />

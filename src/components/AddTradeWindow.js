@@ -13,10 +13,10 @@ const initialFormData = Object.freeze({
 function AddTradeWindow(props) {
   const [formData, setFormData] = useState(initialFormData);
 
-  const closeWindowHandler = (e) => {
-    e.preventDefault();
-    props.onCloseWindow();
-  };
+  // const closeWindowHandler = (e) => {
+  //   e.preventDefault();
+  //   props.onCloseWindow();
+  // };
 
   const changeHandler = (e) => {
     let newFormData = {
@@ -179,9 +179,3 @@ function AddTradeWindow(props) {
 }
 
 export default AddTradeWindow;
-
-{
-  /* <button type="button" onClick={closeWindowHandler}>
-            Cancel
-          </button> */
-}

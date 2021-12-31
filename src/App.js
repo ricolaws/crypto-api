@@ -17,8 +17,6 @@ function App() {
     history.push(path);
   };
 
-  // console.log(colorList, colorPatterns);
-
   const signInHandler = (username, password) => {
     console.log(username, password);
     setSignedIn(true);
@@ -59,6 +57,7 @@ function App() {
         <Dashboard
           account={account}
           colors={colorList}
+          colorPatterns={colorPatterns}
           onAddTrade={addTradeHandler}
         />
       </Route>

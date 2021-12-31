@@ -10,7 +10,7 @@ function ValueAndCost(props) {
       setTotalValue(props.value.toLocaleString());
       setROI((props.value / props.cost) * 100 - 100);
     }
-  }, [props.value]);
+  }, [props.value, props.cost]);
 
   const returnOnInvestment = ROI ? ROI.toFixed(2) : null;
 
