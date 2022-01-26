@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import BrowseCoins from "./pages/BrowseCoins";
 import Dashboard from "./pages/Dashboard";
@@ -7,21 +7,24 @@ import MainHeader from "./components/MainHeader";
 import { ACCOUNT_1 } from "./components/UserData";
 import { useHistory } from "react-router-dom";
 import { colorList, colorPatterns } from "./theme/colorPatterns";
+import { useSelector } from 'react-redux';
+
 
 function App() {
   const history = useHistory();
-  const [signedIn, setSignedIn] = useState(false);
+  const isLoggedIn = useSelector(state => state.auth.isAuthenticated);
   const [account, setAccount] = useState(ACCOUNT_1);
 
   const routeChange = (path) => {
     history.push(path);
   };
 
-  const signInHandler = (username, password) => {
-    console.log(username, password);
-    setSignedIn(true);
-    routeChange("/dashboard");
-  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      routeChange("/dashboard");
+    }
+  }, [isLoggedIn])
+
 
   const addTradeHandler = (trade) => {
     let newAssetData = account.assetData;
@@ -49,9 +52,9 @@ function App() {
 
   return (
     <div className="app">
-      <MainHeader signedIn={signedIn} />
+      <MainHeader />
       <Route path="/welcome">
-        <Welcome onSignIn={signInHandler} />
+        <Welcome />
       </Route>
       <Route path="/dashboard">
         <Dashboard
