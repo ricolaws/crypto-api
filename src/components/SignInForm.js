@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import classes from "../pages/Welcome.module.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from '../store/index';
+import { authActions } from '../store/authSlice';
 
 
 function SignInForm(props) {
