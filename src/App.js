@@ -7,8 +7,8 @@ import Welcome from "./pages/Welcome";
 import MainHeader from "./components/MainHeader";
 import { colorList, colorPatterns } from "./theme/colorPatterns";
 import { useSelector, useDispatch } from "react-redux";
-import { accountActions } from "./store/accountSlice";
 import { fetchAccountData, fetchMarketData } from "./store/account-actions";
+import { buildCurrentAccount } from "./logic/calcAccountFunctions";
 
 function App() {
 	const history = useHistory();
@@ -43,6 +43,13 @@ function App() {
 		}
 	}, [account, dispatch]);
 
+	// combine market data with stored account data
+	const buildHandler = () => {
+		console.log("MARKET", marketData);
+		console.log("ACCOUNT", account.coinData);
+		let result = buildCurrentAccount(marketData, account.coinData);
+	};
+
 	const addTradeHandler = (trade) => {
 		let newcoinData = account.coinData;
 
@@ -73,6 +80,7 @@ function App() {
 			<Route path="/welcome">
 				<Welcome />
 			</Route>
+			<button onClick={buildHandler}>BUILD</button>
 			<Route path="/dashboard">
 				{isLoggedIn && (
 					<Dashboard

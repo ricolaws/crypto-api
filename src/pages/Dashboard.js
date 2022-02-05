@@ -19,8 +19,6 @@ function Dashboard(props) {
 	const [conditionalDisplayContent, setConditionalDisplayContent] =
 		useState("chart");
 
-	console.log(account);
-
 	// useEffect(() => {
 	//   if (account) {
 	//     const currentData = getMarketData(account)

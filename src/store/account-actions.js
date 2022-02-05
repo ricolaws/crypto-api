@@ -101,8 +101,3 @@ export const fetchMarketData = (coinData) => {
 };
 
 // call market_chart url for market data OVER TIME
-
-// ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - COMBINE ACCOUNT w/ MARKET DATA - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
-
-// update account with values calculated with current market data
-export const buildCurrentAccount = () => {};
