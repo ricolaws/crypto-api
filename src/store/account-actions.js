@@ -1,5 +1,6 @@
 import { accountActions } from "./accountSlice";
 import { marketDataActions } from "./marketDataSlice";
+import { uiActions } from "./uiSlice";
 import {
 	calcCoinTotals,
 	calcAverageCosts,
@@ -34,6 +35,7 @@ export const fetchAccountData = () => {
 					coinData: accountData.coinData || [],
 				})
 			);
+			dispatch(marketDataActions.needData(true));
 		} catch (error) {
 			console.log(error);
 		}
@@ -94,6 +96,8 @@ export const fetchMarketData = (coinData) => {
 			marketData.forEach((coin) => {
 				dispatch(marketDataActions.addData(coin));
 			});
+			dispatch(marketDataActions.needData(false));
+			dispatch(accountActions.changeReady(true));
 		} catch (error) {
 			console.log(error);
 		}
@@ -101,3 +105,81 @@ export const fetchMarketData = (coinData) => {
 };
 
 // call market_chart url for market data OVER TIME
+// export const fetchDailyMarketData = (coinData) => {
+// 	return async (dispatch) => {
+// 		const fetchData = async () => {
+// 			const coinIDs = coinData.map((coin) => coin.id);
+
+// 			let urls = coinIDs.map(
+// 				(coin) =>
+// 					`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`
+// 			);
+
+// 			Promise.all(
+// 				urls.map((url) => fetch(url).then((response) => response.json()))
+// 			).then((data) => console.log(data));
+// 		};
+// 	};
+// };
+
+// work in progress. compare to axios version in PLC...
+export const fetchDailyData = async (coinData) => {
+	const coinIDs = coinData.map((coin) => coin.id);
+
+	let urls = coinIDs.map(
+		(coin) =>
+			`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`
+	);
+
+	Promise.all(
+		urls.map((url) => fetch(url).then((response) => response.json()))
+	).then((data) => {
+		console.log(data.map((coin) => coin.prices));
+	});
+};
+
+// ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - COMBINE ACCOUNT w/ MARKET DATA - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
+// update account with values calculated from current market data
+export const buildCurrentAccount = (marketData, account) => {
+	return async (dispatch) => {
+		const combineData = async () => {
+			// combine data
+			const coinDataArray = marketData.map((coin) => {
+				const [matchedData] = account.coinData.filter(
+					(data) => data.id === coin.id
+				);
+				const coinDataObj = {
+					...coin,
+					...matchedData,
+					currentValue: coin.currentPrice * matchedData.totalAmount,
+					totalCost: matchedData.averageCost * matchedData.totalAmount,
+				};
+				coinDataObj.roi =
+					(coinDataObj.currentValue / coinDataObj.totalCost) * 100;
+				return coinDataObj;
+			});
+			const portfolioVal = coinDataArray
+				.map((coin) => coin.currentValue)
+				.reduce((a, b) => a + b);
+
+			// this could go elsewhere...?
+			const portfolioTotalCost = coinDataArray
+				.map((coin) => coin.totalCost)
+				.reduce((a, b) => a + b);
+
+			// coinDataArray.forEach((coin) => getDailyTotals(coin));
+
+			return {
+				...account,
+				coinData: coinDataArray,
+				portfolioValue: portfolioVal,
+				portfolioCost: portfolioTotalCost,
+			};
+		};
+		const combinedData = await combineData();
+		console.log(combinedData);
+		dispatch(accountActions.replaceAccount(combinedData));
+		dispatch(accountActions.changeReady(false));
+		dispatch(uiActions.showDashboard(true));
+	};
+};

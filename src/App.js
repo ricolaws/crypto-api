@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import BrowseCoins from "./pages/BrowseCoins";
@@ -7,15 +7,22 @@ import Welcome from "./pages/Welcome";
 import MainHeader from "./components/MainHeader";
 import { colorList, colorPatterns } from "./theme/colorPatterns";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAccountData, fetchMarketData } from "./store/account-actions";
-import { buildCurrentAccount } from "./logic/calcAccountFunctions";
+import {
+	fetchAccountData,
+	fetchMarketData,
+	fetchDailyData,
+	buildCurrentAccount,
+} from "./store/account-actions";
+import { accountActions } from "./store/accountSlice";
 
 function App() {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
-	const account = useSelector((state) => state.account);
-	const marketData = useSelector((state) => state.marketData);
+	const account = useSelector((state) => state.account.data);
+	const accountReady = useSelector((state) => state.account.ready);
+	const marketData = useSelector((state) => state.marketData.data);
+	const needMarketData = useSelector((state) => state.marketData.needData);
 
 	// move to dashboard on login
 	useEffect(() => {
@@ -27,27 +34,32 @@ function App() {
 		}
 	}, [isLoggedIn, history]);
 
-	// get account data from firebase on login
+	// get account data from firebase on login. needMarketData = true
 	useEffect(() => {
 		if (isLoggedIn) {
+			console.log("effect #2", needMarketData);
 			dispatch(fetchAccountData());
-			console.log("app fetch");
 		}
 	}, [isLoggedIn, dispatch]);
 
-	// get market data from CoinGecko
+	// get market data from CoinGecko. needMarketData = false
 	useEffect(() => {
-		if (account) {
-			console.log("FMD");
+		if (account && needMarketData) {
+			console.log("effect #3", needMarketData, account);
 			dispatch(fetchMarketData(account.coinData));
 		}
-	}, [account, dispatch]);
+	}, [account, needMarketData, dispatch]);
 
-	// combine market data with stored account data
-	const buildHandler = () => {
-		console.log("MARKET", marketData);
-		console.log("ACCOUNT", account.coinData);
-		let result = buildCurrentAccount(marketData, account.coinData);
+	useEffect(() => {
+		if (accountReady) {
+			console.log("USEEFFECT#4");
+			dispatch(buildCurrentAccount(marketData, account));
+		}
+	}, [accountReady, dispatch]);
+
+	const dailyHandler = () => {
+		console.log("DAILY");
+		fetchDailyData(account.coinData);
 	};
 
 	const addTradeHandler = (trade) => {
@@ -80,7 +92,7 @@ function App() {
 			<Route path="/welcome">
 				<Welcome />
 			</Route>
-			<button onClick={buildHandler}>BUILD</button>
+			<button onClick={dailyHandler}>daily</button>
 			<Route path="/dashboard">
 				{isLoggedIn && (
 					<Dashboard

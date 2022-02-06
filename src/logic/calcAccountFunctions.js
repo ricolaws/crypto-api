@@ -22,69 +22,58 @@ export const calcAverageCosts = (arr) => {
 	);
 };
 
-// takes account data combined with api data and adds up the current_value properties then adds the total_cost props
+export const getDateFromStamp = (timeStamp) => {
+	var d = new Date(timeStamp);
+	const TSConverted = d.getMonth() + 1 + "/" + d.getDate();
+	return TSConverted;
+};
+
+// derives the total amount of a coin in the account on a per day basis
+// from the time the first puchase was made up to the current date.
+
+// is the problem here with my dates???
+// is it hat i need to convert from timestamp?? can i handle this in portfolio line chart?
 export function getDailyTotals(coin) {
-	console.log(coin);
+	// copy movements array so we aren't manipulating state, then arrange in chronological order.
+	const copy = [...coin.movements];
+	const movs = copy.sort((a, b) => a.date - b.date);
+
 	const dailyTotals = [];
 	const rightNow = new Date();
-	// be sure that the movements are in chronological order
-	const movs = coin.movements.sort((a, b) => a.date - b.date);
 	const addDays = function (days) {
 		const date = new Date(this.valueOf());
 		date.setDate(date.getDate() + days);
 		return date;
 	};
 
+	// from portfolio line chart after daily values are fetched
+
+	// const [timestamps] = Object.values(priceData[0]);
+	// const dateLabels = timestamps.map((date) => getDateFromStamp(date[0]));
+
 	let runningTotal = 0;
+
 	for (let i = 0; i <= movs.length - 1; i++) {
-		let currentDate = movs[i].date;
+		let selectedDate = movs[i].date;
 		runningTotal += movs[i].amount;
 
+		console.log(rightNow);
+
 		if (movs[i + 1]) {
-			while (currentDate < movs[i + 1].date) {
-				dailyTotals.push({ date: currentDate, amount: runningTotal });
-				currentDate = addDays.call(currentDate, 1);
+			console.log(selectedDate < movs[i + 1].date);
+			while (selectedDate < movs[i + 1].date) {
+				console.log("while");
+				dailyTotals.push({ date: selectedDate, amount: runningTotal });
+				selectedDate = addDays.call(selectedDate, 1);
 			}
 		} else {
-			while (currentDate <= rightNow) {
-				dailyTotals.push({ date: currentDate, amount: runningTotal });
-				currentDate = addDays.call(currentDate, 1);
+			while (selectedDate <= rightNow) {
+				dailyTotals.push({ date: selectedDate, amount: runningTotal });
+				selectedDate = addDays.call(selectedDate, 1);
 			}
 		}
+		console.log(dailyTotals);
 	}
-	coin.dailyTotals = dailyTotals;
+
+	// coin.dailyTotals = dailyTotals;
 }
-
-// ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - COMBINE ACCOUNT w/ MARKET DATA - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
-// update account with values calculated with current market data
-export const buildCurrentAccount = (marketData, coinData) => {
-	const coinDataArray = marketData.map((coin) => {
-		const [matchedData] = coinData.filter((data) => data.id === coin.id);
-		const coinDataObj = {
-			...coin,
-			...matchedData,
-			currentValue: coin.currentPrice * matchedData.totalAmount,
-			totalCost: matchedData.averageCost * matchedData.totalAmount,
-		};
-		coinDataObj.roi = (coinDataObj.currentValue / coinDataObj.totalCost) * 100;
-		return coinDataObj;
-	});
-
-	const portfolioVal = coinDataArray
-		.map((coin) => coin.currentValue)
-		.reduce((a, b) => a + b);
-
-	// this could go elsewhere...
-	const portfolioTotalCost = coinDataArray
-		.map((coin) => coin.totalCost)
-		.reduce((a, b) => a + b);
-
-	console.log(coinDataArray[0]);
-	// coinDataArray.forEach((coin) => getDailyTotals(coin));
-
-	return {
-		coinData: coinDataArray,
-		portfolioValue: portfolioVal,
-		portfolioCost: portfolioTotalCost,
-	};
-};
