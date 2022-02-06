@@ -10,7 +10,8 @@ function PortfolioChart(props) {
 
 	const clickHandler = (evt, item) => {
 		if (item.length > 0) {
-			props.onSetFeaturedAsset(item[0].index);
+			console.log(item);
+			props.onSetFeaturedCoin(item[0].index);
 		}
 	};
 
@@ -42,19 +43,19 @@ function PortfolioChart(props) {
 			],
 		};
 
-		chartData.datasets[0].backgroundColor = props.data.map((asset, i) => {
+		chartData.datasets[0].backgroundColor = props.data.map((coin, i) => {
 			return pattern.draw(
 				props.colorPatterns[i][1],
 				props.colorPatterns[i][0],
 				contrast2
 			);
 		});
-		chartData.labels = props.data.map((asset) => {
-			return asset.name;
+		chartData.labels = props.data.map((coin) => {
+			return coin.name;
 		});
 
-		chartData.datasets[0].data = props.data.map((asset) => {
-			return asset.currentValue;
+		chartData.datasets[0].data = props.data.map((coin) => {
+			return coin.currentValue;
 		});
 
 		setPortfolioChartData(chartData);

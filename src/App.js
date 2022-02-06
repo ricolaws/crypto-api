@@ -57,11 +57,6 @@ function App() {
 		}
 	}, [accountReady, dispatch]);
 
-	const dailyHandler = () => {
-		console.log("DAILY");
-		fetchDailyData(account.coinData);
-	};
-
 	const addTradeHandler = (trade) => {
 		let newcoinData = account.coinData;
 
@@ -92,7 +87,6 @@ function App() {
 			<Route path="/welcome">
 				<Welcome />
 			</Route>
-			<button onClick={dailyHandler}>daily</button>
 			<Route path="/dashboard">
 				{isLoggedIn && (
 					<Dashboard

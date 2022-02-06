@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialUIState = {
 	showDash: false,
-	featuredCoin: null,
+	featured: { none: true },
 	display: "chart",
 };
 
@@ -14,7 +14,12 @@ export const uiSlice = createSlice({
 			state.showDash = action.payload;
 		},
 		setFeatured(state, action) {
-			state.featuredCoin = action.payload;
+			state.featured.id = action.payload.id;
+			state.featured.name = action.payload.name;
+			state.featured.symbol = action.payload.symbol;
+			state.featured.currentValue = action.payload.currentValue;
+			state.featured.totalCost = action.payload.totalCost;
+			state.featured.none = false;
 		},
 	},
 });

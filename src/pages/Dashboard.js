@@ -29,8 +29,9 @@ function Dashboard(props) {
 		setDisplayColors(props.colors);
 	}, [props.colors]);
 
-	const clickAssetHandler = (asset) => {
-		dispatch(uiActions.setFeatured(account.coinData[asset]));
+	const clickAssetHandler = (coin) => {
+		console.log(account.coinData[coin]);
+		dispatch(uiActions.setFeatured(account.coinData[coin]));
 	};
 
 	const toggleAddTradeHandler = () => {
@@ -72,11 +73,11 @@ function Dashboard(props) {
 						/>
 					</div>
 					<div className={classes.featured}>
-						{featuredCoin ? (
+						{!featuredCoin.none ? (
 							<ValueAndCost
 								title={featuredCoin.symbol.toUpperCase()}
-								value={featuredCoin.current_value}
-								cost={featuredCoin.total_cost}
+								value={featuredCoin.currentValue}
+								cost={featuredCoin.totalCost}
 							/>
 						) : (
 							`Select a Coin  ${arrow}`
@@ -103,13 +104,39 @@ function Dashboard(props) {
 					<div className={classes.portfolio_chart}>
 						<PortfolioChart
 							colorPatterns={props.colorPatterns}
-							onSetFeaturedAsset={clickAssetHandler}
+							onSetFeaturedCoin={clickAssetHandler}
 							data={account.coinData}
 						/>
 					</div>
 				</div>
 			)}
-			<button onClick={clickAssetHandler}>feat</button>
+			<div className={classes.labelsContainer}>
+				<div className={`${classes.rows} ${classes.labels}`}>
+					<div className={classes.nameHeading}>Name</div>
+					<div className={classes.symbol}>Symbol</div>
+					<div>Price</div>
+					<div>24hr.</div>
+					<div>7d.</div>
+					<div>M.Cap</div>
+					<div>ROI</div>
+				</div>
+			</div>
+			{showDash &&
+				account.coinData.map((coin) => {
+					return (
+						<CoinInfo
+							key={coin.id}
+							name={coin.name}
+							price={coin.currentPrice}
+							image={coin.image}
+							symbol={coin.symbol}
+							marketCap={coin.marketCap}
+							priceChange24={coin.priceChange_24h}
+							priceChange7d={coin.priceChange_7d}
+							roi={coin.roi}
+						/>
+					);
+				})}
 		</React.Fragment>
 	);
 
