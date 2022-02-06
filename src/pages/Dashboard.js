@@ -70,6 +70,7 @@ function Dashboard(props) {
 							title={"Portfolio"}
 							value={account.portfolioValue}
 							cost={account.portfolioCost}
+							roi={account.portfolioROI}
 						/>
 					</div>
 					<div className={classes.featured}>
@@ -78,6 +79,7 @@ function Dashboard(props) {
 								title={featuredCoin.symbol.toUpperCase()}
 								value={featuredCoin.currentValue}
 								cost={featuredCoin.totalCost}
+								roi={featuredCoin.roi}
 							/>
 						) : (
 							`Select a Coin  ${arrow}`
@@ -112,7 +114,7 @@ function Dashboard(props) {
 			)}
 			<div className={classes.labelsContainer}>
 				<div className={`${classes.rows} ${classes.labels}`}>
-					<div className={classes.nameHeading}>Name</div>
+					<div className={classes.nameHeading}></div>
 					<div className={classes.symbol}>Symbol</div>
 					<div>Price</div>
 					<div>24hr.</div>

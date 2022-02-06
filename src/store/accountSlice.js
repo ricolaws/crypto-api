@@ -14,6 +14,7 @@ export const accountSlice = createSlice({
 			state.data.userName = action.payload.userName;
 			state.data.portfolioValue = action.payload.portfolioValue;
 			state.data.portfolioCost = action.payload.portfolioCost;
+			state.data.portfolioROI = action.payload.portfolioROI;
 			state.data.coinData = action.payload.coinData;
 		},
 		updateAccount(state, action) {

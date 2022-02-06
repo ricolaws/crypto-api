@@ -19,6 +19,7 @@ export const uiSlice = createSlice({
 			state.featured.symbol = action.payload.symbol;
 			state.featured.currentValue = action.payload.currentValue;
 			state.featured.totalCost = action.payload.totalCost;
+			state.featured.roi = action.payload.roi;
 			state.featured.none = false;
 		},
 	},

@@ -1,47 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { money } from "../logic/helpers";
 import classes from "../pages/Dashboard.module.css";
 
 function ValueAndCost(props) {
-  const [totalValue, setTotalValue] = useState();
-  const [ROI, setROI] = useState();
+	const { title, value, cost, roi } = props;
 
-  useEffect(() => {
-    if (props.value) {
-      setTotalValue(props.value.toLocaleString());
-      setROI((props.value / props.cost) * 100 - 100);
-    }
-  }, [props.value, props.cost]);
-
-  const returnOnInvestment = ROI ? ROI.toFixed(2) : null;
-
-  const title = props.title;
-
-  return (
-    <div className={classes.valCostContainer}>
-      <h2>{title}</h2>
-      <div className={classes.totalsWords}>
-        <p>Value:</p>
-        <p>Cost:</p>
-      </div>
-      <div className={classes.totalsNums}>
-        <p>${totalValue}</p>
-        <p>
-          $
-          {props.cost.toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-          })}
-        </p>
-      </div>
-      <div className={classes.totalReturnPercentage}>
-        {returnOnInvestment < 0 ? (
-          <p className="red">{returnOnInvestment}%</p>
-        ) : (
-          <p className="green">{returnOnInvestment}%</p>
-        )}
-      </div>
-    </div>
-  );
+	return (
+		<div className={classes.valCostContainer}>
+			<h2>{title}</h2>
+			<div className={classes.totalsWords}>
+				<p>Value:</p>
+				<p>Cost:</p>
+			</div>
+			<div className={classes.totalsNums}>
+				<p>{money.format(value)}</p>
+				<p>{money.format(cost)}</p>
+			</div>
+			<div className={classes.totalReturnPercentage}>
+				{roi < 0 ? (
+					<p className="red">{roi.toFixed(2)}%</p>
+				) : (
+					<p className="green">{roi.toFixed(2)}%</p>
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default ValueAndCost;

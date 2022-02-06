@@ -167,6 +167,7 @@ export const buildCurrentAccount = (marketData, account) => {
 				.map((coin) => coin.totalCost)
 				.reduce((a, b) => a + b);
 
+			const portfolioROI = (portfolioVal / portfolioTotalCost) * 100;
 			// coinDataArray.forEach((coin) => getDailyTotals(coin));
 
 			return {
@@ -174,6 +175,7 @@ export const buildCurrentAccount = (marketData, account) => {
 				coinData: coinDataArray,
 				portfolioValue: portfolioVal,
 				portfolioCost: portfolioTotalCost,
+				portfolioROI: portfolioROI,
 			};
 		};
 		const combinedData = await combineData();
