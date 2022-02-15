@@ -22,58 +22,65 @@ export const calcAverageCosts = (arr) => {
 	);
 };
 
-export const getDateFromStamp = (timeStamp) => {
-	var d = new Date(timeStamp);
-	const TSConverted = d.getMonth() + 1 + "/" + d.getDate();
-	return TSConverted;
+// put the movements array is in order by date. starting with oldest date
+export const orderMovsByDate = (coinData) => {
+	coinData.forEach((coin, i) => {
+		coin.movements = coin.movements
+			.map((mov) => mov)
+			.sort((a, b) => new Date(a.date) - new Date(b.date));
+	});
 };
 
-// derives the total amount of a coin in the account on a per day basis
-// from the time the first puchase was made up to the current date.
-
-// is the problem here with my dates???
-// is it hat i need to convert from timestamp?? can i handle this in portfolio line chart?
-export function getDailyTotals(coin) {
-	// copy movements array so we aren't manipulating state, then arrange in chronological order.
-	const copy = [...coin.movements];
-	const movs = copy.sort((a, b) => a.date - b.date);
-
+// work on this.
+// called by buildCurrentAccount action.
+// coin = individual coinData obj / {id, name, currentPrice, currentValue, dailyAmounts, movements}
+// put dailyAmounts in redux
+// probably just need to convert the strings to Dates....
+export const calcDailyTotals = (coin) => {
 	const dailyTotals = [];
 	const rightNow = new Date();
+
+	const copy = Object.assign({}, coin);
+	const movs = copy.movements.map((el) => {
+		return {
+			price: el.price,
+			amount: el.amount,
+			date: new Date(el.date),
+		};
+	});
+	// function returns a date one day later
 	const addDays = function (days) {
 		const date = new Date(this.valueOf());
 		date.setDate(date.getDate() + days);
 		return date;
 	};
 
-	// from portfolio line chart after daily values are fetched
-
-	// const [timestamps] = Object.values(priceData[0]);
-	// const dateLabels = timestamps.map((date) => getDateFromStamp(date[0]));
-
+	// how much of the coin is in the portfolio
 	let runningTotal = 0;
-
+	// loop thru movs starting with the first purchase, at every new movement add amount to runningTotal
 	for (let i = 0; i <= movs.length - 1; i++) {
-		let selectedDate = movs[i].date;
+		let currentDate = movs[i].date;
 		runningTotal += movs[i].amount;
 
-		console.log(rightNow);
-
+		// if you still have more movements to go thru..
 		if (movs[i + 1]) {
-			console.log(selectedDate < movs[i + 1].date);
-			while (selectedDate < movs[i + 1].date) {
-				console.log("while");
-				dailyTotals.push({ date: selectedDate, amount: runningTotal });
-				selectedDate = addDays.call(selectedDate, 1);
+			// produce an object with the date and amount and push this to dailyTotals array,
+			// then advance one day and repeat until you reach the next movement.
+			while (currentDate < movs[i + 1].date) {
+				dailyTotals.push({ date: currentDate.toJSON(), amount: runningTotal });
+				currentDate = addDays.call(currentDate, 1);
 			}
+			// if you have reached the most recent movement continue until you reach the current date.
 		} else {
-			while (selectedDate <= rightNow) {
-				dailyTotals.push({ date: selectedDate, amount: runningTotal });
-				selectedDate = addDays.call(selectedDate, 1);
+			while (currentDate <= rightNow) {
+				dailyTotals.push({ date: currentDate.toJSON(), amount: runningTotal });
+				currentDate = addDays.call(currentDate, 1);
 			}
 		}
-		console.log(dailyTotals);
 	}
 
-	// coin.dailyTotals = dailyTotals;
-}
+	return {
+		id: coin.id,
+		dailyTotals: dailyTotals,
+	};
+};

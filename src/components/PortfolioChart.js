@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import pattern from "patternomaly";
-import colorList from "../theme/colorPatterns";
+import { colorPatterns } from "../theme/colorPatterns";
 import useWindowDimensions from "../hooks/getWindowDimensions";
 
 function PortfolioChart(props) {
@@ -44,11 +44,7 @@ function PortfolioChart(props) {
 		};
 
 		chartData.datasets[0].backgroundColor = props.data.map((coin, i) => {
-			return pattern.draw(
-				props.colorPatterns[i][1],
-				props.colorPatterns[i][0],
-				contrast2
-			);
+			return pattern.draw(colorPatterns[i][1], colorPatterns[i][0], contrast2);
 		});
 		chartData.labels = props.data.map((coin) => {
 			return coin.name;
@@ -59,7 +55,7 @@ function PortfolioChart(props) {
 		});
 
 		setPortfolioChartData(chartData);
-	}, [props.data, props.colorPatterns]);
+	}, [props.data, colorPatterns]);
 
 	return (
 		<React.Fragment>

@@ -2,69 +2,90 @@ import * as colors from "../theme/colors.module.css";
 
 // DUMMY ACCOUNT DATA
 export const ACCOUNT_1 = {
-	id: 1,
+	id: 9,
 	userName: "Elvad Mc",
 	portfolioValue: 0,
 	portfolioCost: 0,
+	portfolioROI: 0,
 	coinData: [
 		{
 			id: "solana",
 			averageCost: 2,
-			total: 120,
+			total: 160,
 			movements: [
-				{ date: new Date("2021-09-27"), amount: 60, price: 90.9 },
-				{ date: new Date("2021-06-27"), amount: 70, price: 180.88 },
-				{ date: new Date("2020-11-07"), amount: 30, price: 206.88 },
+				{ date: new Date(Date.UTC(2021, 7, 27, 10)), amount: 60, price: 90.9 },
+				{
+					date: new Date(Date.UTC(2021, 6, 27, 14)),
+					amount: 70,
+					price: 180.88,
+				},
+				{
+					date: new Date(Date.UTC(2020, 3, 17, 11)),
+					amount: 30,
+					price: 106.88,
+				},
 			],
 		},
 		{
 			id: "dogecoin",
-			total: 10000,
+			total: null,
 			movements: [
-				{ date: new Date("2020-10-27"), amount: 40000, price: 0.2595 },
+				{
+					date: new Date(Date.UTC(2021, 9, 27, 10)),
+					amount: 40000,
+					price: 0.2595,
+				},
 			],
 		},
 		{
 			id: "matic-network",
-			total: 1000,
+			total: null,
 			movements: [
-				{ date: new Date("2021-10-27"), amount: 2500, price: 0.01509 },
-				{ date: new Date("2020-10-27"), amount: 500, price: 1.9509 },
+				{
+					date: new Date(Date.UTC(2021, 2, 14, 18)),
+					amount: 2500,
+					price: 1.4509,
+				},
+				{
+					date: new Date(Date.UTC(2020, 9, 27, 10)),
+					amount: 900,
+					price: 1.9509,
+				},
 			],
 		},
 		{
 			id: "bitcoin",
-			total: 0.2,
+			total: 0.4,
 			movements: [
-				{ date: new Date("2021-10-27"), amount: 0.3, price: 33901.0 },
-				{ date: new Date("2020-10-27"), amount: 0.1, price: 47500.88 },
+				{
+					date: new Date(Date.UTC(2020, 5, 7, 10)),
+					amount: 0.3,
+					price: 23901.0,
+				},
+				{
+					date: new Date(Date.UTC(2021, 8, 27, 10)),
+					amount: 0.1,
+					price: 47500.88,
+				},
 			],
 		},
 		{
 			id: "ethereum",
-			total: 0.9,
+			total: 1.9,
 			movements: [
-				{ date: new Date("2021-05-27"), amount: 0.4, price: 3201.0 },
-				{ date: new Date("2020-11-27"), amount: 1.5, price: 2900.98 },
+				{
+					date: new Date(Date.UTC(2020, 1, 27, 10)),
+					amount: 0.4,
+					price: 1201.0,
+				},
+				{
+					date: new Date(Date.UTC(2022, 1, 27, 10)),
+					amount: 1.5,
+					price: 2800.98,
+				},
 			],
 		},
 	],
-	calcTotalCost: function () {
-		return this.coinData
-			.map((coin) =>
-				coin.movements
-					.map((mov) => mov.amount * mov.price)
-					.reduce((a, b) => a + b)
-			)
-			.reduce((a, b) => a + b);
-	},
-	calcCoinAmountsOverTime: function () {
-		return this.coinData.map((coin) =>
-			coin.movements.map((mov) => {
-				return { date: mov.date, amount: mov.amount };
-			})
-		);
-	},
 };
 
 // calculate the total amount of a coin in the portfolio on a daily basis, from the first purchase to the current date
@@ -98,25 +119,6 @@ export function getDailyTotals(coin) {
 	}
 	coin.dailyTotals = dailyTotals;
 }
-
-// export const calcCoinTotals = (arr) => {
-//   const result = arr.map(
-//     (coin) =>
-//       (coin.total = coin.movements
-//         .map((mov) => mov.amount)
-//         .reduce((a, b) => a + b))
-//   );
-//   return result;
-// };
-
-// export const calcAverageCosts = (arr) => {
-//   arr.map(
-//     (coin) =>
-//       (coin.averageCost =
-//         coin.movements.map((mov) => mov.price).reduce((a, b) => a + b) /
-//         coin.movements.length)
-//   );
-// };
 
 export const buildUserData = (apiData, accountData) => {
 	console.log(accountData);

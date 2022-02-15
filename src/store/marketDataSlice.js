@@ -2,11 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const marketDataSlice = createSlice({
 	name: "marketData",
-	initialState: { needData: false, data: [] },
+	initialState: { data: [] },
 	reducers: {
-		needData(state, action) {
-			state.needData = action.payload;
-		},
 		addData(state, action) {
 			const newCoin = action.payload;
 			const existingCoin = state.data.find((coin) => coin.id === newCoin.id);

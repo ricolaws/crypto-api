@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
@@ -7,30 +7,19 @@ import CoinInfo from "../components/CoinInfo";
 import AddTradeButton from "../components/AddTradeButton";
 import ViewTradesButton from "../components/ViewTradesButton";
 import ConditionalDisplay from "../components/ConditionalDisplay";
-import useWindowDimensions from "../hooks/getWindowDimensions";
 import classes from "./Dashboard.module.css";
 
 function Dashboard(props) {
-	const [userData, setUserData] = useState({ userAssets: [] });
-	const account = useSelector((state) => state.account.data);
+	const account = useSelector((state) => state.account);
 	const showDash = useSelector((state) => state.ui.showDash);
 	const featuredCoin = useSelector((state) => state.ui.featured);
 	const displayContent = useSelector((state) => state.ui.display);
 	const dispatch = useDispatch();
-
-	// const [featuredAsset, setFeaturedAsset] = useState("");
-	const [coinList, setCoinList] = useState();
-	const [displayColors, setDisplayColors] = useState();
-	const { width } = useWindowDimensions();
 	const [conditionalDisplayContent, setConditionalDisplayContent] =
 		useState("chart");
 
-	useEffect(() => {
-		setDisplayColors(props.colors);
-	}, [props.colors]);
-
 	const clickAssetHandler = (coin) => {
-		console.log(account.coinData[coin]);
+		console.log(coin, account.coinData[coin]);
 		dispatch(uiActions.setFeatured(account.coinData[coin]));
 	};
 
@@ -56,11 +45,6 @@ function Dashboard(props) {
 		props.onAddTrade(trade);
 	};
 
-	let arrow = "→";
-	if (width < 920) {
-		arrow = "↓";
-	} else arrow = "→";
-
 	return (
 		<React.Fragment>
 			{showDash && (
@@ -82,7 +66,7 @@ function Dashboard(props) {
 								roi={featuredCoin.roi}
 							/>
 						) : (
-							`Select a Coin  ${arrow}`
+							`Select a Coin for details.`
 						)}
 					</div>
 					<div className={classes.conditional}>
@@ -105,7 +89,6 @@ function Dashboard(props) {
 					</div>
 					<div className={classes.portfolio_chart}>
 						<PortfolioChart
-							colorPatterns={props.colorPatterns}
 							onSetFeaturedCoin={clickAssetHandler}
 							data={account.coinData}
 						/>

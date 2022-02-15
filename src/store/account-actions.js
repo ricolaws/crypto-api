@@ -1,9 +1,13 @@
 import { accountActions } from "./accountSlice";
+import { sequenceActions } from "./sequenceSlice";
 import { marketDataActions } from "./marketDataSlice";
+import { dailyDataActions } from "./dailyDataSlice";
+import { orderMovsByDate } from "../logic/calcAccountFunctions";
 import { uiActions } from "./uiSlice";
 import {
 	calcCoinTotals,
 	calcAverageCosts,
+	calcDailyTotals,
 } from "../logic/calcAccountFunctions";
 
 // ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - FIREBASE - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
@@ -26,8 +30,9 @@ export const fetchAccountData = () => {
 			const accountData = await fetchData();
 			calcCoinTotals(accountData.coinData);
 			calcAverageCosts(accountData.coinData);
+			orderMovsByDate(accountData.coinData);
 			dispatch(
-				accountActions.replaceAccount({
+				accountActions.updateAccount({
 					id: accountData.id,
 					userName: accountData.userName,
 					portfolioValue: accountData.portfolioValue,
@@ -35,7 +40,7 @@ export const fetchAccountData = () => {
 					coinData: accountData.coinData || [],
 				})
 			);
-			dispatch(marketDataActions.needData(true));
+			dispatch(sequenceActions.needMarketData(true));
 		} catch (error) {
 			console.log(error);
 		}
@@ -46,6 +51,7 @@ export const fetchAccountData = () => {
 // maybe be selective about what current coin data is stored?
 export const sendAccountData = (account) => {
 	return async (dispatch) => {
+		console.log("sendAccount");
 		const sendRequest = async () => {
 			const response = await fetch(
 				"https://crypto-dashboard-7dcab-default-rtdb.firebaseio.com/accounts.json",
@@ -57,6 +63,7 @@ export const sendAccountData = (account) => {
 						coinData: account.coinData,
 						portfolioValue: account.portfolioValue,
 						portfolioCost: account.portfolioCost,
+						portfolioROI: account.portfolioROI,
 					}),
 				}
 			);
@@ -88,7 +95,6 @@ export const fetchMarketData = (coinData) => {
 				throw new Error("Could not fetch market data.");
 			}
 			const data = await response.json();
-			console.log(data);
 			return data;
 		};
 		try {
@@ -96,46 +102,49 @@ export const fetchMarketData = (coinData) => {
 			marketData.forEach((coin) => {
 				dispatch(marketDataActions.addData(coin));
 			});
-			dispatch(marketDataActions.needData(false));
-			dispatch(accountActions.changeReady(true));
+			dispatch(sequenceActions.needMarketData(false));
+			dispatch(sequenceActions.needDailyData(true));
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
 
-// call market_chart url for market data OVER TIME
-// export const fetchDailyMarketData = (coinData) => {
-// 	return async (dispatch) => {
-// 		const fetchData = async () => {
-// 			const coinIDs = coinData.map((coin) => coin.id);
+// fetch daily market data
+// learn how to get ALL the data then dispatch ONE action after await.
+export const fetchDailyMarketData = (coinData) => {
+	return async (dispatch) => {
+		const fetchData = async () => {
+			const coinIDs = coinData.map((coin) => coin.id);
 
-// 			let urls = coinIDs.map(
-// 				(coin) =>
-// 					`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`
-// 			);
+			let urls = coinIDs.map((coin) => {
+				return {
+					id: coin,
+					url: `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`,
+				};
+			});
 
-// 			Promise.all(
-// 				urls.map((url) => fetch(url).then((response) => response.json()))
-// 			).then((data) => console.log(data));
-// 		};
-// 	};
-// };
-
-// work in progress. compare to axios version in PLC...
-export const fetchDailyData = async (coinData) => {
-	const coinIDs = coinData.map((coin) => coin.id);
-
-	let urls = coinIDs.map(
-		(coin) =>
-			`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`
-	);
-
-	Promise.all(
-		urls.map((url) => fetch(url).then((response) => response.json()))
-	).then((data) => {
-		console.log(data.map((coin) => coin.prices));
-	});
+			Promise.all(
+				urls.map(async (obj) => {
+					const response = await fetch(obj.url);
+					const data = await response.json().then((data) => data.prices);
+					console.log(data);
+					const dailyPricesObj = {
+						id: obj.id,
+						prices: data,
+					};
+					dispatch(dailyDataActions.addPrices(dailyPricesObj));
+				})
+			);
+		};
+		try {
+			await fetchData();
+			dispatch(sequenceActions.needDailyData(false));
+			dispatch(sequenceActions.readyToBuild(true));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 };
 
 // ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - COMBINE ACCOUNT w/ MARKET DATA - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
@@ -168,7 +177,6 @@ export const buildCurrentAccount = (marketData, account) => {
 				.reduce((a, b) => a + b);
 
 			const portfolioROI = (portfolioVal / portfolioTotalCost) * 100;
-			// coinDataArray.forEach((coin) => getDailyTotals(coin));
 
 			return {
 				...account,
@@ -179,9 +187,13 @@ export const buildCurrentAccount = (marketData, account) => {
 			};
 		};
 		const combinedData = await combineData();
-		console.log(combinedData);
-		dispatch(accountActions.replaceAccount(combinedData));
-		dispatch(accountActions.changeReady(false));
+		const dailyTotals = combinedData.coinData.flatMap((coin) =>
+			calcDailyTotals(coin)
+		);
+		dailyTotals.forEach((coin) => dispatch(dailyDataActions.addTotals(coin)));
+
+		dispatch(accountActions.updateAccount(combinedData));
+		dispatch(sequenceActions.readyToBuild(false));
 		dispatch(uiActions.showDashboard(true));
 	};
 };

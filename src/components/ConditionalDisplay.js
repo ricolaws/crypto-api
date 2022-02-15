@@ -12,11 +12,12 @@ import Card from "./Card";
 // 							data={account.coinData}
 
 function ConditionalDisplay(props) {
+	const { onAddTrade, onCloseWindow } = props;
 	const display = useSelector((state) => state.ui.display);
 
 	return (
 		<Card>
-			{display === "chart" && <PortfolioLineChart />}
+			<PortfolioLineChart />
 			{display === "add" && <AddTradeWindow />}
 			{display === "view" && <TradeHistoryWindow />}
 		</Card>
