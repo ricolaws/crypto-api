@@ -21,10 +21,7 @@ export const calcChartData = (data, coinData) => {
 		const relevantTotals = coin.dailyTotals.slice(timescale * -1);
 		let values = coin.prices.map((arr, i) => arr[1] * relevantTotals[i].amount);
 
-		// let currentValue = coinData.find(
-		// 	(data) => data.id === coin.id
-		// ).currentValue;
-
+		// assign color and pattern
 		const color = pattern.draw(
 			patternsArray[index][1],
 			patternsArray[index][0],
@@ -39,7 +36,7 @@ export const calcChartData = (data, coinData) => {
 			backgroundColor: color,
 			tension: 0.2,
 			borderWidth: 2,
-			hidden: false,
+			hidden: true,
 		};
 		allValues.push(values);
 		chartDataObj.datasets.push(dataSet);

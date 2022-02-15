@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import { calcChartData } from "../logic/calcChartData";
 import classes from "./PortfolioLineChart.module.css";
-import { colorPatterns } from "../theme/colorPatterns";
-import pattern from "patternomaly";
 
 function PortfolioLineChart(props) {
 	const dailyData = useSelector((state) => state.dailyData.data);
@@ -57,25 +55,25 @@ function PortfolioLineChart(props) {
 		}
 	}, [dailyData, account]);
 
-	// useEffect(() => {
-	// 	if (chartData) {
-	// 		const chartDataCopy = chartData;
-	// 		const newKey = key + 1;
-	// 		const index = chartData.datasets.findIndex(
-	// 			({ label }) => label === props.featuredAsset.id
-	// 		);
+	useEffect(() => {
+		if (chartData) {
+			const chartDataCopy = chartData;
+			const newKey = key + 1;
+			const index = chartData.datasets.findIndex(
+				({ label }) => label === featuredCoin.id
+			);
 
-	// 		chartDataCopy.datasets.forEach((dataset, i) => {
-	// 			if (i < chartDataCopy.datasets.length - 1) {
-	// 				dataset.hidden = true;
-	// 			}
-	// 		});
-	// 		chartDataCopy.datasets[index].hidden = false;
+			chartDataCopy.datasets.forEach((dataset, i) => {
+				if (i < chartDataCopy.datasets.length) {
+					dataset.hidden = true;
+				}
+			});
+			chartDataCopy.datasets[index].hidden = false;
 
-	// 		setChartData(chartDataCopy);
-	// 		setKey(newKey);
-	// 	}
-	// }, [props.featuredAsset]);
+			setChartData(chartDataCopy);
+			setKey(newKey);
+		}
+	}, [featuredCoin]);
 
 	return (
 		<div className={classes.container}>
