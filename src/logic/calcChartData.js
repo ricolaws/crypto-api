@@ -1,5 +1,7 @@
 import { getDateFromStamp } from "../logic/helpers";
 import { addNestedArrays } from "../logic/helpers";
+import { colorPatterns } from "../theme/colorPatterns";
+import pattern from "patternomaly";
 
 // data = array of objects / {id: 'matic-network', prices: Array(91), dailyTotals: Array(474)}
 export const calcChartData = (data, coinData) => {
@@ -8,9 +10,12 @@ export const calcChartData = (data, coinData) => {
 
 	const chartDataObj = { labels: dateLabels, datasets: [] };
 	const allValues = [];
+	const patternsArray = data.map((_, i) => {
+		return colorPatterns[i];
+	});
 
-	console.log(coinData);
-	data.forEach((coin) => {
+	console.log(patternsArray);
+	data.forEach((coin, index) => {
 		// take the length of prices and grab that many elements from the end of totals array
 		const timescale = coin.prices.length;
 		const relevantTotals = coin.dailyTotals.slice(timescale * -1);
@@ -20,12 +25,18 @@ export const calcChartData = (data, coinData) => {
 		// 	(data) => data.id === coin.id
 		// ).currentValue;
 
+		const color = pattern.draw(
+			patternsArray[index][1],
+			patternsArray[index][0],
+			"#000"
+		);
+
 		const dataSet = {
 			label: coin.id,
 			data: values,
 			fill: true,
-			// borderColor: props.colors[i],
-			// backgroundColor: props.colors[i],
+			borderColor: color,
+			backgroundColor: color,
 			tension: 0.2,
 			borderWidth: 2,
 			hidden: false,

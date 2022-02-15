@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import { calcChartData } from "../logic/calcChartData";
 import classes from "./PortfolioLineChart.module.css";
-import { colorList, colorPatterns } from "../theme/colorPatterns";
+import { colorPatterns } from "../theme/colorPatterns";
+import pattern from "patternomaly";
 
 function PortfolioLineChart(props) {
 	const dailyData = useSelector((state) => state.dailyData.data);
@@ -53,7 +54,6 @@ function PortfolioLineChart(props) {
 				const valuesOverTime = calcChartData(dailyData, account.coinData);
 				setChartData(valuesOverTime);
 			}
-			// console.log(chartData.labels, chartData.datasets[0].data);
 		}
 	}, [dailyData, account]);
 

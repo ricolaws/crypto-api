@@ -19,7 +19,6 @@ function Dashboard(props) {
 		useState("chart");
 
 	const clickAssetHandler = (coin) => {
-		console.log(coin, account.coinData[coin]);
 		dispatch(uiActions.setFeatured(account.coinData[coin]));
 	};
 

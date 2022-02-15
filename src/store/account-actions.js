@@ -128,7 +128,6 @@ export const fetchDailyMarketData = (coinData) => {
 				urls.map(async (obj) => {
 					const response = await fetch(obj.url);
 					const data = await response.json().then((data) => data.prices);
-					console.log(data);
 					const dailyPricesObj = {
 						id: obj.id,
 						prices: data,

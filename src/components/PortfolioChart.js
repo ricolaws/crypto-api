@@ -6,7 +6,7 @@ import useWindowDimensions from "../hooks/getWindowDimensions";
 
 function PortfolioChart(props) {
 	const [portfolioChartData, setPortfolioChartData] = useState();
-	const { height, width } = useWindowDimensions();
+	const { width } = useWindowDimensions();
 
 	const clickHandler = (evt, item) => {
 		if (item.length > 0) {
