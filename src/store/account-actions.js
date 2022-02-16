@@ -8,6 +8,7 @@ import {
 	calcCoinTotals,
 	calcAverageCosts,
 	calcDailyTotals,
+	calcROI,
 } from "../logic/calcAccountFunctions";
 
 // ⎈ ⏣ ⎈ ⏣ ⎈ ⏣ - - FIREBASE - - ⏣ ⎈ ⏣ ⎈ ⏣ ⎈
@@ -162,8 +163,10 @@ export const buildCurrentAccount = (marketData, account) => {
 					currentValue: coin.currentPrice * matchedData.totalAmount,
 					totalCost: matchedData.averageCost * matchedData.totalAmount,
 				};
-				coinDataObj.roi =
-					(coinDataObj.currentValue / coinDataObj.totalCost) * 100;
+				coinDataObj.roi = calcROI(
+					coinDataObj.currentValue,
+					coinDataObj.totalCost
+				);
 				return coinDataObj;
 			});
 			const portfolioVal = coinDataArray
@@ -175,7 +178,14 @@ export const buildCurrentAccount = (marketData, account) => {
 				.map((coin) => coin.totalCost)
 				.reduce((a, b) => a + b);
 
-			const portfolioROI = (portfolioVal / portfolioTotalCost) * 100;
+			// ROI is calculated by subtracting the initial value of the investment from the final value of the investment
+			// (which equals the net return), then dividing this new number (the net return) by the cost of the investment,
+			// then finally, multiplying it by 100.
+
+			const netReturn = portfolioVal - portfolioTotalCost;
+
+			const portfolioROI = calcROI(portfolioVal, portfolioTotalCost);
+			// const portfolioROI = (portfolioVal / portfolioTotalCost) * 100;
 
 			return {
 				...account,
@@ -183,6 +193,7 @@ export const buildCurrentAccount = (marketData, account) => {
 				portfolioValue: portfolioVal,
 				portfolioCost: portfolioTotalCost,
 				portfolioROI: portfolioROI,
+				portfolioNetReturn: netReturn,
 			};
 		};
 		const combinedData = await combineData();

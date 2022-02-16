@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
 import ValueAndCost from "../components/ValueAndCost";
 import CoinInfo from "../components/CoinInfo";
-import AddTradeButton from "../components/AddTradeButton";
-import ViewTradesButton from "../components/ViewTradesButton";
+
+import ControlDashboard from "../components/ControlDashboard";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
 
@@ -13,35 +13,11 @@ function Dashboard(props) {
 	const account = useSelector((state) => state.account);
 	const showDash = useSelector((state) => state.ui.showDash);
 	const featuredCoin = useSelector((state) => state.ui.featured);
-	const displayContent = useSelector((state) => state.ui.display);
+	// const displayContent = useSelector((state) => state.ui.display);
 	const dispatch = useDispatch();
-	const [conditionalDisplayContent, setConditionalDisplayContent] =
-		useState("chart");
 
 	const clickAssetHandler = (coin) => {
 		dispatch(uiActions.setFeatured(account.coinData[coin]));
-	};
-
-	const toggleAddTradeHandler = () => {
-		if (
-			conditionalDisplayContent === "chart" ||
-			conditionalDisplayContent === "view"
-		) {
-			setConditionalDisplayContent("add");
-		} else setConditionalDisplayContent("chart");
-	};
-
-	const toggleViewTradesHandler = () => {
-		if (
-			conditionalDisplayContent === "chart" ||
-			conditionalDisplayContent === "add"
-		) {
-			setConditionalDisplayContent("view");
-		} else setConditionalDisplayContent("chart");
-	};
-
-	const addTradeHandler = (trade) => {
-		props.onAddTrade(trade);
 	};
 
 	return (
@@ -69,23 +45,12 @@ function Dashboard(props) {
 						)}
 					</div>
 					<div className={classes.conditional}>
-						<ConditionalDisplay
-							onAddTrade={addTradeHandler}
-							onCloseWindow={toggleAddTradeHandler}
-						/>
+						<ConditionalDisplay onAddTrade={props.onAddTrade} />
 					</div>
 					<div className={classes.button1}>
-						<AddTradeButton
-							onAddTrade={toggleAddTradeHandler}
-							display={displayContent}
-						/>
+						<ControlDashboard onAddTrade={props.onAddTrade} />
 					</div>
-					<div className={classes.button2}>
-						<ViewTradesButton
-							onViewTrades={toggleViewTradesHandler}
-							display={displayContent}
-						/>
-					</div>
+					<div className={classes.button2}></div>
 					<div className={classes.portfolio_chart}>
 						<PortfolioChart
 							onSetFeaturedCoin={clickAssetHandler}

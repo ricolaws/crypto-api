@@ -13,6 +13,8 @@ export const getDateFromStamp = (timeStamp) => {
 	return TSConverted;
 };
 
+// format date from UTC string
+
 // loop over nested array adding all values at each index of the sub arrays
 export const addNestedArrays = (arr) => {
 	let sums = arr.reduce(

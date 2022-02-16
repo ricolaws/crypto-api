@@ -22,6 +22,9 @@ export const uiSlice = createSlice({
 			state.featured.roi = action.payload.roi;
 			state.featured.none = false;
 		},
+		setDashboardDisplay(state, action) {
+			state.display = action.payload;
+		},
 	},
 });
 

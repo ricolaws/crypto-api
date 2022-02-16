@@ -1,25 +1,26 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 
 function AddTrade(props) {
-  const clickHandler = () => {
-    props.onAddTrade();
-  };
+	const { onAddTrade } = props;
+	const displayContent = useSelector((state) => state.ui.display);
 
-  let label = null;
-  if (props.display === "add") {
-    label = "View Chart";
-  } else {
-    label = "Add Trade";
-  }
+	const clickHandler = () => {
+		onAddTrade();
+	};
 
-  return (
-    <div>
-      <button onClick={clickHandler}>
-        {label}
-      </button>
-    </div>
-  );
+	let label = null;
+	if (displayContent === "add") {
+		label = "View Chart";
+	} else {
+		label = "Add Trade";
+	}
+
+	return (
+		<div>
+			<button onClick={clickHandler}>{label}</button>
+		</div>
+	);
 }
 
 export default AddTrade;

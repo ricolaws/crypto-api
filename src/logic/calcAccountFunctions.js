@@ -31,6 +31,12 @@ export const orderMovsByDate = (coinData) => {
 	});
 };
 
+// calculate return on investment
+export const calcROI = (value, cost) => {
+	const netReturn = value - cost;
+	return (netReturn / cost) * 100;
+};
+
 // work on this.
 // called by buildCurrentAccount action.
 // coin = individual coinData obj / {id, name, currentPrice, currentValue, dailyAmounts, movements}

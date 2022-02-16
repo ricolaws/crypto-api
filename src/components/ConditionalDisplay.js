@@ -15,10 +15,11 @@ function ConditionalDisplay(props) {
 	const { onAddTrade, onCloseWindow } = props;
 	const display = useSelector((state) => state.ui.display);
 
+	console.log(onAddTrade);
 	return (
 		<Card>
-			<PortfolioLineChart />
-			{display === "add" && <AddTradeWindow />}
+			{display === "chart" && <PortfolioLineChart />}
+			{display === "add" && <AddTradeWindow onAddTrade={onAddTrade} />}
 			{display === "view" && <TradeHistoryWindow />}
 		</Card>
 	);

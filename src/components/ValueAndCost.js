@@ -17,7 +17,7 @@ function ValueAndCost(props) {
 				<p>{money.format(cost)}</p>
 			</div>
 			<div className={classes.totalReturnPercentage}>
-				{roi < 100 ? (
+				{roi < 0 ? (
 					<p className="red">{roi.toFixed(2)}%</p>
 				) : (
 					<p className="green">{roi.toFixed(2)}%</p>
