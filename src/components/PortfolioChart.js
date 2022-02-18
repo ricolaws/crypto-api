@@ -30,6 +30,7 @@ function PortfolioChart(props) {
 
 	const contrast2 = "#000";
 	useEffect(() => {
+		console.log("PC-useEffect");
 		const chartData = {
 			datasets: [
 				{
@@ -43,7 +44,7 @@ function PortfolioChart(props) {
 			],
 		};
 
-		chartData.datasets[0].backgroundColor = props.data.map((coin, i) => {
+		chartData.datasets[0].backgroundColor = props.data.map((_, i) => {
 			return pattern.draw(colorPatterns[i][1], colorPatterns[i][0], contrast2);
 		});
 		chartData.labels = props.data.map((coin) => {

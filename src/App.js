@@ -11,6 +11,7 @@ import {
 	fetchMarketData,
 	buildCurrentAccount,
 	fetchDailyMarketData,
+	sendAccountData,
 } from "./store/account-actions";
 
 function App() {
@@ -19,9 +20,11 @@ function App() {
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
 	const account = useSelector((state) => state.account);
 	const marketData = useSelector((state) => state.marketData.data);
-	const needMarketData = useSelector((state) => state.sequence.needMarketData);
-	const needDailyData = useSelector((state) => state.sequence.needDailyData);
-	const dataIsReady = useSelector((state) => state.sequence.dataIsReady);
+	// const needMarketData = useSelector((state) => state.sequence.needMarketData);
+	// const needDailyData = useSelector((state) => state.sequence.needDailyData);
+	// const buildAccount = useSelector((state) => state.sequence.buildAccount);
+	const { needMarketData, needDailyData, buildAccount, sendAccount } =
+		useSelector((state) => state.sequence);
 
 	// move to dashboard on login
 	useEffect(() => {
@@ -47,7 +50,7 @@ function App() {
 		}
 	}, [account, needMarketData, dispatch]);
 
-	// get daily data from CoinGecko. set needDailyData = false & dataIsReady = true
+	// get daily data from CoinGecko. set needDailyData = false & buildAccount = true
 	useEffect(() => {
 		if (needDailyData) {
 			dispatch(fetchDailyMarketData(account.coinData));
@@ -56,34 +59,17 @@ function App() {
 
 	// combine account data with coingecko data
 	useEffect(() => {
-		if (dataIsReady) {
+		if (buildAccount) {
 			dispatch(buildCurrentAccount(marketData, account));
 		}
-	}, [dataIsReady, marketData, dispatch]);
+	}, [buildAccount, marketData, dispatch]);
 
-	const addTradeHandler = (trade) => {
-		let newcoinData = account.coinData;
-
-		const parts = trade.date.split("-");
-		const d = new Date(+parts[0], parts[1] - 1, +parts[2], 12);
-
-		const newMovement = {
-			date: d,
-			amount: Number(trade.amount),
-			price: Number(trade.price),
-		};
-
-		const matchedIndex = account.coinData.findIndex(
-			(asset) => asset.id === trade.id
-		);
-
-		newcoinData[matchedIndex].movements.push(newMovement);
-
-		// setAccount({
-		//   ...account,
-		//   coinData: newcoinData,
-		// });
-	};
+	// * * * update Firebase with current account * * *
+	useEffect(() => {
+		if (sendAccount) {
+			dispatch(sendAccountData(account));
+		}
+	}, [sendAccount, account, dispatch]);
 
 	return (
 		<div className="app">
@@ -91,9 +77,7 @@ function App() {
 			<Route path="/welcome">
 				<Welcome />
 			</Route>
-			<Route path="/dashboard">
-				{isLoggedIn && <Dashboard onAddTrade={addTradeHandler} />}
-			</Route>
+			<Route path="/dashboard">{isLoggedIn && <Dashboard />}</Route>
 			<Route path="/browse">
 				<BrowseCoins />
 			</Route>

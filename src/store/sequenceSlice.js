@@ -5,7 +5,8 @@ export const sequenceSlice = createSlice({
 	initialState: {
 		needMarketData: false,
 		needDailyData: false,
-		dataIsReady: false,
+		buildAccount: false,
+		sendAccount: false,
 	},
 	reducers: {
 		needMarketData(state, action) {
@@ -15,7 +16,10 @@ export const sequenceSlice = createSlice({
 			state.needDailyData = action.payload;
 		},
 		readyToBuild(state, action) {
-			state.dataIsReady = action.payload;
+			state.buildAccount = action.payload;
+		},
+		sendAccount(state, action) {
+			state.sendAccount = action.payload;
 		},
 	},
 });

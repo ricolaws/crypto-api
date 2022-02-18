@@ -1,5 +1,6 @@
 // functions for calculating values in the user account
 
+// could change this to run on individual coins...
 // calc totals amount and total cost of each individual coin. takes account.coinData array as arg
 export const calcCoinTotals = (arr) => {
 	arr.forEach((coin) => {
@@ -12,6 +13,7 @@ export const calcCoinTotals = (arr) => {
 	});
 };
 
+// could change this to run on individual coins...
 // calc average cost of each individual coin. takes account.coinData array as arg
 export const calcAverageCosts = (arr) => {
 	arr.map(
@@ -22,7 +24,8 @@ export const calcAverageCosts = (arr) => {
 	);
 };
 
-// put the movements array is in order by date. starting with oldest date
+// could change this to run on individual coins...
+// put the movements array in order by date. starting with oldest date
 export const orderMovsByDate = (coinData) => {
 	coinData.forEach((coin, i) => {
 		coin.movements = coin.movements
@@ -34,14 +37,10 @@ export const orderMovsByDate = (coinData) => {
 // calculate return on investment
 export const calcROI = (value, cost) => {
 	const netReturn = value - cost;
+	console.log(value, cost, netReturn);
 	return (netReturn / cost) * 100;
 };
 
-// work on this.
-// called by buildCurrentAccount action.
-// coin = individual coinData obj / {id, name, currentPrice, currentValue, dailyAmounts, movements}
-// put dailyAmounts in redux
-// probably just need to convert the strings to Dates....
 export const calcDailyTotals = (coin) => {
 	const dailyTotals = [];
 	const rightNow = new Date();

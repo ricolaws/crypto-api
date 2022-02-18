@@ -52,7 +52,7 @@ export const fetchAccountData = () => {
 // maybe be selective about what current coin data is stored?
 export const sendAccountData = (account) => {
 	return async (dispatch) => {
-		console.log("sendAccount");
+		console.log("sendAccount", account);
 		const sendRequest = async () => {
 			const response = await fetch(
 				"https://crypto-dashboard-7dcab-default-rtdb.firebaseio.com/accounts.json",
@@ -61,10 +61,11 @@ export const sendAccountData = (account) => {
 					body: JSON.stringify({
 						id: account.id,
 						userName: account.userName,
-						coinData: account.coinData,
+						coinData: account.coinData || [],
 						portfolioValue: account.portfolioValue,
 						portfolioCost: account.portfolioCost,
 						portfolioROI: account.portfolioROI,
+						portfolioNetReturn: account.portfolioNetReturn,
 					}),
 				}
 			);
@@ -74,6 +75,7 @@ export const sendAccountData = (account) => {
 		};
 		try {
 			await sendRequest();
+			dispatch(sequenceActions.sendAccount(false));
 		} catch (error) {
 			console.log(error);
 		}
@@ -178,14 +180,9 @@ export const buildCurrentAccount = (marketData, account) => {
 				.map((coin) => coin.totalCost)
 				.reduce((a, b) => a + b);
 
-			// ROI is calculated by subtracting the initial value of the investment from the final value of the investment
-			// (which equals the net return), then dividing this new number (the net return) by the cost of the investment,
-			// then finally, multiplying it by 100.
-
 			const netReturn = portfolioVal - portfolioTotalCost;
 
 			const portfolioROI = calcROI(portfolioVal, portfolioTotalCost);
-			// const portfolioROI = (portfolioVal / portfolioTotalCost) * 100;
 
 			return {
 				...account,
@@ -197,6 +194,7 @@ export const buildCurrentAccount = (marketData, account) => {
 			};
 		};
 		const combinedData = await combineData();
+		// could be separate action that gets daily totals?
 		const dailyTotals = combinedData.coinData.flatMap((coin) =>
 			calcDailyTotals(coin)
 		);
@@ -207,3 +205,11 @@ export const buildCurrentAccount = (marketData, account) => {
 		dispatch(uiActions.showDashboard(true));
 	};
 };
+
+// an asyn function that first dispatches addTrade, then sendAccountData
+export const addTradeThenUpdateDB = (payload) => async (dispatch) => {
+	await dispatch(accountActions.addTrade(payload));
+	return await dispatch(sequenceActions.sendAccount(true));
+};
+
+//use it like this

@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+	calcCoinTotals,
+	calcAverageCosts,
+	calcROI,
+	orderMovsByDate,
+} from "../logic/calcAccountFunctions";
 
 // the primary store of account data
-// the ready prop is true when the account has been fetched from firebase
-// and the current market data has been collected from the coin gecko API.
-// this triggers the buildCurrentAccount action and ready becomes false again.
 const initialAccountState = {
 	id: null,
 	userName: "",
@@ -27,6 +30,33 @@ export const accountSlice = createSlice({
 		},
 		updateAccount(state, action) {
 			return Object.assign(state, action.payload);
+		},
+		// payload {newMovement: {}, index: num }
+		addTrade(state, action) {
+			const trade = action.payload.newMovement;
+			const i = action.payload.index;
+			const matchedCoin = state.coinData[i];
+			// add the new movement to the correct coin movements array
+			matchedCoin.movements.push(trade);
+			// calc total val / cost, average cost, and ROI of coin
+			calcCoinTotals(state.coinData);
+			calcAverageCosts(state.coinData);
+			matchedCoin.currentValue =
+				matchedCoin.currentPrice * matchedCoin.totalAmount;
+			matchedCoin.roi = calcROI(
+				matchedCoin.currentValue,
+				matchedCoin.totalCost
+			);
+			// order Movements
+			orderMovsByDate(state.coinData);
+			// portfolio totalCost, currentVal, and ROI
+			state.portfolioValue = state.coinData
+				.map((coin) => coin.currentValue)
+				.reduce((a, b) => a + b);
+			state.portfolioCost = state.coinData
+				.map((coin) => coin.totalCost)
+				.reduce((a, b) => a + b);
+			state.portfolioROI = calcROI(state.portfolioValue, state.portfolioCost);
 		},
 	},
 });
