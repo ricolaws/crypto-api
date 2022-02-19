@@ -4,7 +4,6 @@ import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
 import ValueAndCost from "../components/ValueAndCost";
 import CoinInfo from "../components/CoinInfo";
-import ControlDashboard from "../components/ControlDashboard";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
 

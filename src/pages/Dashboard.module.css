@@ -5,7 +5,7 @@
 	/* height: 82vh; */
 	display: grid;
 	padding: 1rem;
-	margin: 1rem;
+	margin: 1rem 2rem;
 	min-width: 300px;
 	min-height: 70vh;
 	grid-template-columns:
@@ -186,7 +186,7 @@
 
 /*  - - - - - - - - - - media queries - - - - - - - - - -  */
 @media only screen and (max-width: 920px) {
-	.container {
+	.grid {
 		width: 100%;
 		align-self: center;
 		height: 100vh;
