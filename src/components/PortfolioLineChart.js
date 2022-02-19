@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import { calcChartData } from "../logic/calcChartData";
-import classes from "./PortfolioLineChart.module.css";
 
 function PortfolioLineChart(props) {
 	const dailyData = useSelector((state) => state.dailyData.data);
@@ -50,6 +49,7 @@ function PortfolioLineChart(props) {
 				.some((el) => el === undefined);
 			if (!priceDataIsMissing) {
 				const valuesOverTime = calcChartData(dailyData, account.coinData);
+				console.log(valuesOverTime);
 				setChartData(valuesOverTime);
 			}
 		}
@@ -76,11 +76,11 @@ function PortfolioLineChart(props) {
 	}, [featuredCoin]);
 
 	return (
-		<div className={classes.container}>
+		<React.Fragment>
 			{chartData ? (
 				<Line key={key} data={chartData} options={chartOptions} />
 			) : null}
-		</div>
+		</React.Fragment>
 	);
 }
 

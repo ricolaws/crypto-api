@@ -1,280 +1,286 @@
-.container {
-  width: 100%;
-  align-self: center;
-  /* height: 82vh; */
-  display: grid;
-  padding: 1rem;
-  margin: 1rem;
-  min-width: 300px;
-  grid-template-columns:
-    minmax(100px, 1fr) minmax(100px, 1fr)
-    minmax(100px, 1fr) minmax(100px, 1fr);
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 1rem;
-  justify-items: stretch;
+.grid {
+	width: 94%;
+	max-width: 1600px;
+	align-self: center;
+	/* height: 82vh; */
+	display: grid;
+	padding: 1rem;
+	margin: 1rem;
+	min-width: 300px;
+	min-height: 70vh;
+	grid-template-columns:
+		minmax(100px, 1fr) minmax(100px, 1fr)
+		minmax(100px, 1fr) minmax(100px, 1fr);
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+	gap: 1rem;
+	justify-items: stretch;
 }
 
 /* ValueAndCost Component */
 .overview {
-  background: transparent;
-  grid-column: 1 / span 1;
-  grid-row: 1 / span 1;
-  height: 100%;
+	background: transparent;
+	grid-column: 1 / span 1;
+	grid-row: 1 / span 1;
+	height: 100%;
 }
 
 .valCostContainer {
-  display: grid;
-  grid-template-columns: minmax(30px, 1fr) minmax(30px, 1fr) minmax(30px, 1fr);
-  grid-template-rows: 1fr 2fr;
-  gap: 0.5rem;
-  font-size: 1rem;
+	display: grid;
+	grid-template-columns: minmax(30px, 1fr) minmax(30px, 1fr) minmax(30px, 1fr);
+	grid-template-rows: 1fr 2fr;
+	gap: 0.5rem;
+	font-size: 1rem;
 }
 
 .valCostContainer h2 {
-  /* padding: 0.25rem; */
-  grid-column: 1 / span 2;
-  grid-row: 1 / span 2;
-  text-align: left;
-  font-size: 1.2rem;
-  font-weight: 400;
+	/* padding: 0.25rem; */
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 2;
+	text-align: left;
+	font-size: 1.2rem;
+	font-weight: 400;
 }
 
 .totalsWords {
-  padding-top: 0.25rem;
-  grid-column: 1 / span 2;
-  grid-row: 2 / span 1;
+	padding-top: 0.25rem;
+	grid-column: 1 / span 2;
+	grid-row: 2 / span 1;
 }
 
 .totalsNums {
-  padding-top: 0.25rem;
-  grid-column: 2 / span 1;
-  grid-row: 2 / span 1;
+	padding-top: 0.25rem;
+	grid-column: 2 / span 1;
+	grid-row: 2 / span 1;
 }
 
 .totalReturnPercentage {
-  grid-column: 3 / span 1;
-  grid-row: 1 / span 2;
-  display: flex;
-  justify-content: center;
-  text-align: right;
-  font-size: 1.2rem;
-  font-weight: 700;
+	grid-column: 3 / span 1;
+	grid-row: 1 / span 2;
+	display: flex;
+	justify-content: center;
+	text-align: right;
+	font-size: 1.2rem;
+	font-weight: 700;
 }
 
 /* Featured Component */
 .featured {
-  grid-column: 2 / span 1;
-  grid-row: 1 / span 1;
-  height: 100%;
-  color: var(--main-text-color);
-  margin-left: 1rem;
+	grid-column: 2 / span 1;
+	grid-row: 1 / span 1;
+	height: 100%;
+	color: var(--main-text-color);
+	margin-left: 1rem;
 }
 
 .featured h3 {
-  text-align: right;
-  font-size: 1.2rem;
-  font-weight: 400;
+	text-align: right;
+	font-size: 1.2rem;
+	font-weight: 400;
 }
 
 /* PortfolioLineChart Component */
 .conditional {
-  background: transparent;
-  grid-column: 1 / span 2;
-  grid-row: 2 / span 6;
-  height: 100%;
+	background: transparent;
+	grid-column: 1 / span 2;
+	grid-row: 2 / span 6;
+	height: 100%;
+}
+
+.display-content {
+	background: red;
 }
 
 .button1 {
-  background: transparent;
-  grid-column: 3 / span 1;
-  grid-row: 7 / span 1;
-  height: 100%;
-  text-align: center;
-  justify-items: center;
-  align-items: center;
+	background: transparent;
+	grid-column: 3 / span 1;
+	grid-row: 7 / span 1;
+	height: 100%;
+	text-align: center;
+	justify-items: center;
+	align-items: center;
 }
 
 .button1 div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 }
 
 .button2 {
-  background: transparent;
-  grid-column: 4 / span 1;
-  grid-row: 7 / span 1;
-  height: 100%;
-  text-align: center;
+	background: transparent;
+	grid-column: 4 / span 1;
+	grid-row: 7 / span 1;
+	height: 100%;
+	text-align: center;
 }
 
 .button2 div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 }
 
 /* Portfolio Doughnut */
 .portfolio_chart {
-  background: transparent;
-  overflow: hidden;
-  grid-column: 3 / span 2;
-  grid-row: 1 / span 6;
-  /* margin: 0.8rem; */
+	background: transparent;
+	overflow: hidden;
+	grid-column: 3 / span 2;
+	grid-row: 1 / span 6;
+	/* margin: 0.8rem; */
 }
 
 .labelsContainer {
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
 }
 
 .rows {
-  display: grid;
-  grid-template-columns:
-    minmax(4rem, 1fr) minmax(4rem, 1fr)
-    minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
-    minmax(4rem, 1fr) minmax(4rem, 1fr);
-  width: 82%;
-  gap: 3rem;
-  justify-content: space-between;
-  text-align: center;
-  height: 3.4rem;
-  border-bottom: 1px solid #d7d7d7;
-  padding: 0.5rem;
+	display: grid;
+	grid-template-columns:
+		minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr);
+	width: 82%;
+	gap: 3rem;
+	justify-content: space-between;
+	text-align: center;
+	height: 3.4rem;
+	border-bottom: 1px solid #d7d7d7;
+	padding: 0.5rem;
 }
 
 .labels {
-  font-weight: 700;
-  align-items: end;
+	font-weight: 700;
+	align-items: end;
 }
 
 .name {
-  display: flex;
+	display: flex;
 }
 
 .nameHeading {
-  transform: translateX(0.5rem);
+	transform: translateX(0.5rem);
 }
 
 .name img {
-  width: 3rem;
-  margin-right: 8px;
-  transform: translateY(-0.8rem);
+	width: 3rem;
+	margin-right: 8px;
+	transform: translateY(-0.8rem);
 }
 
 .name span {
-  width: 150px;
-  font-size: 1rem;
+	width: 150px;
+	font-size: 1rem;
 }
 
 .red {
-  color: var(--app-color-red);
+	color: var(--app-color-red);
 }
 
 .green {
-  color: var(--app-color-4);
+	color: var(--app-color-4);
 }
 
 /*  - - - - - - - - - - media queries - - - - - - - - - -  */
 @media only screen and (max-width: 920px) {
-  .container {
-    width: 100%;
-    align-self: center;
-    height: 100vh;
-    display: grid;
-    padding: 1rem;
-    margin: 0;
-    min-width: 300px;
-    grid-template-columns:
-      minmax(50px, 1fr) minmax(50px, 1fr)
-      minmax(50px, 1fr) minmax(50px, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0.5rem;
-    justify-items: stretch;
-  }
-  .overview {
-    background: transparent;
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 1;
-    height: 100%;
-  }
+	.container {
+		width: 100%;
+		align-self: center;
+		height: 100vh;
+		display: grid;
+		padding: 1rem;
+		margin: 0;
+		min-width: 300px;
+		grid-template-columns:
+			minmax(50px, 1fr) minmax(50px, 1fr)
+			minmax(50px, 1fr) minmax(50px, 1fr);
+		grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		gap: 0.5rem;
+		justify-items: stretch;
+	}
+	.overview {
+		background: transparent;
+		grid-column: 1 / span 2;
+		grid-row: 1 / span 1;
+		height: 100%;
+	}
 
-  .featured {
-    grid-column: 3 / span 2;
-    grid-row: 1 / span 1;
-    height: 100%;
-    color: var(--main-text-color);
-  }
+	.featured {
+		grid-column: 3 / span 2;
+		grid-row: 1 / span 1;
+		height: 100%;
+		color: var(--main-text-color);
+	}
 
-  .conditional {
-    background: transparent;
-    grid-column: 1 / span 4;
-    grid-row: 5 / span 4;
-    height: 100%;
-  }
+	.conditional {
+		background: transparent;
+		grid-column: 1 / span 4;
+		grid-row: 5 / span 4;
+		height: 100%;
+	}
 
-  .button1 {
-    background: transparent;
-    grid-column: 4 / span 1;
-    grid-row: 3 / span 1;
-    height: 100%;
-    text-align: center;
-  }
+	.button1 {
+		background: transparent;
+		grid-column: 4 / span 1;
+		grid-row: 3 / span 1;
+		height: 100%;
+		text-align: center;
+	}
 
-  .button1 div button {
-    align-self: flex-end;
-  }
+	.button1 div button {
+		align-self: flex-end;
+	}
 
-  .button2 {
-    background: transparent;
-    grid-column: 4 / span 1;
-    grid-row: 4 / span 1;
-    height: 100%;
-    text-align: center;
-  }
+	.button2 {
+		background: transparent;
+		grid-column: 4 / span 1;
+		grid-row: 4 / span 1;
+		height: 100%;
+		text-align: center;
+	}
 
-  .portfolio_chart {
-    background: transparent;
-    overflow: hidden;
-    grid-column: 1 / span 3;
-    grid-row: 2 / span 3;
-    /* margin: 0.8rem; */
-  }
-  .rows {
-    display: grid;
-    grid-template-columns:
-      minmax(2rem, 1fr) minmax(2rem, 1fr)
-      minmax(2rem, 1fr) minmax(2rem, 1fr) minmax(2rem, 1fr)
-      minmax(2rem, 1fr) minmax(2rem, 1fr);
-    width: 100%;
-    gap: 1rem;
-    font-size: 0.7rem;
-    justify-content: space-between;
-    text-align: center;
-    height: 2.4rem;
-    border-bottom: 1px solid #d7d7d7;
-    padding: 0;
-  }
-  .name {
-    grid-column: 1 / span 2;
-  }
-  .nameHeading {
-    grid-column: 1 / span 2;
-    transform: translateX(0);
-  }
-  .name img {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 6px;
-    transform: translateY(-0.5rem);
-  }
-  .name span {
-    font-size: 0.7rem;
-  }
-  .symbol {
-    display: none;
-  }
+	.portfolio_chart {
+		background: transparent;
+		overflow: hidden;
+		grid-column: 1 / span 4;
+		grid-row: 2 / span 3;
+		/* margin: 0.8rem; */
+	}
+	.rows {
+		display: grid;
+		grid-template-columns:
+			minmax(2rem, 1fr) minmax(2rem, 1fr)
+			minmax(2rem, 1fr) minmax(2rem, 1fr) minmax(2rem, 1fr)
+			minmax(2rem, 1fr) minmax(2rem, 1fr);
+		width: 100%;
+		gap: 1rem;
+		font-size: 0.7rem;
+		justify-content: space-between;
+		text-align: center;
+		height: 2.4rem;
+		border-bottom: 1px solid #d7d7d7;
+		padding: 0;
+	}
+	.name {
+		grid-column: 1 / span 2;
+	}
+	.nameHeading {
+		grid-column: 1 / span 2;
+		transform: translateX(0);
+	}
+	.name img {
+		width: 1.5rem;
+		height: 1.5rem;
+		margin-right: 6px;
+		transform: translateY(-0.5rem);
+	}
+	.name span {
+		font-size: 0.7rem;
+	}
+	.symbol {
+		display: none;
+	}
 }

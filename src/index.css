@@ -1,137 +1,140 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
 }
 
 :root {
-  --main-bg-color: #f7f7f2;
-  --main-text-color: #051e24;
-  --main-text-color: #161515;
-  --app-color-1: #0e6277;
-  --app-color-2: #0d265e;
-  --app-color-3: #3f8efc;
-  --app-color-4: #0ca45a;
-  --app-color-red: #d14a2f;
-  --light-blue: #d6eaf8;
+	--main-bg-color: #f7f7f2;
+	--main-text-color: #051e24;
+	--main-text-color: #161515;
+	--app-color-1: #0e6277;
+	--app-color-2: #0d265e;
+	--app-color-3: #3f8efc;
+	--app-color-4: #0ca45a;
+	--app-color-red: #d14a2f;
+	--light-blue: #d6eaf8;
 }
 
 body {
-  margin: 0;
-  font-family: "Lato", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 0.9rem;
-  /* background: var(--main-bg-color); */
-  background: var(--main-bg-color);
+	margin: 0;
+	font-family: "Lato", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 0.9rem;
+	/* background: var(--main-bg-color); */
+	background: var(--main-bg-color);
 }
 
 .app {
-  box-sizing: border-box;
-  overflow-x: hidden;
-  width: 100vw;
-  color: var(--main-text-color);
+	box-sizing: border-box;
+	overflow-x: hidden;
+	width: 100vw;
+	color: var(--main-text-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: "Lato", sans-serif;
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: "Lato", sans-serif;
 }
 
 h2 h3 h4 {
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
+	font-family: "Lato", sans-serif;
+	font-weight: 700;
 }
 button {
-  display: inline-block;
-  border: none;
-  padding: 0.25rem 0.25rem;
-  margin: 0;
-  width: 9rem;
-  /* max-width: 9rem; */
-  height: 2.2rem;
-  border-radius: 1.5rem;
-  text-decoration: none;
-  background: #ffffff;
-  color: rgb(36, 36, 36);
-  border: 1px solid rgb(36, 36, 36);
-  font-family: "Lato", sans-serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-align: center;
-  transition: all 180ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+	display: inline-block;
+	border: none;
+	padding: 0.25rem 0.25rem;
+	margin: 0;
+	width: 9rem;
+	/* max-width: 9rem; */
+	height: 2.2rem;
+	border-radius: 1.5rem;
+	text-decoration: none;
+	background: #ffffff;
+	color: rgb(36, 36, 36);
+	border: 1px solid rgb(36, 36, 36);
+	font-family: "Lato", sans-serif;
+	font-size: 0.9rem;
+	cursor: pointer;
+	text-align: center;
+	transition: all 180ms ease;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
 
 button:hover {
-  border: 1px solid transparent;
-  box-shadow: 0 0 4px 0 #1c96cd;
-  /* background: #ffff00; */
+	border: 1px solid transparent;
+	box-shadow: 0 0 4px 0 #1c96cd;
+	/* background: #ffff00; */
 }
 
 button:focus {
-  outline: 1px solid var(--app-color-4);
-  outline-offset: 2px;
-  border: 1px solid transparent;
-  box-shadow: 0 0 4px 0 #1c96cd;
+	outline: 1px solid var(--app-color-4);
+	outline-offset: 2px;
+	border: 1px solid transparent;
+	box-shadow: 0 0 4px 0 #1c96cd;
 }
 
 button:active {
-  transform: scale(0.99);
+	transform: scale(0.99);
 }
 input,
 select {
-  font-size: 0.9rem;
-  transition: all 80ms ease;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+	font-size: 0.9rem;
+	transition: all 80ms ease;
+	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 input:hover::placeholder {
-  color: #1c96cd;
+	color: #1c96cd;
 }
 input:hover,
 input:focus,
 select:hover {
-  border: 1px solid transparent;
-  /* box-shadow: 0 0 6px 0 #1c87c9; */
-  box-shadow: 0 0 4px 0 #1c96cd;
-  color: #1c96cd;
+	border: 1px solid transparent;
+	/* box-shadow: 0 0 6px 0 #1c87c9; */
+	box-shadow: 0 0 4px 0 #1c96cd;
+	color: #1c96cd;
 }
 
 .red {
-  color: var(--app-color-red);
+	color: var(--app-color-red);
 }
 
 .green {
-  color: var(--app-color-4);
+	color: var(--app-color-4);
 }
 
 /* smaller screen */
 @media only screen and (max-width: 566px) {
-  :root {
-    font-size: 92%;
-  }
-  button {
-    margin: 0;
-    height: 2rem;
-    font-size: 0.9rem;
-  }
+	:root {
+		font-size: 92%;
+	}
+	button {
+		margin: 0;
+		height: 2rem;
+		font-size: 0.9rem;
+	}
 }
 
 /* small phones */
 @media only screen and (max-width: 376px) {
-  :root {
-    font-size: 78%;
-  }
-  button {
-    margin: 0;
-    height: 2rem;
-    font-size: 0.9rem;
-  }
+	:root {
+		font-size: 78%;
+	}
+	button {
+		margin: 0;
+		height: 2rem;
+		font-size: 0.9rem;
+	}
 }

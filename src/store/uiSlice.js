@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialUIState = {
 	showDash: false,
 	featured: { none: true },
-	display: "chart",
+	display: "Chart",
 };
 
 export const uiSlice = createSlice({

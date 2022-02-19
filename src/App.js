@@ -65,11 +65,11 @@ function App() {
 	}, [buildAccount, marketData, dispatch]);
 
 	// * * * update Firebase with current account * * *
-	useEffect(() => {
-		if (sendAccount) {
-			dispatch(sendAccountData(account));
-		}
-	}, [sendAccount, account, dispatch]);
+	// useEffect(() => {
+	// 	if (sendAccount) {
+	// 		dispatch(sendAccountData(account));
+	// 	}
+	// }, [sendAccount, account, dispatch]);
 
 	return (
 		<div className="app">

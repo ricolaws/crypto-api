@@ -21,7 +21,7 @@ function PortfolioChart(props) {
 		cutout: Math.min(width / 11, 120),
 		plugins: {
 			legend: {
-				position: "top",
+				position: "left",
 				align: "start",
 			},
 		},

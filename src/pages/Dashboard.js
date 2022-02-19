@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
@@ -7,7 +7,6 @@ import CoinInfo from "../components/CoinInfo";
 import ControlDashboard from "../components/ControlDashboard";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
-import { updatePortfolio } from "../logic/calcAccountFunctions";
 
 function Dashboard(props) {
 	const account = useSelector((state) => state.account);
@@ -19,15 +18,10 @@ function Dashboard(props) {
 		dispatch(uiActions.setFeatured(account.coinData[coin]));
 	};
 
-	// useEffect(() => {
-	// 	console.log(account);
-	// 	updatePortfolio();
-	// }, [updatePortfolio, account]);
-
 	return (
 		<React.Fragment>
 			{showDash && (
-				<div className={classes.container}>
+				<div className={classes.grid}>
 					<div className={classes.overview}>
 						<ValueAndCost
 							title={"Portfolio"}
@@ -51,10 +45,6 @@ function Dashboard(props) {
 					<div className={classes.conditional}>
 						<ConditionalDisplay />
 					</div>
-					<div className={classes.button1}>
-						<ControlDashboard />
-					</div>
-					<div className={classes.button2}></div>
 					<div className={classes.portfolio_chart}>
 						<PortfolioChart
 							onSetFeaturedCoin={clickAssetHandler}

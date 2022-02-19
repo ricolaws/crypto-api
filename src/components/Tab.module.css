@@ -1,0 +1,15 @@
+.tab {
+	border: none;
+	border-radius: 0;
+	color: var(--main-text-color);
+	text-decoration: none;
+	margin: 0.25rem 2rem;
+	cursor: pointer;
+}
+
+.tab:hover,
+.tab:active,
+.active {
+	padding-bottom: 0.25rem;
+	border-bottom: 2px solid var(--main-text-color);
+}
