@@ -1,165 +1,87 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
-import classes from "./PortfolioLineChart.module.css";
-import pattern from "patternomaly";
+import { calcChartData } from "../logic/calcChartData";
 
 function PortfolioLineChart(props) {
-  const [priceData, setPriceData] = useState([]);
-  const [chartData, setChartData] = useState();
-  const [key, setKey] = useState(0);
+	const dailyData = useSelector((state) => state.dailyData.data);
+	const account = useSelector((state) => state.account);
+	const featuredCoin = useSelector((state) => state.ui.featured);
+	const [chartData, setChartData] = useState();
 
-  const getDateFromStamp = (timeStamp) => {
-    var d = new Date(timeStamp);
-    const TSConverted = d.getMonth() + 1 + "/" + d.getDate();
-    return TSConverted;
-  };
+	const [key, setKey] = useState(0);
 
-  useEffect(() => {
-    if (props.data) {
-      const coinIDs = props.data.userAssets.map((coin) => coin.id);
+	const chartOptions = {
+		plugins: {
+			legend: {
+				display: false,
+			},
+		},
+		responsive: true,
+		maintainAspectRatio: false,
+		layout: {
+			padding: {
+				top: 5,
+				left: 5,
+				right: 5,
+				bottom: 5,
+			},
+		},
+		elements: {
+			line: {
+				borderColor: "black",
+				borderWidth: 2,
+				tension: 0.3,
+			},
+			point: {
+				radius: 0,
+			},
+		},
+	};
 
-      let endPoints = coinIDs.map(
-        (coin) =>
-          `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=90&interval=daily`
-      );
+	// price data is url response, props.data is account
+	// checking to see if all price data is available, then calling calcChart Data.
 
-      Promise.all(endPoints.map((endPoint) => axios.get(endPoint))).then(
-        (data) =>
-          setPriceData(
-            data.map((coin) => {
-              return {
-                // do i need to do this?
-                [coin.request.responseURL
-                  .replace("https://api.coingecko.com/api/v3/coins/", "")
-                  .replace(
-                    "/market_chart?vs_currency=usd&days=90&interval=daily",
-                    ""
-                  )]: coin.data.prices,
-              };
-            })
-          )
-      );
-    }
-  }, [props.data]);
+	useEffect(() => {
+		if (dailyData) {
+			const priceDataIsMissing = dailyData
+				.map((coin) => coin.prices)
+				.some((el) => el === undefined);
+			if (!priceDataIsMissing) {
+				const valuesOverTime = calcChartData(dailyData, account.coinData);
+				console.log(valuesOverTime);
+				setChartData(valuesOverTime);
+			}
+		}
+	}, [dailyData, account]);
 
-  const chartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        top: 5,
-        left: 5,
-        right: 5,
-        bottom: 5,
-      },
-    },
-    elements: {
-      line: {
-        borderColor: "black",
-        borderWidth: 2,
-        tension: 0.3,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-  };
+	useEffect(() => {
+		if (chartData) {
+			const chartDataCopy = chartData;
+			const newKey = key + 1;
+			const index = chartData.datasets.findIndex(
+				({ label }) => label === featuredCoin.id
+			);
 
-  useEffect(() => {
-    if (priceData.length && props.data) {
-      const summedValues = [];
-      const chartDataObj = { labels: [], datasets: [] };
-      const [timestamps] = Object.values(priceData[0]);
-      const dateLabels = timestamps.map((date) => getDateFromStamp(date[0]));
+			chartDataCopy.datasets.forEach((dataset, i) => {
+				if (i < chartDataCopy.datasets.length) {
+					dataset.hidden = true;
+				}
+			});
+			chartDataCopy.datasets[index].hidden = false;
 
-      chartDataObj.labels = dateLabels;
+			setChartData(chartDataCopy);
+			setKey(newKey);
+		}
+	}, [featuredCoin]);
 
-      priceData.forEach((coinObj, i) => {
-        const [id] = Object.keys(coinObj);
-        const [prices] = Object.values(coinObj);
-
-        const [filteredByCoin] = props.data.userAssets.filter(
-          (coin) => coin.id === id
-        );
-        // remove last element from prices to correct for extra data point on current day
-        prices.pop();
-        const amounts = filteredByCoin.dailyTotals.slice(-prices.length);
-
-        // loop over prices array multiplying amount by value and combine with timestamp
-        summedValues[i] = prices.map((arr, j) => arr[1] * amounts[j].amount);
-
-        const dataSet = {
-          label: id,
-          data: summedValues[i],
-          fill: true,
-          borderColor: props.colors[i],
-          backgroundColor: props.colors[i],
-          tension: 0.2,
-          borderWidth: 2,
-          hidden: true,
-        };
-        // add patterns to chart
-        dataSet.backgroundColor = pattern.draw(
-          props.colorPatterns[i][1],
-          props.colorPatterns[i][0],
-          "#000"
-        );
-
-        chartDataObj.datasets.push(dataSet);
-      });
-
-      // corect dateLabels array to match summed values
-      if (dateLabels.length > summedValues.length) {
-        dateLabels.pop();
-      }
-
-      const totalPortfolioValue = summedValues.reduce(
-        (r, a) => a.map((b, i) => (r[i] || 0) + b),
-        []
-      );
-
-      chartDataObj.datasets.push({
-        label: "total value",
-        data: totalPortfolioValue,
-      });
-
-      setChartData(chartDataObj);
-    }
-  }, [priceData, props.data, props.colors]);
-
-  useEffect(() => {
-    if (chartData) {
-      const chartDataCopy = chartData;
-      const newKey = key + 1;
-      const index = chartData.datasets.findIndex(
-        ({ label }) => label === props.featuredAsset.id
-      );
-
-      chartDataCopy.datasets.forEach((dataset, i) => {
-        if (i < chartDataCopy.datasets.length - 1) {
-          dataset.hidden = true;
-        }
-      });
-      chartDataCopy.datasets[index].hidden = false;
-
-      setChartData(chartDataCopy);
-      setKey(newKey);
-    }
-  }, [props.featuredAsset]);
-
-  return (
-    <div className={classes.container}>
-      {chartData ? (
-        <Line key={key} data={chartData} options={chartOptions} />
-      ) : null}
-    </div>
-  );
+	return (
+		<React.Fragment>
+			{chartData ? (
+				<Line key={key} data={chartData} options={chartOptions} />
+			) : null}
+		</React.Fragment>
+	);
 }
 
 export default PortfolioLineChart;

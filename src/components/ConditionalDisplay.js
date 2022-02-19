@@ -2,36 +2,27 @@ import React from "react";
 import PortfolioLineChart from "./PortfolioLineChart";
 import AddTradeWindow from "./AddTradeWindow";
 import TradeHistoryWindow from "./TradeHistoryWindow";
+import classes from "./ConditionalDisplay.module.css";
+import { useSelector } from "react-redux";
 import Card from "./Card";
+import TabGroup from "./TabGroup";
 
-function ConditionalDisplay(props) {
-  let content = null;
-  if (props.display === "chart") {
-    content = (
-      <PortfolioLineChart
-        colorPatterns={props.colorPatterns}
-        featuredAsset={props.featuredAsset}
-        colors={props.colors}
-        coins={props.coinList}
-        amounts={props.data.userAssets}
-        data={props.data}
-      />
-    );
-  }
-  if (props.display === "add") {
-    content = (
-      <AddTradeWindow
-        onAddTrade={props.onAddTrade}
-        coinList={props.coinList}
-        onCloseWindow={props.onCloseWindow}
-      />
-    );
-  }
-  if (props.display === "view") {
-    content = <TradeHistoryWindow data={props.data} />;
-  }
+function ConditionalDisplay() {
+	const display = useSelector((state) => state.ui.display);
+	const labels = ["Chart", "Add Trade", "History"];
 
-  return <Card>{content}</Card>;
+	return (
+		<Card>
+			<div className={classes.container}>
+				<TabGroup labels={labels} />
+				<div className={classes.content}>
+					{display === "Chart" && <PortfolioLineChart />}
+					{display === "Add Trade" && <AddTradeWindow />}
+					{display === "History" && <TradeHistoryWindow />}
+				</div>
+			</div>
+		</Card>
+	);
 }
 
 export default ConditionalDisplay;

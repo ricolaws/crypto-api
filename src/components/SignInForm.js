@@ -1,17 +1,30 @@
 import React, { useRef } from "react";
 import classes from "../pages/Welcome.module.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from '../store/authSlice';
+
 
 function SignInForm(props) {
+  const isLoggedIn = useSelector(state => state.auth.isAuthenticated)
+  const dispatch = useDispatch();
   const nameInputRef = useRef();
   const passwordInputRef = useRef();
 
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   const enteredName = nameInputRef.current.value;
+  //   const enteredPassword = passwordInputRef.current.value;
+  //   props.onSignIn(enteredName, enteredPassword);
+  // };
+
+
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const enteredName = nameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
-    props.onSignIn(enteredName, enteredPassword);
-  };
+    console.log(enteredName, enteredPassword)
+    dispatch(authActions.logIn())
+  }
 
   return (
     <React.Fragment>

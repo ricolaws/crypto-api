@@ -1,71 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import BrowseCoins from "./pages/BrowseCoins";
 import Dashboard from "./pages/Dashboard";
 import Welcome from "./pages/Welcome";
 import MainHeader from "./components/MainHeader";
-import { ACCOUNT_1 } from "./components/UserData";
-import { useHistory } from "react-router-dom";
-import { colorList, colorPatterns } from "./theme/colorPatterns";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	fetchAccountData,
+	fetchMarketData,
+	buildCurrentAccount,
+	fetchDailyMarketData,
+	sendAccountData,
+} from "./store/account-actions";
 
 function App() {
-  const history = useHistory();
-  const [signedIn, setSignedIn] = useState(false);
-  const [account, setAccount] = useState(ACCOUNT_1);
+	const history = useHistory();
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+	const account = useSelector((state) => state.account);
+	const marketData = useSelector((state) => state.marketData.data);
+	// const needMarketData = useSelector((state) => state.sequence.needMarketData);
+	// const needDailyData = useSelector((state) => state.sequence.needDailyData);
+	// const buildAccount = useSelector((state) => state.sequence.buildAccount);
+	const { needMarketData, needDailyData, buildAccount, sendAccount } =
+		useSelector((state) => state.sequence);
 
-  const routeChange = (path) => {
-    history.push(path);
-  };
+	// move to dashboard on login
+	useEffect(() => {
+		const routeChange = (path) => {
+			history.push(path);
+		};
+		if (isLoggedIn) {
+			routeChange("/dashboard");
+		}
+	}, [isLoggedIn, history]);
 
-  const signInHandler = (username, password) => {
-    console.log(username, password);
-    setSignedIn(true);
-    routeChange("/dashboard");
-  };
+	// get account data from firebase on login. set needMarketData = true
+	useEffect(() => {
+		if (isLoggedIn) {
+			dispatch(fetchAccountData());
+		}
+	}, [isLoggedIn, dispatch]);
 
-  const addTradeHandler = (trade) => {
-    let newAssetData = account.assetData;
+	// get market data from CoinGecko. set needMarketData = false & needDailyData = true
+	useEffect(() => {
+		if (needMarketData) {
+			dispatch(fetchMarketData(account.coinData));
+		}
+	}, [account, needMarketData, dispatch]);
 
-    const parts = trade.date.split("-");
-    const d = new Date(+parts[0], parts[1] - 1, +parts[2], 12);
+	// get daily data from CoinGecko. set needDailyData = false & buildAccount = true
+	useEffect(() => {
+		if (needDailyData) {
+			dispatch(fetchDailyMarketData(account.coinData));
+		}
+	}, [account, needDailyData, dispatch]);
 
-    const newMovement = {
-      date: d,
-      amount: Number(trade.amount),
-      price: Number(trade.price),
-    };
+	// combine account data with coingecko data
+	useEffect(() => {
+		if (buildAccount) {
+			dispatch(buildCurrentAccount(marketData, account));
+		}
+	}, [buildAccount, marketData, dispatch]);
 
-    const matchedIndex = account.assetData.findIndex(
-      (asset) => asset.id === trade.id
-    );
+	// * * * update Firebase with current account * * *
+	// useEffect(() => {
+	// 	if (sendAccount) {
+	// 		dispatch(sendAccountData(account));
+	// 	}
+	// }, [sendAccount, account, dispatch]);
 
-    newAssetData[matchedIndex].movements.push(newMovement);
-
-    setAccount({
-      ...account,
-      assetData: newAssetData,
-    });
-  };
-
-  return (
-    <div className="app">
-      <MainHeader signedIn={signedIn} />
-      <Route path="/welcome">
-        <Welcome onSignIn={signInHandler} />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard
-          account={account}
-          colors={colorList}
-          colorPatterns={colorPatterns}
-          onAddTrade={addTradeHandler}
-        />
-      </Route>
-      <Route path="/browse">
-        <BrowseCoins />
-      </Route>
-    </div>
-  );
+	return (
+		<div className="app">
+			<MainHeader />
+			<Route path="/welcome">
+				<Welcome />
+			</Route>
+			<Route path="/dashboard">{isLoggedIn && <Dashboard />}</Route>
+			<Route path="/browse">
+				<BrowseCoins />
+			</Route>
+		</div>
+	);
 }
 
 export default App;

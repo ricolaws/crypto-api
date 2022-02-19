@@ -1,35 +1,40 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./MainHeader.module.css";
+import { useSelector } from "react-redux";
 
 function MainHeader(props) {
-  return (
-    <header className={classes.header}>
-      <nav>
-        <ul>
-          <li>
-            <NavLink activeClassName={classes.active} to="/welcome">
-              Welcome
-            </NavLink>
-          </li>
-          {props.signedIn ? (
-            <li>
-              <NavLink activeClassName={classes.active} to="/dashboard">
-                Dashboard
-              </NavLink>
-            </li>
-          ) : null}
-          {props.signedIn ? (
-            <li>
-              <NavLink activeClassName={classes.active} to="/browse">
-                Browse
-              </NavLink>
-            </li>
-          ) : null}
-        </ul>
-      </nav>
-    </header>
-  );
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+
+	return (
+		<header className={classes.header}>
+			<nav>
+				{!isLoggedIn && (
+					<ul>
+						<li>
+							<NavLink activeClassName={classes.active} to="/welcome">
+								Welcome
+							</NavLink>
+						</li>
+					</ul>
+				)}
+				{isLoggedIn && (
+					<ul>
+						<li>
+							<NavLink activeClassName={classes.active} to="/dashboard">
+								Dashboard
+							</NavLink>
+						</li>
+						<li>
+							<NavLink activeClassName={classes.active} to="/browse">
+								Browse
+							</NavLink>
+						</li>
+					</ul>
+				)}
+			</nav>
+		</header>
+	);
 }
 
 export default MainHeader;
