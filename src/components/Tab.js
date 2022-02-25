@@ -8,12 +8,12 @@ function Tab(props) {
 		onClick(label);
 	};
 	return (
-		<a
+		<button
 			onClick={clickHandler}
 			className={`${classes.tab} ${active ? classes.active : ""}`}
 		>
 			{label}
-		</a>
+		</button>
 	);
 }
 

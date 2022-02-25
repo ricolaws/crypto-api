@@ -8,9 +8,8 @@ function PortfolioChart(props) {
 	const [portfolioChartData, setPortfolioChartData] = useState();
 	const { width } = useWindowDimensions();
 
-	const clickHandler = (evt, item) => {
+	const clickHandler = (_, item) => {
 		if (item.length > 0) {
-			console.log(item);
 			props.onSetFeaturedCoin(item[0].index);
 		}
 	};
@@ -30,7 +29,6 @@ function PortfolioChart(props) {
 
 	const contrast2 = "#000";
 	useEffect(() => {
-		console.log("PC-useEffect");
 		const chartData = {
 			datasets: [
 				{
@@ -56,7 +54,7 @@ function PortfolioChart(props) {
 		});
 
 		setPortfolioChartData(chartData);
-	}, [props.data, colorPatterns]);
+	}, [props.data]);
 
 	return (
 		<React.Fragment>
