@@ -18,7 +18,7 @@
 
 ## Overview
 
-![Screen Shot 2021-12-21 at 9 21 53 PM](https://user-images.githubusercontent.com/41934323/147039952-6c4f067a-5310-42e5-91d6-6951000f6f54.png)
+<img width="1677" alt="Screen Shot 2022-02-24 at 6 02 02 PM" src="https://user-images.githubusercontent.com/41934323/155639720-c873d1c7-61e0-45c2-9525-83e836bbb081.png">
 
 ![Screen Shot 2021-12-21 at 9 22 18 PM](https://user-images.githubusercontent.com/41934323/147040025-01c35c78-7078-4d3e-941c-c187ac06670c.png)
 
