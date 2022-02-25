@@ -49,7 +49,6 @@ function PortfolioLineChart(props) {
 				.some((el) => el === undefined);
 			if (!priceDataIsMissing) {
 				const valuesOverTime = calcChartData(dailyData, account.coinData);
-				console.log(valuesOverTime);
 				setChartData(valuesOverTime);
 			}
 		}

@@ -37,7 +37,6 @@ export const orderMovsByDate = (coinData) => {
 // calculate return on investment
 export const calcROI = (value, cost) => {
 	const netReturn = value - cost;
-	console.log(value, cost, netReturn);
 	return (netReturn / cost) * 100;
 };
 

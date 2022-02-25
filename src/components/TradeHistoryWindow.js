@@ -6,7 +6,6 @@ import classes from "./TradeHistoryWindow.module.css";
 function TradeHistoryWindow(props) {
 	const coinData = useSelector((state) => state.account.coinData);
 	const content = coinData.map((coin) => {
-		console.log(new Date(coin.movements[0].date));
 		return {
 			asset: coin.name,
 			trades: coin.movements.map(

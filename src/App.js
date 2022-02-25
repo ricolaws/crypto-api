@@ -6,6 +6,9 @@ import Dashboard from "./pages/Dashboard";
 import Welcome from "./pages/Welcome";
 import MainHeader from "./components/MainHeader";
 import { useSelector, useDispatch } from "react-redux";
+import { accountActions } from "./store/accountSlice";
+import { sequenceActions } from "./store/sequenceSlice";
+import { DEMO_ACCOUNT } from "./store/placeholderAccount";
 import {
 	fetchAccountData,
 	fetchMarketData,
@@ -37,9 +40,17 @@ function App() {
 	}, [isLoggedIn, history]);
 
 	// get account data from firebase on login. set needMarketData = true
+	// skip this until i get firebase Auth stuff going...
+	// useEffect(() => {
+	// 	if (isLoggedIn) {
+	// 		dispatch(fetchAccountData());
+	// 	}
+	// }, [isLoggedIn, dispatch]);
+
 	useEffect(() => {
 		if (isLoggedIn) {
-			dispatch(fetchAccountData());
+			dispatch(accountActions.updateAccount(DEMO_ACCOUNT));
+			dispatch(sequenceActions.needMarketData(true));
 		}
 	}, [isLoggedIn, dispatch]);
 
