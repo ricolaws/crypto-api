@@ -1,9 +1,11 @@
+import { Labels } from "../components/Labels/Labels";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
 import ValueAndCost from "../components/ValueAndCost";
 import CoinInfo from "../components/CoinInfo";
+// import CoinTable from "../components/CoinTable/CoinTable";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
 
@@ -53,15 +55,7 @@ function Dashboard(props) {
 				</div>
 			)}
 			<div className={classes.labelsContainer}>
-				<div className={`${classes.rows} ${classes.labels}`}>
-					<div className={classes.nameHeading}></div>
-					<div className={classes.symbol}>Symbol</div>
-					<div>Price</div>
-					<div>24hr.</div>
-					<div>7d.</div>
-					<div>M.Cap</div>
-					<div>ROI</div>
-				</div>
+				<Labels />
 			</div>
 			{showDash &&
 				account.coinData.map((coin) => {

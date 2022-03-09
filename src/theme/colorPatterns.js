@@ -1,12 +1,10 @@
 export const colorList = [
-	"#0D265E",
-	// "#ddad9d",
-	"#C3BF6D",
-	"#a8ac9b",
-	"#3F8EFC",
-	"#0Ca45A",
-	"#db504a",
-	// "#a6EAb8",
+	"#4ab18c",
+	"#a8bbfc",
+	"#e74f37",
+	"#f7c945",
+	"#C2D1D6",
+	// "#13293D",
 ];
 
 export const patternList = [
@@ -14,9 +12,10 @@ export const patternList = [
 	"cross-dash",
 	"zigzag",
 	"weave",
-	"plus",
-	"dot",
 	"diamond-box",
+	"dot",
+
+	"plus",
 ];
 
 let c = 0;

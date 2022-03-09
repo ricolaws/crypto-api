@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap");
 
 * {
 	box-sizing: border-box;
@@ -8,24 +8,24 @@
 }
 
 :root {
-	--main-bg-color: #f7f7f2;
-	--main-text-color: #051e24;
+	--main-bg-color: #f4f4f0;
+	--bg-color-2: #ebebe6;
+	--app-gray: #bbb;
 	--main-text-color: #161515;
-	--app-color-1: #0e6277;
-	--app-color-2: #0d265e;
-	--app-color-3: #3f8efc;
-	--app-color-4: #0ca45a;
-	--app-color-red: #d14a2f;
-	--light-blue: #d6eaf8;
+	--app-color-1: #4ab18c;
+	--app-color-2: #a8bbfc;
+	--app-color-3: #e74f37;
+	--app-color-4: #f7c945;
+	--app-color-5: #c2d1d6;
 }
 
 body {
 	margin: 0;
-	font-family: "Lato", sans-serif;
+	font-family: "Raleway", sans-serif;
+	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 0.9rem;
-	/* background: var(--main-bg-color); */
 	background: var(--main-bg-color);
 }
 
@@ -40,79 +40,82 @@ body {
 }
 
 h1 {
-	font-size: 2rem;
-	font-weight: 700;
-	font-family: "Lato", sans-serif;
+	font-size: 4em;
+	font-weight: 600;
+	font-family: "Raleway", sans-serif;
 }
 
 h2 h3 h4 {
-	font-family: "Lato", sans-serif;
-	font-weight: 700;
+	font-family: "Raleway", sans-serif;
+	font-size: 4em;
+	font-weight: 400;
 }
+
+nav ul {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	list-style: none;
+	gap: 4em;
+	padding: 1.5em 2em;
+}
+
+li a {
+	color: var(--main-text-color);
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0.25em 0;
+}
+
+li a.active {
+	border-bottom: 2px solid var(--main-text-color);
+}
+
 button {
 	display: inline-block;
-	border: none;
-	padding: 0.25rem 0.25rem;
+	position: relative;
+	border: 1px solid var(--main-text-color);
+	padding: 0.75rem 1rem;
 	margin: 0;
-	width: 9rem;
-	/* max-width: 9rem; */
-	height: 2.2rem;
-	border-radius: 1.5rem;
+	border-radius: 0.25rem;
 	text-decoration: none;
-	background: #ffffff;
-	color: rgb(36, 36, 36);
-	border: 1px solid rgb(36, 36, 36);
-	font-family: "Lato", sans-serif;
+	background: var(--main-bg-color);
+	color: var(--main-text-color);
+	font-family: "Raleway", sans-serif;
 	font-size: 0.9rem;
+	line-height: 1.5;
 	cursor: pointer;
 	text-align: center;
-	transition: all 180ms ease;
+	transform: none;
+	transition: all 150ms ease-out;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
 
 button:hover {
-	border: 1px solid transparent;
-	box-shadow: 0 0 4px 0 #1c96cd;
-	/* background: #ffff00; */
+	box-shadow: 3px 3px var(--main-text-color);
+	transform: translate(-3px, -3px);
 }
 
 button:focus {
-	outline: 1px solid var(--app-color-4);
-	outline-offset: 2px;
-	border: 1px solid transparent;
-	box-shadow: 0 0 4px 0 #1c96cd;
+	outline: 1px solid var(--app-color-1);
+	outline-offset: -3px;
 }
 
 button:active {
-	transform: scale(0.99);
-}
-input,
-select {
-	font-size: 0.9rem;
-	transition: all 80ms ease;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-}
-
-input:hover::placeholder {
-	color: #1c96cd;
-}
-input:hover,
-input:focus,
-select:hover {
-	border: 1px solid transparent;
-	/* box-shadow: 0 0 6px 0 #1c87c9; */
-	box-shadow: 0 0 4px 0 #1c96cd;
-	color: #1c96cd;
+	transform: none;
+	box-shadow: none;
 }
 
 .red {
-	color: var(--app-color-red);
+	color: var(--app-color-3);
+	font-weight: 600;
 }
 
 .green {
-	color: var(--app-color-4);
+	color: var(--app-color-1);
+	font-weight: 600;
 }
 
 /* smaller screen */
@@ -122,7 +125,6 @@ select:hover {
 	}
 	button {
 		margin: 0;
-		height: 2rem;
 		font-size: 0.9rem;
 	}
 }
@@ -134,7 +136,6 @@ select:hover {
 	}
 	button {
 		margin: 0;
-		height: 2rem;
 		font-size: 0.9rem;
 	}
 }

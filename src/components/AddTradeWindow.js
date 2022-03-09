@@ -1,3 +1,5 @@
+import { Select } from "./Select";
+import Input from "components/Input.js";
 import React, { useState } from "react";
 import classes from "./AddTradeWindow.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,11 +18,6 @@ function AddTradeWindow(props) {
 	const account = useSelector((state) => state.account);
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState(initialFormData);
-
-	// const closeWindowHandler = (e) => {
-	//   e.preventDefault();
-	//   props.onCloseWindow();
-	// };
 
 	const changeHandler = (e) => {
 		let newFormData = {
@@ -128,27 +125,17 @@ function AddTradeWindow(props) {
 					</div>
 					<div className={classes.item}>
 						<p>Which Coin?</p>
-						<select
+						<Select
 							value={formData.id || "please choose..."}
 							name="id"
 							onChange={changeHandler}
-							required
-						>
-							<option value="please choose..." disabled>
-								please choose...
-							</option>
-							{account.coinData.map((coin, i) => {
-								return (
-									<option key={i} value={coin.id}>
-										{coin.name}
-									</option>
-								);
-							})}
-						</select>
+							placeholder="please choose..."
+							data={account.coinData}
+						/>
 					</div>
 					<div className={classes.item}>
-						<p>Date of trade</p>
-						<input
+						<Input
+							label="Date of trade"
 							type="date"
 							name="date"
 							onChange={changeHandler}
@@ -158,39 +145,36 @@ function AddTradeWindow(props) {
 						<i className={classes.calendar}></i>
 					</div>
 					<div className={classes.item}>
-						<p>Amount</p>
-						<input
+						<Input
+							label="Amount"
 							onChange={changeHandler}
 							value={formData.amount}
 							type="number"
 							name="amount"
 							min="0"
 							step="0.001"
-							required
 						/>
 					</div>
 					<div className={classes.item}>
-						<p>Price</p>
-						<input
+						<Input
+							label="Price"
 							onChange={changeHandler}
 							value={formData.price}
 							type="number"
 							min="0"
 							step="0.01"
 							name="price"
-							required
 						/>
 					</div>
 					<div className={classes.item}>
-						<p>Total</p>
-						<input
+						<Input
+							label="Total"
 							onChange={changeHandler}
 							value={formData.total}
 							type="number"
 							name="total"
 							min="0"
 							step="0.01"
-							required
 						/>
 					</div>
 				</div>

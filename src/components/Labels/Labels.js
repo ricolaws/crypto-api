@@ -10,7 +10,7 @@ export function Labels({}) {
 			<div>24hr.</div>
 			<div>7d.</div>
 			<div>M.Cap</div>
-			<div>Returns</div>
+			<div>ROI</div>
 		</div>
 	);
 }

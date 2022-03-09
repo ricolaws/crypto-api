@@ -1,0 +1,10 @@
+.in {
+	opacity: 1;
+	transition: all 900ms ease;
+	transform: none;
+}
+
+.out {
+	opacity: 0;
+	transform: translateY(1em);
+}

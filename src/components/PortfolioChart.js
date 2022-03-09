@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import pattern from "patternomaly";
 import { colorPatterns } from "../theme/colorPatterns";
 import useWindowDimensions from "../hooks/getWindowDimensions";
+import { contrastColor } from "../logic/helpers";
 
 function PortfolioChart(props) {
 	const [portfolioChartData, setPortfolioChartData] = useState();
@@ -22,28 +23,39 @@ function PortfolioChart(props) {
 			legend: {
 				position: "left",
 				align: "start",
+				labels: {
+					color: "#161515",
+					boxWidth: 50,
+					padding: 20,
+				},
 			},
 		},
 		onClick: clickHandler,
 	};
 
-	const contrast2 = "#000";
 	useEffect(() => {
 		const chartData = {
 			datasets: [
 				{
 					label: "Portfolio",
-					backgroundColor: "#005",
-					hoverOffset: 6,
-					hoverBorderWidth: 1,
+					// backgroundColor: "#005",
+					hoverOffset: 20,
+					borderWidth: 0,
+					borderColor: "#161515",
+					hoverBorderWidth: 0,
 					borderRadius: 0,
 					spacing: 0,
 				},
 			],
 		};
 
-		chartData.datasets[0].backgroundColor = props.data.map((_, i) => {
-			return pattern.draw(colorPatterns[i][1], colorPatterns[i][0], contrast2);
+		chartData.datasets[0].backgroundColor = colorPatterns.map((_, i) => {
+			return pattern.draw(
+				colorPatterns[i][1],
+				colorPatterns[i][0],
+				contrastColor(colorPatterns[i][0]),
+				15
+			);
 		});
 		chartData.labels = props.data.map((coin) => {
 			return coin.name;

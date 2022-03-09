@@ -1,11 +1,7 @@
 .card {
-	box-shadow: 5px 3px 10px #16305848;
-	border-radius: 10px;
-	background-color: #eff0ee;
-	background-color: white;
-
-	border: 1px solid #592909;
-	box-shadow: 0.4rem 0.4rem 1rem #a8cef2a1;
+	border-radius: 0.5rem;
+	border: 1px solid var(--main-text-color);
+	background-color: var(--bg-color-2);
 	height: 100%;
 	padding: 0.5rem;
 }
