@@ -2,6 +2,7 @@ import { getDateFromStamp } from "../logic/helpers";
 import { addNestedArrays } from "../logic/helpers";
 import { colorPatterns } from "../theme/colorPatterns";
 import pattern from "patternomaly";
+import { contrastColor } from "../logic/helpers";
 
 // data = array of objects / {id: 'matic-network', prices: Array(91), dailyTotals: Array(474)}
 export const calcChartData = (data, coinData) => {
@@ -24,7 +25,8 @@ export const calcChartData = (data, coinData) => {
 		const color = pattern.draw(
 			patternsArray[index][1],
 			patternsArray[index][0],
-			"#000"
+			contrastColor(patternsArray[index][0]),
+			15
 		);
 
 		const dataSet = {
@@ -33,7 +35,7 @@ export const calcChartData = (data, coinData) => {
 			fill: true,
 			borderColor: color,
 			backgroundColor: color,
-			tension: 0.2,
+			tension: 0.25,
 			borderWidth: 2,
 			hidden: true,
 		};

@@ -3,10 +3,12 @@ import { Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import BrowseCoins from "./pages/BrowseCoins";
 import Dashboard from "./pages/Dashboard";
-import Welcome from "./pages/Welcome";
+// import Welcome from "./pages/Welcome";
+import Landing from "./pages/Landing";
 import MainHeader from "./components/MainHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { accountActions } from "./store/accountSlice";
+import { authActions } from "./store/authSlice";
 import { sequenceActions } from "./store/sequenceSlice";
 import { DEMO_ACCOUNT } from "./store/placeholderAccount";
 import {
@@ -30,14 +32,14 @@ function App() {
 		useSelector((state) => state.sequence);
 
 	// move to dashboard on login
-	useEffect(() => {
-		const routeChange = (path) => {
-			history.push(path);
-		};
-		if (isLoggedIn) {
-			routeChange("/dashboard");
-		}
-	}, [isLoggedIn, history]);
+	// useEffect(() => {
+	// 	const routeChange = (path) => {
+	// 		history.push(path);
+	// 	};
+	// 	if (isLoggedIn) {
+	// 		routeChange("/dashboard");
+	// 	}
+	// }, [isLoggedIn, history]);
 
 	// get account data from firebase on login. set needMarketData = true
 	// skip this until i get firebase Auth stuff going...
@@ -82,11 +84,34 @@ function App() {
 	// 	}
 	// }, [sendAccount, account, dispatch]);
 
+	const logInHandler = () => {
+		dispatch(authActions.logIn());
+	};
+
+	const logOutHandler = () => {
+		dispatch(authActions.logOut());
+	};
+
 	return (
 		<div className="app">
-			<MainHeader />
+			{!isLoggedIn ? (
+				<MainHeader
+					links={["Features"]}
+					button={{
+						label: "Get Started",
+						to: "/dashboard",
+						handler: logInHandler,
+					}}
+				/>
+			) : (
+				<MainHeader
+					links={["dashboard", "browse"]}
+					button={{ label: "Log Out", to: "/welcome", handler: logOutHandler }}
+				/>
+			)}
+
 			<Route path="/welcome">
-				<Welcome />
+				<Landing />
 			</Route>
 			<Route path="/dashboard">{isLoggedIn && <Dashboard />}</Route>
 			<Route path="/browse">

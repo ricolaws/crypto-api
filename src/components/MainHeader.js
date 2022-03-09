@@ -1,37 +1,34 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./MainHeader.module.css";
-import { useSelector } from "react-redux";
 
 function MainHeader(props) {
-	const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+	const { links, button, style } = props;
+
+	const submitHandler = (e) => {
+		const handler = button.handler;
+		handler();
+	};
 
 	return (
-		<header className={classes.header}>
+		<header style={{ background: style }}>
 			<nav>
-				{!isLoggedIn && (
-					<ul>
-						<li>
-							<NavLink activeClassName={classes.active} to="/welcome">
-								Welcome
-							</NavLink>
-						</li>
-					</ul>
-				)}
-				{isLoggedIn && (
-					<ul>
-						<li>
-							<NavLink activeClassName={classes.active} to="/dashboard">
-								Dashboard
-							</NavLink>
-						</li>
-						<li>
-							<NavLink activeClassName={classes.active} to="/browse">
-								Browse
-							</NavLink>
-						</li>
-					</ul>
-				)}
+				<ul>
+					{links.map((link) => {
+						return (
+							<li>
+								<NavLink activeClassName={classes.active} to={`/${link}`}>
+									{link}
+								</NavLink>
+							</li>
+						);
+					})}
+					<li>
+						<NavLink activeClassName={classes.active} to={button.to}>
+							<button onClick={submitHandler}>{button.label}</button>
+						</NavLink>
+					</li>
+				</ul>
 			</nav>
 		</header>
 	);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import { calcChartData } from "../logic/calcChartData";
+import { contrastColor } from "../logic/helpers";
 
 function PortfolioLineChart(props) {
 	const dailyData = useSelector((state) => state.dailyData.data);
@@ -29,9 +30,9 @@ function PortfolioLineChart(props) {
 		},
 		elements: {
 			line: {
-				borderColor: "black",
+				borderColor: "#161515",
 				borderWidth: 2,
-				tension: 0.3,
+				tension: 0.25,
 			},
 			point: {
 				radius: 0,
