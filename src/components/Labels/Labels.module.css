@@ -1,0 +1,30 @@
+.rows {
+	display: grid;
+	grid-template-columns:
+		minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr);
+	width: 82%;
+	gap: 3rem;
+	justify-content: space-between;
+	text-align: center;
+	height: 3.4rem;
+	border-bottom: 1px solid #d7d7d7;
+	padding: 0.5rem;
+}
+
+.labels {
+	font-weight: 700;
+	align-items: end;
+}
+
+.nameHeading {
+	transform: translateX(0.5rem);
+}
+
+/*  - - - - - - - - - - media queries - - - - - - - - - -  */
+@media only screen and (max-width: 920px) {
+	.symbol {
+		display: none;
+	}
+}

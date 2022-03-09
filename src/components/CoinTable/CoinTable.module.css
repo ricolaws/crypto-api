@@ -1,0 +1,54 @@
+.labelsContainer {
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+}
+
+.rows {
+	display: grid;
+	grid-template-columns:
+		minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
+		minmax(4rem, 1fr) minmax(4rem, 1fr);
+	width: 82%;
+	gap: 3rem;
+	justify-content: space-between;
+	text-align: center;
+	height: 3.4rem;
+	border-bottom: 1px solid #d7d7d7;
+	padding: 0.5rem;
+}
+
+.labels {
+	font-weight: 700;
+	align-items: end;
+}
+
+.name {
+	display: flex;
+}
+
+.nameHeading {
+	transform: translateX(0.5rem);
+}
+
+.name img {
+	width: 3rem;
+	margin-right: 8px;
+	transform: translateY(-0.8rem);
+}
+
+.name span {
+	width: 150px;
+	font-size: 1rem;
+}
+
+.red {
+	color: var(--app-color-3);
+	font-weight: 600;
+}
+
+.green {
+	color: var(--app-color-1);
+	font-weight: 600;
+}

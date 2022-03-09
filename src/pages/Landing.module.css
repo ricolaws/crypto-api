@@ -1,0 +1,85 @@
+.landing {
+	width: 100%;
+	min-height: 100vh;
+	background: #f4f4f0;
+	padding: 0;
+	background: url(../image/landing_background.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	color: var(--main-text-color);
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+}
+
+.title {
+	max-width: 40rem;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	margin: 16em 0 0 18%;
+	/* top: 25%;
+	left: 16%; */
+}
+
+.title h2 {
+	padding: 1.5rem 0;
+	font-size: 1.2em;
+	font-weight: 400;
+}
+
+.learn {
+	padding: 3rem;
+	align-self: flex-end;
+}
+
+.learn a {
+	font-size: 1.6em;
+	font-weight: 400;
+	padding: 0.5em;
+	text-transform: uppercase;
+	color: var(--app-color-1);
+	cursor: pointer;
+	transition: all 150ms ease-out;
+	letter-spacing: 0.15em;
+	border-radius: 0.25rem;
+}
+
+.learn a:hover {
+	border: 1px solid var(--app-color-1);
+	box-shadow: 3px 3px var(--app-color-1);
+	transform: translate(3px, 3px);
+}
+
+.learn a:active {
+	border: 1px solid var(--app-color-1);
+	box-shadow: none;
+	/* top: 0;
+	left: 0; */
+	transform: none;
+}
+
+#features {
+	margin-top: 80vh;
+	background: white;
+	width: 100vw;
+}
+
+#features article {
+	margin-top: 6em;
+	background: var(--main-bg-color);
+}
+
+.label {
+	color: var(--app-color-1);
+	text-transform: uppercase;
+	font-size: 1.2em;
+	font-weight: 400;
+}
+
+#features h3 {
+	font-size: 2.4em;
+	font-weight: 400;
+}

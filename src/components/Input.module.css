@@ -1,0 +1,29 @@
+.input {
+	margin: 10px 0;
+	width: 90%;
+	padding: 0.25rem;
+	height: 2rem;
+	font-size: 0.9rem;
+	font-family: "Raleway", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	transition: all 80ms ease;
+	border: 1px solid var(--main-text-color);
+	border-radius: 3px;
+}
+
+.input:hover::placeholder {
+	color: var(--app-color-2);
+}
+
+.input:hover,
+.input:focus {
+	border: 1px solid transparent;
+	outline: 1px solid var(--app-color-2);
+	box-shadow: 3px 3px var(--app-color-2);
+	color: var(--app-color-2);
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+	font-size: 0.9rem;
+}
