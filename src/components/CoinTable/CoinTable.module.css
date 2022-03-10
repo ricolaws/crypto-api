@@ -1,5 +1,6 @@
 .tableContainer {
 	padding: 0.5rem;
+	margin-top: 1rem;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -13,15 +14,12 @@
 
 .rows {
 	display: grid;
-	grid-template-columns:
-		minmax(4rem, 1fr) minmax(4rem, 1fr)
-		minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)
-		minmax(4rem, 1fr) minmax(4rem, 1fr);
+	grid-template-columns: repeat(8, [col-start] minmax(4rem, 1fr) [col-end]);
 	width: 82%;
 	gap: 3rem;
 	justify-content: space-between;
 	text-align: center;
-	height: 3.4rem;
+	/* height: 3.4rem; */
 	border-bottom: 1px solid #d7d7d7;
 	padding: 0.5rem;
 }
@@ -31,31 +29,18 @@
 	align-items: end;
 }
 
-.name {
-	display: flex;
-}
-
-.nameHeading {
-	transform: translateX(0.5rem);
-}
-
-.name img {
-	width: 3rem;
-	margin-right: 8px;
-	transform: translateY(-0.8rem);
-}
-
-.name span {
-	width: 150px;
-	font-size: 1rem;
-}
-
-.red {
-	color: var(--app-color-3);
-	font-weight: 600;
-}
-
-.green {
-	color: var(--app-color-1);
-	font-weight: 600;
+/* media query */
+@media only screen and (max-width: 920px) {
+	.rows {
+		display: grid;
+		grid-template-columns: repeat(8, [col-start] minmax(2rem, 1fr) [col-end]);
+		width: 100%;
+		gap: 1rem;
+		font-size: 0.7rem;
+		justify-content: space-between;
+		text-align: center;
+		height: 2.4rem;
+		border-bottom: 1px solid #d7d7d7;
+		padding: 0;
+	}
 }

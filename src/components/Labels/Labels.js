@@ -2,28 +2,18 @@ import React from "react";
 import classes from "./Labels.module.css";
 
 export function Labels(props) {
-	const {
-		image,
-		name,
-		symbol,
-		price,
-		marketCap,
-		priceChange24,
-		priceChange7d,
-		roi,
-		ath,
-		volume,
-	} = props;
+	const { dash } = props;
 
 	return (
-		<div className={`${classes.rows} ${classes.labels}`}>
-			<div className={classes.nameHeading}></div>
-			<div className={classes.symbol}>Symbol</div>
+		<>
+			<div></div>
+			<div></div>
 			<div>Price</div>
-			<div>24hr.</div>
-			<div>7d.</div>
+			<div>24 hr.</div>
+			<div>7 day.</div>
+			<div>A.T.H.</div>
 			<div>M.Cap</div>
-			<div>ROI</div>
-		</div>
+			<div>{dash ? "ROI" : "Volume"}</div>
+		</>
 	);
 }

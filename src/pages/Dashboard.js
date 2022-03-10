@@ -1,16 +1,13 @@
-import { Labels } from "../components/Labels/Labels";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
 import ValueAndCost from "../components/ValueAndCost";
-import CoinInfo from "../components/CoinInfo";
 import CoinTable from "components/CoinTable/CoinTable";
-// import CoinTable from "../components/CoinTable/CoinTable";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
 
-function Dashboard(props) {
+function Dashboard() {
 	const account = useSelector((state) => state.account);
 	const showDash = useSelector((state) => state.ui.showDash);
 	const featuredCoin = useSelector((state) => state.ui.featured);
@@ -55,8 +52,9 @@ function Dashboard(props) {
 					</div>
 				</div>
 			)}
-
-			{showDash ? <CoinTable /> : null}
+			{showDash ? (
+				<CoinTable data={account.coinData} dashDisplayMode={true} />
+			) : null}
 		</React.Fragment>
 	);
 }

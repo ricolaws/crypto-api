@@ -14,7 +14,7 @@ export const getDateFromStamp = (timeStamp) => {
 };
 
 // format numbers
-export const bigNumFormat = (num) => {
+export const numFormat = (num) => {
 	if (num >= 1000000000) {
 		return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
 	}
@@ -24,7 +24,13 @@ export const bigNumFormat = (num) => {
 	if (num >= 1000) {
 		return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
 	}
-	return num;
+	if (num >= 100) {
+		return num.toFixed(0);
+	}
+	if (num <= 1) {
+		return num.toFixed(3);
+	}
+	return num.toFixed(2);
 };
 
 // loop over nested array adding all values at each index of the sub arrays

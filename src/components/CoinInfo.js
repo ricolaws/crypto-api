@@ -1,10 +1,11 @@
 import React from "react";
 import classes from "./CoinInfo.module.css";
+import { numFormat } from "../logic/helpers.js";
 
 function CoinInfo(props) {
 	const {
+		dash,
 		image,
-		name,
 		symbol,
 		price,
 		marketCap,
@@ -14,24 +15,11 @@ function CoinInfo(props) {
 		ath,
 		volume,
 	} = props;
-	function numFormat(num) {
-		if (num >= 1000000000) {
-			return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
-		}
-		if (num >= 1000000) {
-			return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-		}
-		if (num >= 1000) {
-			return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-		}
-		return num;
-	}
 
 	return (
-		<div className={classes.rows}>
+		<>
 			<div className={classes.name}>
-				<img src={image} alt="crypto" />
-				<span>{name}</span>
+				<img src={image} alt="coin-logo" />
 			</div>
 			<p className={classes.symbol}>{symbol.toUpperCase()}</p>
 
@@ -42,23 +30,25 @@ function CoinInfo(props) {
 					maximumFractionDigits: 3,
 				})}
 			</p>
-			{priceChange24 < 0 ? (
-				<p className="red">{priceChange24.toFixed(2)}%</p>
+
+			<p className={priceChange24 < 0 ? "red" : "green"}>
+				{priceChange24.toFixed(2)}%
+			</p>
+
+			<p className={priceChange7d < 0 ? "red" : "green"}>
+				{priceChange7d.toFixed(2)}%
+			</p>
+
+			<p>${numFormat(ath)}</p>
+
+			<p>${numFormat(marketCap)}</p>
+
+			{dash ? (
+				<p className={roi < 0 ? "red" : "green"}>{roi.toFixed(2)}%</p>
 			) : (
-				<p className="green">{priceChange24.toFixed(2)}%</p>
+				<p>${numFormat(volume)}</p>
 			)}
-			{priceChange7d < 0 ? (
-				<p className="red">{priceChange7d.toFixed(2)}%</p>
-			) : (
-				<p className="green">{priceChange7d.toFixed(2)}%</p>
-			)}
-			<p className={classes.marketCap}>${numFormat(marketCap)}</p>
-			{roi < 0 ? (
-				<p className="red">{roi.toFixed(2)}%</p>
-			) : (
-				<p className="green">{roi.toFixed(2)}%</p>
-			)}
-		</div>
+		</>
 	);
 }
 
