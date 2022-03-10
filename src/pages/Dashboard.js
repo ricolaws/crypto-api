@@ -5,6 +5,7 @@ import { uiActions } from "../store/uiSlice";
 import PortfolioChart from "../components/PortfolioChart";
 import ValueAndCost from "../components/ValueAndCost";
 import CoinInfo from "../components/CoinInfo";
+import CoinTable from "components/CoinTable/CoinTable";
 // import CoinTable from "../components/CoinTable/CoinTable";
 import ConditionalDisplay from "../components/ConditionalDisplay";
 import classes from "./Dashboard.module.css";
@@ -54,7 +55,16 @@ function Dashboard(props) {
 					</div>
 				</div>
 			)}
-			<div className={classes.labelsContainer}>
+
+			{showDash ? <CoinTable /> : null}
+		</React.Fragment>
+	);
+}
+
+export default Dashboard;
+
+{
+	/* <div className={classes.labelsContainer}>
 				<Labels />
 			</div>
 			{showDash &&
@@ -72,9 +82,5 @@ function Dashboard(props) {
 							roi={coin.roi}
 						/>
 					);
-				})}
-		</React.Fragment>
-	);
+				})} */
 }
-
-export default Dashboard;

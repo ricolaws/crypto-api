@@ -14,7 +14,7 @@ export const getDateFromStamp = (timeStamp) => {
 };
 
 // format numbers
-export const numFormat = (num) => {
+export const bigNumFormat = (num) => {
 	if (num >= 1000000000) {
 		return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
 	}

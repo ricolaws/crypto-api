@@ -1,7 +1,20 @@
 import React from "react";
 import classes from "./Labels.module.css";
 
-export function Labels({}) {
+export function Labels(props) {
+	const {
+		image,
+		name,
+		symbol,
+		price,
+		marketCap,
+		priceChange24,
+		priceChange7d,
+		roi,
+		ath,
+		volume,
+	} = props;
+
 	return (
 		<div className={`${classes.rows} ${classes.labels}`}>
 			<div className={classes.nameHeading}></div>

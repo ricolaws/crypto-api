@@ -136,7 +136,7 @@
 	display: flex;
 	justify-content: center;
 }
-
+/* 
 .table {
 	padding: 0.5rem;
 	display: flex;
@@ -180,7 +180,7 @@
 .name span {
 	width: 150px;
 	font-size: 1rem;
-}
+} */
 
 .red {
 	color: var(--app-color-3);
@@ -257,7 +257,7 @@
 		grid-row: 2 / span 3;
 		/* margin: 0.8rem; */
 	}
-	.rows {
+	/* .rows {
 		display: grid;
 		grid-template-columns:
 			minmax(2rem, 1fr) minmax(2rem, 1fr)
@@ -290,5 +290,5 @@
 	}
 	.symbol {
 		display: none;
-	}
+	} */
 }

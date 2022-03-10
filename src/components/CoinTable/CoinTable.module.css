@@ -1,4 +1,11 @@
-.labelsContainer {
+.tableContainer {
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.rowContainer {
 	padding: 0.5rem;
 	display: flex;
 	justify-content: center;
