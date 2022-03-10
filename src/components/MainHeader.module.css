@@ -1,4 +1,6 @@
 header {
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
 	position: fixed;
 	background: transparent;
@@ -8,9 +10,18 @@ header {
 	left: 0;
 }
 
-/* .header nav {
-	height: 100%;
-} */
+.message {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	flex-grow: 1;
+	padding: 0 1rem;
+}
+
+.message h1 {
+	font-size: 2em;
+}
 
 header a {
 	text-transform: capitalize;
@@ -22,6 +33,27 @@ header a.active {
 	border-bottom: 2px solid var(--main-text-color);
 	/* padding-bottom: 0.25rem;
 	border-bottom: 2px solid var(--main-text-color); */
+}
+
+.nav ul {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	list-style: none;
+	gap: 4em;
+	padding: 1.5em 2em;
+}
+
+.li a {
+	color: var(--main-text-color);
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0.25em 0;
+}
+
+.li a.active {
+	border-bottom: 2px solid var(--main-text-color);
 }
 
 /* media queries */

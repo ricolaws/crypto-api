@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import classes from "./MainHeader.module.css";
 
 function MainHeader(props) {
-	const { links, button, style } = props;
+	const { links, button, style, msg } = props;
 
 	const submitHandler = (e) => {
 		const handler = button.handler;
@@ -12,11 +12,14 @@ function MainHeader(props) {
 
 	return (
 		<header style={{ background: style }}>
-			<nav>
+			<div className={classes.message}>
+				<h1>{msg}</h1>
+			</div>
+			<nav className={classes.nav}>
 				<ul>
 					{links.map((link) => {
 						return (
-							<li>
+							<li className={classes.li}>
 								<NavLink activeClassName={classes.active} to={`/${link}`}>
 									{link}
 								</NavLink>

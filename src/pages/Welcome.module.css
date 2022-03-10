@@ -1,4 +1,4 @@
-.container {
+/* .container {
   background-image: url(../image/Safe_Vector.svg);
   background-size: 58%;
   background-repeat: no-repeat;
@@ -96,15 +96,14 @@ h1 {
     margin: auto;
     margin-top: 8rem;
   }
-}
+} */
 
-/* smallest phones */
-@media only screen and (max-width: 340px) {
-  .window {
-    position: relative;
-    width: 16rem;
-    height: 13rem;
-    margin: auto;
-    margin-top: 8rem;
-  }
-}
+/* @media only screen and (max-width: 340px) {
+	.window {
+		position: relative;
+		width: 16rem;
+		height: 13rem;
+		margin: auto;
+		margin-top: 8rem;
+	}
+} */

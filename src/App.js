@@ -18,6 +18,7 @@ import {
 	fetchDailyMarketData,
 	sendAccountData,
 } from "./store/account-actions";
+import Welcome from "pages/Welcome";
 
 function App() {
 	const history = useHistory();
@@ -90,6 +91,7 @@ function App() {
 
 	const logOutHandler = () => {
 		dispatch(authActions.logOut());
+		dispatch(accountActions.updateAccount(DEMO_ACCOUNT));
 	};
 
 	return (
@@ -111,7 +113,7 @@ function App() {
 			)}
 
 			<Route path="/welcome">
-				<Landing />
+				<Landing handler={logInHandler} />
 			</Route>
 			<Route path="/dashboard">{isLoggedIn && <Dashboard />}</Route>
 			<Route path="/browse">

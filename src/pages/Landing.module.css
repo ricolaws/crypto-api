@@ -43,6 +43,7 @@
 	transition: all 150ms ease-out;
 	letter-spacing: 0.15em;
 	border-radius: 0.25rem;
+	text-decoration: none;
 }
 
 .learn a:hover {

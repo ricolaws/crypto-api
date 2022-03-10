@@ -60,25 +60,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-{
-	/* <div className={classes.labelsContainer}>
-				<Labels />
-			</div>
-			{showDash &&
-				account.coinData.map((coin) => {
-					return (
-						<CoinInfo
-							key={coin.id}
-							name={coin.name}
-							price={coin.currentPrice}
-							image={coin.image}
-							symbol={coin.symbol}
-							marketCap={coin.marketCap}
-							priceChange24={coin.priceChange_24h}
-							priceChange7d={coin.priceChange_7d}
-							roi={coin.roi}
-						/>
-					);
-				})} */
-}

@@ -51,27 +51,6 @@ h2 h3 h4 {
 	font-weight: 400;
 }
 
-nav ul {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-	list-style: none;
-	gap: 4em;
-	padding: 1.5em 2em;
-}
-
-li a {
-	color: var(--main-text-color);
-	text-decoration: none;
-	cursor: pointer;
-	padding: 0.25em 0;
-}
-
-li a.active {
-	border-bottom: 2px solid var(--main-text-color);
-}
-
 button {
 	display: inline-block;
 	position: relative;
