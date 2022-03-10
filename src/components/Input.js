@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Input.module.css";
 
 function Input(props) {
-	const { label, onChange, type, value, min, name, step } = props;
+	const { label, onChange, type, value, min, name, step, placeholder } = props;
 	return (
 		<>
 			<label>{label}</label>
@@ -11,6 +11,7 @@ function Input(props) {
 				onChange={onChange}
 				type={type}
 				value={value}
+				placeholder={placeholder}
 				min={min}
 				step={step}
 				name={name}

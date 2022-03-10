@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./Labels.module.css";
 
 export function Labels(props) {
 	const { dash } = props;

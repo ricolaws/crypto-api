@@ -4,8 +4,8 @@ import Fader from "../components/Fader";
 
 function Landing() {
 	return (
-		<section className={classes.landing}>
-			<main className={classes.title}>
+		<main className={classes.landing}>
+			<section className={classes.title}>
 				<Fader time="200">
 					<h1>
 						Keep an eye on your <br />
@@ -18,15 +18,16 @@ function Landing() {
 						<a>Learn More ↓</a>
 					</Fader>
 				</div>
-
+			</section>
+			<section className={classes.lower}>
 				<article id={classes.features}>
-					<heading>
+					<div>
 						<h4 className={classes.label}>Features</h4>
 						<h3>Modern tools make money simple.</h3>
-					</heading>
+					</div>
 				</article>
-			</main>
-		</section>
+			</section>
+		</main>
 	);
 }
 
